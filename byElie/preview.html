@@ -224,57 +224,50 @@
     [data-style="B"] .btn.secondary{border-radius:999px;}
 
     /* ============================================================
-       OPTION C — "Bold Gradient"
-       Vibrant, modern SaaS aesthetic, glassmorphism, saturated colors
+       OPTION C — "Forest Editorial"
+       Deep green accent, editorial type, no gradients, grounded
        ============================================================ */
     [data-style="C"]{
-      --bg:#f8f9fc;
+      --bg:#f6f5f0;
       --surface:#ffffff;
-      --surface-2:#eef0f8;
-      --text:#1a1a2e;
-      --muted:#5a5e78;
-      --line:#dfe2ee;
-      --accent-text:#6c63ff;
-      --radius:12px;
-      --card-radius:16px;
+      --surface-2:#edecea;
+      --text:#0f0f0f;
+      --muted:#616161;
+      --line:#d4d2cc;
+      --accent-text:#1a6b3a;
+      --radius:4px;
+      --card-radius:6px;
     }
     [data-style="C"][data-theme="dark"]{
-      --bg:#07071a;
-      --surface:rgba(16,16,36,.85);
-      --surface-2:#0f0f28;
-      --text:#eeeef5;
-      --muted:#8888aa;
-      --line:rgba(108,99,255,.15);
-      --accent-text:#8b83ff;
+      --bg:#070a08;
+      --surface:#0e1210;
+      --surface-2:#141a15;
+      --text:#e6ede7;
+      --muted:#7a8a7c;
+      --line:#1e2820;
+      --accent-text:#3db86a;
     }
-    [data-style="C"] body{font-family:Inter,system-ui,sans-serif;}
-    [data-style="C"] .hero h1{font-family:Inter,sans-serif;font-weight:900;letter-spacing:-.03em;background:linear-gradient(135deg,var(--text),var(--accent-text));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    [data-style="C"] h2{font-weight:800;letter-spacing:-.01em;}
+    [data-style="C"] body{font-family:"DM Sans",Inter,system-ui,sans-serif;}
+    [data-style="C"] .hero h1{font-family:"Space Grotesk",sans-serif;font-weight:800;letter-spacing:-.03em;}
+    [data-style="C"] h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02em;}
     [data-style="C"] .hero-visual{
-      border-radius:20px;border:1px solid var(--line);
-      background:linear-gradient(135deg,#eef0f8,#e0e4f8);
-      box-shadow:0 20px 60px rgba(108,99,255,.1);
-    }
-    [data-style="C"][data-theme="dark"] .hero-visual{
-      background:linear-gradient(135deg,#0f0f28,#07071a);
-      box-shadow:0 20px 60px rgba(108,99,255,.15);
-      border-color:rgba(108,99,255,.2);
-    }
-    [data-style="C"] .offer-card{
-      border-radius:16px;
-      backdrop-filter:blur(12px);
-      background:color-mix(in srgb,var(--surface) 90%,transparent);
+      border-radius:6px;
+      background:var(--surface-2);
       border:1px solid var(--line);
     }
-    [data-style="C"] .offer-card:hover{border-color:var(--accent-text);box-shadow:0 16px 48px rgba(108,99,255,.12);}
-    [data-style="C"] .offer-num{color:var(--accent-text);}
-    [data-style="C"] .btn.primary{background:linear-gradient(135deg,#6c63ff,#5a4fff);color:#fff;border:none;border-radius:12px;}
-    [data-style="C"] .btn.primary:hover{box-shadow:0 8px 28px rgba(108,99,255,.3);}
-    [data-style="C"] .btn.secondary{border-radius:12px;}
-    [data-style="C"] .metric-value{font-weight:900;color:var(--accent-text);}
-    [data-style="C"] .signature-strip p{font-weight:800;letter-spacing:.2em;color:var(--accent-text);opacity:.5;}
-    [data-style="C"] .about-photo{border-radius:20px;box-shadow:0 16px 48px rgba(108,99,255,.12);}
-    [data-style="C"] .version-pill{border-color:rgba(108,99,255,.3);background:rgba(108,99,255,.08);color:var(--accent-text);}
+    [data-style="C"][data-theme="dark"] .hero-visual{
+      background:var(--surface-2);
+      border-color:var(--line);
+    }
+    [data-style="C"] .offer-card{border-radius:6px;border-left:3px solid var(--accent-text);}
+    [data-style="C"] .offer-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px);}
+    [data-style="C"] .offer-num{color:var(--accent-text);font-weight:800;}
+    [data-style="C"] .btn.primary{background:var(--accent-text);color:#fff;border-color:var(--accent-text);}
+    [data-style="C"] .btn.primary:hover{opacity:.9;transform:translateY(-1px);}
+    [data-style="C"] .metric-value{color:var(--accent-text);}
+    [data-style="C"] .signature-strip p{letter-spacing:.2em;font-weight:700;color:var(--muted);}
+    [data-style="C"] .about-photo{border-radius:6px;}
+    [data-style="C"] .version-pill{border-color:var(--accent-text);color:var(--accent-text);background:transparent;}
 
     /* ===== RESPONSIVE ===== */
     @media (max-width:900px){
@@ -304,7 +297,7 @@
     <span class="sep"></span>
     <button data-switch="B">B — Warm Craft</button>
     <span class="sep"></span>
-    <button data-switch="C">C — Bold Gradient</button>
+    <button data-switch="C">C — Forest Editorial</button>
   </div>
 
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -320,7 +313,7 @@
     </nav>
     <div class="brand-wrap">
       <img class="site-logo" src="../assets/logos/byelie-logo.png" alt="By Elie logo"/>
-      <span class="brand">BY ELIE — v35.2</span>
+      <span class="brand">BY ELIE — v35.3</span>
     </div>
     <button class="theme-toggle" type="button" data-theme-toggle><span class="mode-light">Night</span><span class="mode-dark">Day</span></button>
   </header>
@@ -329,7 +322,7 @@
     <section class="hero">
       <div class="hero-inner">
         <div>
-          <p class="version-pill">Version v35.2</p>
+          <p class="version-pill">Version v35.3</p>
           <p class="eyebrow">Creator Portfolio</p>
           <h1>A lifetime of creation and engineering skills at your service</h1>
           <p class="lead">I blend hands-on building, CAD thinking, and AI-assisted systems to ship visual assets people can buy, print, and trust.</p>
