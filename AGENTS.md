@@ -23,6 +23,14 @@ Repo-level working preferences for `/Users/ecohen/Dev/Webapps`.
 - Use branches for larger changes; preferred branch prefix: `codex/`.
 - After modifying a project, update the relevant docs when needed.
 
+## Versioning
+
+- Use visible app versions in the form `vX.Y`.
+- `X` is the number of days since `2026-02-28`.
+- `Y` increments with each build/change on that same day.
+- Example: on `2026-03-31`, start at `v31.0`, then `v31.1`, `v31.2`, and so on.
+- When updating the app UI version badge, always bump the minor version for each new build.
+
 ## Workspace Structure
 
 - Repo root: `/Users/ecohen/Dev/Webapps`
