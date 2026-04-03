@@ -8,6 +8,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 START = ROOT / "index.html"
+IGNORED_TOP_LEVEL_DIRS = {"archive"}
 
 FOLLOW_EXTENSIONS = {".html", ".css", ".js"}
 CONSIDER_EXTENSIONS = {
@@ -172,7 +173,9 @@ def main() -> None:
     all_files = sorted(
         path
         for path in ROOT.rglob("*")
-        if path.is_file() and ".git" not in path.parts
+        if path.is_file()
+        and ".git" not in path.parts
+        and not any(part in IGNORED_TOP_LEVEL_DIRS for part in path.relative_to(ROOT).parts[:1])
     )
     considered = {
         path
@@ -223,6 +226,7 @@ def main() -> None:
     print(f"- Root-linked project entry pages: `{len(root_children)}`")
     print()
     print("External URLs like Google Fonts, mailto links, and WhatsApp links are intentionally excluded from the local graph.")
+    print("The `archive/` folder is also excluded so this report describes the live tree only.")
     print()
     print("## Graph")
     print()

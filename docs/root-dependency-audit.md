@@ -5,10 +5,11 @@ Generated from a local crawl that starts at `index.html` and follows local HTML/
 ## Summary
 
 - Reachable local files from root crawl: `44`
-- Isolated local files in repo scope: `35`
+- Isolated local files in repo scope: `16`
 - Root-linked project entry pages: `7`
 
 External URLs like Google Fonts, mailto links, and WhatsApp links are intentionally excluded from the local graph.
+The `archive/` folder is also excluded so this report describes the live tree only.
 
 ## Graph
 
@@ -154,24 +155,6 @@ Keep. These are repo-operational files, not site runtime files.
 - `oleamediaco/source/README.md`
 - `oleataxco/README.md`
 
-### Redirect pages not linked from the root site
-
-Safe to archive if you do not rely on old direct URLs.
-
-- `Codex/index.html`
-- `OleaMedia/index.html`
-- `OleaTax/index.html`
-- `oleataxco/Codex/index.html`
-- `oleataxco/OleaMedia/index.html`
-- `oleataxco/OleaTax/index.html`
-
-### Unused By Elie assets
-
-Archive first. These look safe to remove from the live tree if no future page will use them.
-
-- `byElie/assets/elie-profile.jpg`
-- `byElie/assets/mock-elie.svg`
-
 ### Project docs and helper scripts
 
 Keep. These are support files outside the live site graph.
@@ -182,13 +165,6 @@ Keep. These are support files outside the live site graph.
 - `oleataxco/content-workbook.md`
 - `scripts/root_dependency_audit.py`
 
-### Unlinked Olea Media root assets
-
-Archive or delete after a quick visual grep check; they have no inbound links in the root crawl.
-
-- `oleamediaco/script.js`
-- `oleamediaco/styles.css`
-
 ### Source inputs and PDF tooling
 
 Keep or move into a future `archive/source/` folder if you want a cleaner published tree.
@@ -198,28 +174,4 @@ Keep or move into a future `archive/source/` folder if you want a cleaner publis
 - `oleamediaco/source/offer-sheet-en.md`
 - `oleamediaco/source/offer-sheet-es.html`
 - `oleamediaco/source/offer-sheet-es.md`
-
-### Unlinked Olea Media variants
-
-Strong archive candidates. Nothing in the root crawl points to these variants.
-
-- `oleamediaco/v4/index.html`
-- `oleamediaco/v4/styles.css`
-- `oleamediaco/v5/index.html`
-- `oleamediaco/v5/styles.css`
-
-### Unlinked Olea Tax v25 PDFs
-
-Either add links from the page or archive them beside other v25 reference material.
-
-- `oleataxco-v25/Scalable-Tax-Planning-Pod-Model.pdf`
-- `oleataxco-v25/Workload-and-Task-Justification-Model.pdf`
-
-### Legacy Olea Tax concept pages
-
-Good archive candidates if the current Olea Tax homepage is the only intended live path.
-
-- `oleataxco/concepts/01-trust-ledger.html`
-- `oleataxco/concepts/02-modern-growth.html`
-- `oleataxco/concepts/03-neighborhood-advisor.html`
 
