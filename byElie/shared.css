@@ -128,6 +128,18 @@ h2{margin:0 0 8px;font-size:clamp(1.25rem,2vw,1.8rem)}
 .carousel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .carousel-head h2{margin:0}
 .carousel-controls{display:flex;gap:8px;justify-content:flex-end}
+.carousel-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;padding:0;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--text);
+  font-size:1.1rem;
+  cursor:pointer;
+  transition:transform .14s ease,background-color .14s ease,box-shadow .14s ease;
+}
+.carousel-btn:hover{background:var(--surface-2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.14)}
 .carousel-wrap{
   position:relative;
   overflow-x:auto;
@@ -244,16 +256,34 @@ h2{margin:0 0 8px;font-size:clamp(1.25rem,2vw,1.8rem)}
   width:44px;height:44px;border-radius:0;
   display:inline-flex;align-items:center;justify-content:center;
   margin-bottom:10px;font-size:1.2rem;font-weight:700;
-  background:transparent;
-  border:1px solid var(--line);
-  color:var(--text);
+  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 22%,var(--surface-2)),var(--surface-2));
+  border:1px solid color-mix(in srgb,var(--brand) 44%,var(--line));
+  color:var(--brand);
+  letter-spacing:.04em;
 }
 .about-grid{display:grid;grid-template-columns:240px 1fr;gap:16px;align-items:start}
-.about-photo{width:100%;border-radius:14px;border:1px solid var(--line);display:block;box-shadow:0 10px 24px rgba(0,0,0,.14);background:#000}
+.about-photo{width:100%;border-radius:14px;border:1px solid color-mix(in srgb,var(--brand) 32%,var(--line));display:block;box-shadow:0 10px 28px rgba(0,0,0,.18),0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent);background:var(--surface-2)}
 .about-text p{margin:0 0 10px;color:var(--muted);line-height:1.55}
 .hero{position:relative;overflow:hidden}
 .hero::after{content:"";position:absolute;right:-80px;top:-100px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--brand) 24%,transparent),transparent 65%);pointer-events:none}
-.footer-note{font-size:.85rem;color:var(--muted)}
+.footer-note{font-size:.85rem;color:var(--muted);margin:0}
+.site-footer{
+  border-top:1px solid color-mix(in srgb,var(--line) 55%,transparent);
+  padding:28px 0;
+  position:relative;
+  z-index:1;
+  margin-top:4px;
+}
+.site-footer .shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.footer-nav{display:flex;gap:14px;flex-wrap:wrap}
+.footer-nav a{text-decoration:none;color:var(--muted);font-size:.85rem;font-weight:600;transition:color .14s ease}
+.footer-nav a:hover{color:var(--text)}
 a:focus-visible,button:focus-visible{outline:2px solid color-mix(in srgb,var(--brand) 75%,white 25%);outline-offset:2px}
 @media (max-width:840px){
   html,body{overflow-x:hidden}
@@ -282,21 +312,24 @@ a:focus-visible,button:focus-visible{outline:2px solid color-mix(in srgb,var(--b
 
 .signature-strip{
   padding:10px 16px;
+  overflow:hidden;
   border-style:dashed;
   border-color:color-mix(in srgb,var(--accent) 44%,var(--line));
   background:linear-gradient(120deg,color-mix(in srgb,var(--surface) 84%,var(--accent) 16%),var(--surface));
 }
-.signature-strip p{
+.signature-marquee{
+  display:flex;
+  width:max-content;
   margin:0;
   font-family:"Bebas Neue","Oswald",sans-serif;
   font-size:clamp(1.2rem,3.6vw,2rem);
   letter-spacing:.12em;
   white-space:nowrap;
-  animation:signature-slide 18s linear infinite;
+  animation:signature-slide 22s linear infinite;
 }
 @keyframes signature-slide{
-  from{transform:translateX(2%)}
-  to{transform:translateX(-18%)}
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
 }
 
 .metrics-grid{
@@ -326,5 +359,6 @@ a:focus-visible,button:focus-visible{outline:2px solid color-mix(in srgb,var(--b
 
 @media (max-width:840px){
   .metrics-grid{grid-template-columns:1fr}
-  .signature-strip p{white-space:normal;animation:none;letter-spacing:.08em}
+  .signature-marquee{animation-duration:14s}
+  .site-footer .shell{flex-direction:column;align-items:flex-start}
 }
