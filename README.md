@@ -1,4 +1,4 @@
-# Webaps
+# Webapps
 
 Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and prepared as a standalone git project.
 
@@ -24,4 +24,4 @@ The local repo is configured with:
 
 - `origin`: `https://github.com/ec92009/Webapps.git`
 
-The GitHub repository is currently reachable and appears to be empty, so this local workspace is ready for the initial import commit and push.
+The local workspace lives at `/Users/ecohen/Dev/Webapps` and is synced to the GitHub repository above.
