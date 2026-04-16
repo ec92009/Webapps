@@ -101,7 +101,7 @@
       box-shadow: inset 0 4px 0 rgba(255,255,255,.32), 0 10px 20px rgba(0,0,0,.08);
       transition: transform .08s ease, box-shadow .15s ease, opacity .15s ease;
       user-select: none;
-      animation: dropIn .32s cubic-bezier(.2,.85,.22,1);
+      animation: dropIn .42s cubic-bezier(.2,.85,.22,1);
       animation-delay: var(--drop-delay, 0ms);
     }
     .tile:active { transform: scale(.96); }
@@ -170,7 +170,7 @@
     <section class="card">
       <div class="top">
         <div>
-          <div class="version">TapMePlus1 · v47.4</div>
+          <div class="version">TapMePlus1 · v47.5</div>
           <h1>TapMePlus1</h1>
           <p class="sub">Tap a tile to add +1. Match 3+ touching identical numbers to clear them, score points, and earn +1 move.</p>
         </div>
@@ -196,6 +196,7 @@
       <strong>How it works</strong><br/>
       - Tap any square: it goes up by exactly 1.<br/>
       - If that creates a connected group of 3 or more equal numbers, they fuse into one <strong>next-level tile</strong>.<br/>
+      - Then the board collapses downward in a jewel / Tetris-style drop.<br/>
       - A successful fuse gives you <strong>+1 move</strong> back and adds score.<br/>
       - No clear? You spend 1 move.<br/>
       - When moves hit 0, game over. Tiny tragedy.
@@ -222,11 +223,11 @@
 
     function randomTileValue() {
       const roll = Math.random();
-      if (roll < 0.22) return 5;
-      if (roll < 0.48) return 4;
-      if (roll < 0.76) return 3;
-      if (roll < 0.92) return 2;
-      return 1;
+      if (roll < 0.20) return 1;
+      if (roll < 0.40) return 2;
+      if (roll < 0.62) return 3;
+      if (roll < 0.82) return 4;
+      return 5;
     }
 
     function createNewState() {
@@ -332,13 +333,14 @@
             origins.push(r);
           }
         }
+        const spawnCount = SIZE - vals.length;
         for (let r = SIZE - 1, i = 0; r >= 0; r--, i++) {
           if (i < vals.length) {
             state.board[r][c] = vals[i];
             state.dropDistances[r][c] = Math.max(0, origins[i] - r);
           } else {
             state.board[r][c] = randomTileValue();
-            state.dropDistances[r][c] = r + 2;
+            state.dropDistances[r][c] = spawnCount + r + 1;
           }
         }
       }
@@ -354,7 +356,7 @@
         state.board[r][c] = fusedValue;
         state.score += group.length * fusedValue * 5;
         state.moves += 1;
-        messageEl.textContent = `Nice. ${group.length} tiles fused into a ${fusedValue} and you gained +1 move.`;
+        messageEl.textContent = `Nice. ${group.length} tiles fused into a ${fusedValue}, then the board dropped, and you gained +1 move.`;
         collapseBoard();
       } else {
         state.moves -= 1;
