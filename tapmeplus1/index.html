@@ -170,7 +170,7 @@
     <section class="card">
       <div class="top">
         <div>
-          <div class="version">TapMePlus1 · v47.3</div>
+          <div class="version">TapMePlus1 · v47.4</div>
           <h1>TapMePlus1</h1>
           <p class="sub">Tap a tile to add +1. Match 3+ touching identical numbers to clear them, score points, and earn +1 move.</p>
         </div>
@@ -195,8 +195,8 @@
     <section class="card help">
       <strong>How it works</strong><br/>
       - Tap any square: it goes up by exactly 1.<br/>
-      - If that creates a connected group of 3 or more equal numbers, the whole group clears.<br/>
-      - Clearing a group gives you <strong>+1 move</strong> back and adds score.<br/>
+      - If that creates a connected group of 3 or more equal numbers, they fuse into one <strong>next-level tile</strong>.<br/>
+      - A successful fuse gives you <strong>+1 move</strong> back and adds score.<br/>
       - No clear? You spend 1 move.<br/>
       - When moves hit 0, game over. Tiny tragedy.
     </section>
@@ -349,11 +349,12 @@
       state.board[r][c] += 1;
       const group = findGroup(r, c);
       if (group.length >= 3) {
+        const fusedValue = state.board[r][c] + 1;
         for (const [gr, gc] of group) state.board[gr][gc] = 0;
-        const gained = group.reduce((sum, [gr, gc]) => sum + 10 + state.board[gr]?.[gc] || 0, 0);
-        state.score += group.length * 10;
+        state.board[r][c] = fusedValue;
+        state.score += group.length * fusedValue * 5;
         state.moves += 1;
-        messageEl.textContent = `Nice. Cleared ${group.length} tiles and gained +1 move.`;
+        messageEl.textContent = `Nice. ${group.length} tiles fused into a ${fusedValue} and you gained +1 move.`;
         collapseBoard();
       } else {
         state.moves -= 1;
