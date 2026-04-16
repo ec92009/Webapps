@@ -6,231 +6,343 @@
   <title>TapMePlus1</title>
   <style>
     :root {
-      --bg1: #0f1220;
-      --bg2: #1d2540;
-      --card: rgba(255,255,255,.1);
-      --line: rgba(255,255,255,.14);
-      --text: #f5f7ff;
-      --muted: #b8c0e0;
-      --accent: #7cf29a;
-      --accent2: #7cc8ff;
-      --shadow: 0 24px 60px rgba(0,0,0,.35);
+      --bg: #fff6ef;
+      --bg2: #f7efe6;
+      --ink: #2c2019;
+      --muted: #866d60;
+      --line: rgba(90, 58, 41, 0.12);
+      --card: rgba(255,255,255,0.82);
+      --accent: #f47c48;
+      --green: #6ecb77;
+      --shadow: 0 18px 44px rgba(64, 30, 16, 0.12);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,191,143,.32), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(255,128,128,.16), transparent 24%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       display: grid;
       place-items: center;
-      padding: 20px;
-      font-family: Inter, system-ui, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(124,200,255,.28), transparent 26%),
-        radial-gradient(circle at bottom right, rgba(124,242,154,.18), transparent 28%),
-        linear-gradient(160deg, var(--bg1), var(--bg2));
+      padding: 18px;
     }
-    .wrap {
+    .app {
       width: min(760px, 100%);
       display: grid;
-      gap: 18px;
+      gap: 16px;
     }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 28px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      padding: 24px;
+      backdrop-filter: blur(10px);
+      padding: 20px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2.2rem, 6vw, 4rem);
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
       line-height: .95;
     }
-    p { margin: 0; color: var(--muted); }
-    .hero {
-      display: grid;
-      gap: 18px;
-      text-align: center;
-      justify-items: center;
-    }
+    .sub { color: var(--muted); }
     .version {
       display: inline-flex;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(124,200,255,.16);
-      color: #dff2ff;
-      font-weight: 800;
+      background: rgba(244,124,72,.12);
+      color: #bf5529;
+      font-weight: 900;
       font-size: .84rem;
-    }
-    .score {
-      font-size: clamp(3.6rem, 14vw, 7rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -.04em;
-    }
-    .tap-btn {
-      border: none;
-      border-radius: 999px;
-      min-width: min(360px, 85vw);
-      min-height: min(360px, 85vw);
-      width: min(360px, 85vw);
-      height: min(360px, 85vw);
-      background: linear-gradient(180deg, #92d8ff, #79f1a7);
-      color: #102134;
-      font-size: clamp(2rem, 8vw, 3rem);
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 22px 44px rgba(0,0,0,.28), inset 0 6px 16px rgba(255,255,255,.35);
-      transition: transform .08s ease, box-shadow .12s ease;
-    }
-    .tap-btn:active {
-      transform: scale(.97);
-      box-shadow: 0 12px 24px rgba(0,0,0,.24), inset 0 4px 10px rgba(255,255,255,.3);
     }
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 14px;
     }
     .stat {
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.75);
       border: 1px solid var(--line);
       border-radius: 20px;
-      padding: 16px;
+      padding: 14px;
       text-align: center;
     }
     .stat strong {
       display: block;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      line-height: 1;
       margin-bottom: 4px;
     }
-    .row {
+    .board-wrap { padding: 18px; }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 12px;
+    }
+    .tile {
+      aspect-ratio: 1 / 1;
+      border: none;
+      border-radius: 24px;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 900;
+      cursor: pointer;
+      color: #2d1d14;
+      box-shadow: inset 0 4px 0 rgba(255,255,255,.32), 0 10px 20px rgba(0,0,0,.08);
+      transition: transform .08s ease, box-shadow .15s ease, opacity .15s ease;
+      user-select: none;
+    }
+    .tile:active { transform: scale(.96); }
+    .tile.clearing {
+      animation: pop .18s ease forwards;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(.72); opacity: 0; }
+    }
+    .controls {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 14px;
     }
-    .small-btn {
+    .btn {
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
+      background: rgba(255,255,255,.8);
       border-radius: 999px;
-      padding: 10px 14px;
+      padding: 11px 16px;
       font-weight: 800;
       cursor: pointer;
+      color: var(--ink);
     }
-    .milestone {
+    .btn.primary {
+      background: linear-gradient(180deg, #ffb37f, #ff8d55);
+      color: #402014;
+      border-color: transparent;
+    }
+    .message {
       text-align: center;
-      font-weight: 700;
-      color: #fef3ba;
-      min-height: 1.4em;
+      min-height: 1.5em;
+      font-weight: 800;
+      color: #b3562b;
     }
-    @media (max-width: 640px) {
-      .stats { grid-template-columns: 1fr; }
-      .card { padding: 18px; border-radius: 22px; }
+    .help {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: .95rem;
+    }
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .board { gap: 10px; }
+      .tile { border-radius: 18px; }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card hero">
-      <span class="version">TapMePlus1 · v47.0</span>
-      <h1>TapMePlus1</h1>
-      <p>Absurdly simple. Weirdly satisfying. Every tap gives you exactly +1.</p>
-      <div class="score" id="score">0</div>
-      <button class="tap-btn" id="tapBtn" type="button">+1</button>
-      <div class="milestone" id="milestone">First to 10 wins absolutely nothing.</div>
+  <main class="app">
+    <section class="card">
+      <div class="top">
+        <div>
+          <div class="version">TapMePlus1 · v47.1</div>
+          <h1>TapMePlus1</h1>
+          <p class="sub">Tap a tile to add +1. Match 3+ touching identical numbers to clear them, score points, and earn +1 move.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="score">0</strong><span>Score</span></div>
+        <div class="stat"><strong id="moves">5</strong><span>Moves</span></div>
+        <div class="stat"><strong id="best">0</strong><span>Best</span></div>
+        <div class="stat"><strong id="largest">1</strong><span>Largest tile</span></div>
+      </div>
     </section>
 
-    <section class="card">
-      <div class="stats">
-        <div class="stat"><strong id="best">0</strong><span>Best score</span></div>
-        <div class="stat"><strong id="taps">0</strong><span>Total taps</span></div>
-        <div class="stat"><strong id="rate">0.0/s</strong><span>Tap rate</span></div>
+    <section class="card board-wrap">
+      <div class="message" id="message">Start tapping. Clearing a group gives you +1 move.</div>
+      <div class="board" id="board"></div>
+      <div class="controls">
+        <button class="btn primary" id="newGameBtn" type="button">New Game</button>
+        <button class="btn" id="resetBestBtn" type="button">Reset Best</button>
       </div>
-      <div class="row" style="margin-top:16px;">
-        <button class="small-btn" id="resetBtn" type="button">Reset score</button>
-        <button class="small-btn" id="zeroAllBtn" type="button">Reset everything</button>
-      </div>
+    </section>
+
+    <section class="card help">
+      <strong>How it works</strong><br/>
+      - Tap any square: it goes up by exactly 1.<br/>
+      - If that creates a connected group of 3 or more equal numbers, the whole group clears.<br/>
+      - Clearing a group gives you <strong>+1 move</strong> back and adds score.<br/>
+      - No clear? You spend 1 move.<br/>
+      - When moves hit 0, game over. Tiny tragedy.
     </section>
   </main>
 
   <script>
-    const els = {
-      score: document.getElementById('score'),
-      best: document.getElementById('best'),
-      taps: document.getElementById('taps'),
-      rate: document.getElementById('rate'),
-      milestone: document.getElementById('milestone'),
-      tapBtn: document.getElementById('tapBtn'),
-      resetBtn: document.getElementById('resetBtn'),
-      zeroAllBtn: document.getElementById('zeroAllBtn'),
-    };
+    const SIZE = 5;
+    const START_MOVES = 5;
+    const STORAGE_KEY = 'tapmeplus1-puzzle-state';
+    const BEST_KEY = 'tapmeplus1-puzzle-best';
 
-    const KEY = 'tapmeplus1-state';
-    const milestones = {
-      10: '10 taps. Elite athlete behavior.',
-      25: '25. Still just +1 each time. Respect.',
-      50: '50. This is now a lifestyle.',
-      100: '100. Tap legend status unlocked.',
-      250: '250. Finger endurance looks strong.',
-      500: '500. Genuinely unnecessary. I admire it.',
-      1000: '1000. You have fully understood the game.'
-    };
+    const boardEl = document.getElementById('board');
+    const scoreEl = document.getElementById('score');
+    const movesEl = document.getElementById('moves');
+    const bestEl = document.getElementById('best');
+    const largestEl = document.getElementById('largest');
+    const messageEl = document.getElementById('message');
+    const newGameBtn = document.getElementById('newGameBtn');
+    const resetBestBtn = document.getElementById('resetBestBtn');
 
-    let state = load();
-    let sessionStart = performance.now();
-    let sessionTaps = 0;
+    let state = createNewState();
+    let best = Number(localStorage.getItem(BEST_KEY) || 0);
 
-    function load() {
-      try {
-        return JSON.parse(localStorage.getItem(KEY)) || { score: 0, best: 0, taps: 0 };
-      } catch {
-        return { score: 0, best: 0, taps: 0 };
-      }
+    function createNewState() {
+      return {
+        board: Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.floor(Math.random() * 3) + 1)),
+        score: 0,
+        moves: START_MOVES,
+        gameOver: false,
+      };
     }
 
     function save() {
-      localStorage.setItem(KEY, JSON.stringify(state));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(BEST_KEY, String(best));
+    }
+
+    function load() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (raw && raw.board && Array.isArray(raw.board)) state = raw;
+      } catch {}
+      best = Number(localStorage.getItem(BEST_KEY) || 0);
+    }
+
+    function colorFor(n) {
+      const palette = {
+        1: '#fff1a8',
+        2: '#ffc77c',
+        3: '#ff9f7b',
+        4: '#ff7e94',
+        5: '#ff6bb8',
+        6: '#df7dff',
+        7: '#b38cff',
+        8: '#83a4ff',
+        9: '#71c7ff',
+        10: '#73e8d3',
+        11: '#7fe690',
+      };
+      return palette[n] || '#d8dce8';
+    }
+
+    function largestTile() {
+      return Math.max(...state.board.flat());
     }
 
     function render() {
-      els.score.textContent = state.score;
-      els.best.textContent = state.best;
-      els.taps.textContent = state.taps;
-      const seconds = Math.max((performance.now() - sessionStart) / 1000, 0.001);
-      els.rate.textContent = `${(sessionTaps / seconds).toFixed(1)}/s`;
-      const milestone = milestones[state.score] || (state.score === 0 ? 'First to 10 wins absolutely nothing.' : 'Keep tapping. The number appreciates your effort.');
-      els.milestone.textContent = milestone;
+      boardEl.innerHTML = '';
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const val = state.board[r][c];
+          const btn = document.createElement('button');
+          btn.className = 'tile';
+          btn.type = 'button';
+          btn.textContent = val;
+          btn.style.background = colorFor(val);
+          btn.disabled = state.gameOver;
+          btn.addEventListener('click', () => tap(r, c, btn));
+          boardEl.appendChild(btn);
+        }
+      }
+      scoreEl.textContent = state.score;
+      movesEl.textContent = state.moves;
+      bestEl.textContent = best;
+      largestEl.textContent = largestTile();
+      if (state.gameOver) {
+        messageEl.textContent = 'Game over. Brutal. Hit “New Game” and go again.';
+      }
+      save();
     }
 
-    function tap() {
-      state.score += 1;
-      state.taps += 1;
-      state.best = Math.max(state.best, state.score);
-      sessionTaps += 1;
-      save();
+    function neighbors(r, c) {
+      return [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].filter(([nr,nc]) => nr>=0 && nr<SIZE && nc>=0 && nc<SIZE);
+    }
+
+    function findGroup(r, c) {
+      const target = state.board[r][c];
+      const seen = new Set();
+      const stack = [[r, c]];
+      const out = [];
+      while (stack.length) {
+        const [cr, cc] = stack.pop();
+        const key = `${cr},${cc}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        if (state.board[cr][cc] !== target) continue;
+        out.push([cr, cc]);
+        for (const pair of neighbors(cr, cc)) stack.push(pair);
+      }
+      return out;
+    }
+
+    function collapseBoard() {
+      for (let c = 0; c < SIZE; c++) {
+        const vals = [];
+        for (let r = SIZE - 1; r >= 0; r--) {
+          if (state.board[r][c] !== 0) vals.push(state.board[r][c]);
+        }
+        for (let r = SIZE - 1, i = 0; r >= 0; r--, i++) {
+          state.board[r][c] = i < vals.length ? vals[i] : Math.floor(Math.random() * 3) + 1;
+        }
+      }
+    }
+
+    function tap(r, c) {
+      if (state.gameOver) return;
+      state.board[r][c] += 1;
+      const group = findGroup(r, c);
+      if (group.length >= 3) {
+        for (const [gr, gc] of group) state.board[gr][gc] = 0;
+        const gained = group.reduce((sum, [gr, gc]) => sum + 10 + state.board[gr]?.[gc] || 0, 0);
+        state.score += group.length * 10;
+        state.moves += 1;
+        messageEl.textContent = `Nice. Cleared ${group.length} tiles and gained +1 move.`;
+        collapseBoard();
+      } else {
+        state.moves -= 1;
+        messageEl.textContent = state.moves > 0 ? 'No match. That cost 1 move.' : 'Out of moves.';
+      }
+
+      if (state.score > best) best = state.score;
+      if (state.moves <= 0) {
+        state.moves = 0;
+        state.gameOver = true;
+      }
       render();
     }
 
-    els.tapBtn.addEventListener('click', tap);
-    els.resetBtn.addEventListener('click', () => {
-      state.score = 0;
-      save();
-      sessionStart = performance.now();
-      sessionTaps = 0;
-      render();
-    });
-    els.zeroAllBtn.addEventListener('click', () => {
-      state = { score: 0, best: 0, taps: 0 };
-      save();
-      sessionStart = performance.now();
-      sessionTaps = 0;
+    newGameBtn.addEventListener('click', () => {
+      state = createNewState();
+      messageEl.textContent = 'Fresh board. Go break it.';
       render();
     });
 
+    resetBestBtn.addEventListener('click', () => {
+      best = 0;
+      save();
+      render();
+      messageEl.textContent = 'Best score reset. Clean slate energy.';
+    });
+
+    load();
     render();
   </script>
 </body>
