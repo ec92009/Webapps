@@ -170,7 +170,7 @@
     <section class="card">
       <div class="top">
         <div>
-          <div class="version">TapMePlus1 · v47.2</div>
+          <div class="version">TapMePlus1 · v47.3</div>
           <h1>TapMePlus1</h1>
           <p class="sub">Tap a tile to add +1. Match 3+ touching identical numbers to clear them, score points, and earn +1 move.</p>
         </div>
@@ -220,9 +220,18 @@
     let state = createNewState();
     let best = Number(localStorage.getItem(BEST_KEY) || 0);
 
+    function randomTileValue() {
+      const roll = Math.random();
+      if (roll < 0.22) return 5;
+      if (roll < 0.48) return 4;
+      if (roll < 0.76) return 3;
+      if (roll < 0.92) return 2;
+      return 1;
+    }
+
     function createNewState() {
       return {
-        board: Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => Math.floor(Math.random() * 3) + 1)),
+        board: Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => randomTileValue())),
         dropDistances: Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => 4)),
         score: 0,
         moves: START_MOVES,
@@ -328,7 +337,7 @@
             state.board[r][c] = vals[i];
             state.dropDistances[r][c] = Math.max(0, origins[i] - r);
           } else {
-            state.board[r][c] = Math.floor(Math.random() * 3) + 1;
+            state.board[r][c] = randomTileValue();
             state.dropDistances[r][c] = r + 2;
           }
         }
