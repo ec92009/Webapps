@@ -171,7 +171,7 @@
     <section class="card">
       <div class="top">
         <div>
-          <div class="version">TapMePlus1 · v47.8</div>
+          <div class="version">TapMePlus1 · v47.9</div>
           <h1>TapMePlus1</h1>
           <p class="sub">Tap a tile to add +1. Match 3+ touching identical numbers to clear them, score points, and earn +1 move.</p>
         </div>
@@ -309,6 +309,7 @@
 
     function findGroup(r, c) {
       const target = state.board[r][c];
+      if (!target) return [];
       const seen = new Set();
       const stack = [[r, c]];
       const out = [];
@@ -322,6 +323,20 @@
         for (const pair of neighbors(cr, cc)) stack.push(pair);
       }
       return out;
+    }
+
+    function findAnyGroup() {
+      const checked = new Set();
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const key = `${r},${c}`;
+          if (checked.has(key) || !state.board[r][c]) continue;
+          const group = findGroup(r, c);
+          for (const [gr, gc] of group) checked.add(`${gr},${gc}`);
+          if (group.length >= 3) return { group, anchor: group[0], value: state.board[r][c] };
+        }
+      }
+      return null;
     }
 
     function collapseBoard() {
@@ -352,22 +367,44 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    async function resolveChain(initialGroup, initialAnchor, initialValue, rewardMove = false) {
+      let group = initialGroup;
+      let anchor = initialAnchor;
+      let value = initialValue;
+      let chain = 0;
+      while (group && group.length >= 3) {
+        chain += 1;
+        const fusedValue = value + 1;
+        state.clearingSet = new Set(group.map(([gr, gc]) => `${gr},${gc}`));
+        render();
+        await sleep(500);
+        for (const [gr, gc] of group) state.board[gr][gc] = 0;
+        state.board[anchor[0]][anchor[1]] = fusedValue;
+        state.clearingSet = null;
+        state.score += group.length * fusedValue * 5 * chain;
+        if (rewardMove && chain === 1) state.moves += 1;
+        collapseBoard();
+        render();
+        await sleep(500 + SIZE * 180);
+        const next = findAnyGroup();
+        if (!next) {
+          messageEl.textContent = chain > 1
+            ? `Chain x${chain}. Beautiful chaos.`
+            : `Nice. ${group.length} tiles fused into a ${fusedValue}${rewardMove ? ', and you gained +1 move.' : '.'}`;
+          return;
+        }
+        group = next.group;
+        anchor = next.anchor;
+        value = next.value;
+      }
+    }
+
     async function tap(r, c) {
       if (state.gameOver || state.clearingSet) return;
       state.board[r][c] += 1;
       const group = findGroup(r, c);
       if (group.length >= 3) {
-        const fusedValue = state.board[r][c] + 1;
-        state.clearingSet = new Set(group.map(([gr, gc]) => `${gr},${gc}`));
-        render();
-        await sleep(500);
-        for (const [gr, gc] of group) state.board[gr][gc] = 0;
-        state.board[r][c] = fusedValue;
-        state.clearingSet = null;
-        state.score += group.length * fusedValue * 5;
-        state.moves += 1;
-        messageEl.textContent = `Nice. ${group.length} tiles fused into a ${fusedValue}, then the board dropped, and you gained +1 move.`;
-        collapseBoard();
+        await resolveChain(group, [r, c], state.board[r][c], true);
       } else {
         state.moves -= 1;
         messageEl.textContent = state.moves > 0 ? 'No match. That cost 1 move.' : 'Out of moves.';
@@ -384,10 +421,16 @@
       });
     }
 
-    newGameBtn.addEventListener('click', () => {
+    newGameBtn.addEventListener('click', async () => {
       state = createNewState();
       messageEl.textContent = 'Fresh board. Go break it.';
       render();
+      const auto = findAnyGroup();
+      if (auto) {
+        messageEl.textContent = 'Opening board auto-resolving…';
+        await resolveChain(auto.group, auto.anchor, auto.value, false);
+        render();
+      }
     });
 
     resetBestBtn.addEventListener('click', () => {
@@ -402,6 +445,11 @@
       state.dropDistances = Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => 0));
     }
     render();
+    const openingGroup = findAnyGroup();
+    if (openingGroup) {
+      messageEl.textContent = 'Opening board auto-resolving…';
+      resolveChain(openingGroup.group, openingGroup.anchor, openingGroup.value, false).then(() => render());
+    }
   </script>
 </body>
 </html>
