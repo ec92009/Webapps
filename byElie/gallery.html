@@ -12,7 +12,7 @@
       } catch {}
     })();
   </script>
-  <link rel="stylesheet" href="./shared.css?v=8.9"/>
+  <link rel="stylesheet" href="./shared.css?v=49.0"/>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -25,7 +25,7 @@
       <a  href="./cad-design.html">CAD on demand</a> <span>|</span>
       <a class="is-active" href="./gallery.html">Gallery</a>
     </nav>
-    <div class="brand">BY ELIE — v34.0</div>
+    <div class="brand">BY ELIE — v49.0</div>
     <button class="theme-toggle" type="button" data-theme-toggle><span class="mode-light">Night</span><span class="mode-dark">Day</span></button>
   </header>
   <main id="main-content" class="shell">
@@ -96,10 +96,35 @@
       };
 
       const profile=()=>{
-        const w=window.innerWidth||1280;
-        if(w<560) return {tx:36,tz:88,ry:13,scStep:0.11,minScale:0.7,minOpacity:0.22,maxDepth:1};
-        if(w<900) return {tx:52,tz:125,ry:16,scStep:0.13,minScale:0.66,minOpacity:0.2,maxDepth:2};
-        return {tx:68,tz:165,ry:20,scStep:0.16,minScale:0.62,minOpacity:0.18,maxDepth:2};
+        const wrapWidth=Math.max(offersWrap.clientWidth,280);
+        const viewportHeight=window.innerHeight||900;
+        const compact=wrapWidth<560;
+        const medium=wrapWidth<900;
+        const cardWidth=compact
+          ? Math.max(240,wrapWidth-20)
+          : medium
+            ? Math.min(Math.max(wrapWidth*0.64,300),wrapWidth-48)
+            : Math.min(Math.max(wrapWidth*0.34,320),620);
+        const cardHeight=Math.round(
+          Math.min(
+            Math.max(cardWidth*(compact?0.82:0.72),240),
+            viewportHeight*(compact?0.42:0.5),
+            medium?360:430
+          )
+        );
+        offersWrap.style.setProperty('--carousel-card-width',`${Math.round(cardWidth)}px`);
+        offersWrap.style.setProperty('--carousel-card-height',`${cardHeight}px`);
+        offersWrap.style.setProperty('--carousel-height',`${cardHeight}px`);
+        offersWrap.style.setProperty('--carousel-perspective',`${Math.max(1200,Math.round(wrapWidth*2.6))}px`);
+        return {
+          tx:Math.round(Math.min(wrapWidth*(compact?0.34:medium?0.33:0.29),cardWidth*(compact?0.42:medium?0.56:0.72))),
+          tz:Math.round(Math.min(Math.max(cardWidth*(compact?0.2:medium?0.25:0.33),72),220)),
+          ry:compact?12:medium?16:18,
+          scStep:compact?0.1:medium?0.12:0.15,
+          minScale:compact?0.76:medium?0.68:0.62,
+          minOpacity:compact?0.26:0.2,
+          maxDepth:compact?1:2
+        };
       };
 
       const render=()=>{
@@ -112,7 +137,7 @@
           const tz=-abs*p.tz;
           const ry=off*-p.ry;
           const sc=Math.max(p.minScale,1-abs*p.scStep);
-          item.style.transform=`translateX(-50%) translateX(${tx}%) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc})`;
+          item.style.transform=`translateX(-50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc})`;
           item.style.opacity=abs>p.maxDepth?'0':String(Math.max(p.minOpacity,1-abs*.34));
           item.style.zIndex=String(40-abs*10);
           item.classList.toggle('is-active',off===0);
@@ -199,6 +224,10 @@
       });
 
       window.addEventListener('resize',render);
+      if('ResizeObserver' in window){
+        const resizeObserver=new ResizeObserver(render);
+        resizeObserver.observe(offersWrap);
+      }
       render();
     }
 
