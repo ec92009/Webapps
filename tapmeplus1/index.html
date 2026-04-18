@@ -26,12 +26,11 @@
         radial-gradient(circle at top left, rgba(255,191,143,.32), transparent 24%),
         radial-gradient(circle at bottom right, rgba(255,128,128,.16), transparent 24%),
         linear-gradient(180deg, var(--bg), var(--bg2));
-      display: grid;
-      place-items: center;
-      padding: 18px;
+      padding: clamp(14px, 2vw, 24px);
     }
     .app {
-      width: min(760px, 100%);
+      width: min(1120px, 100%);
+      margin: 0 auto;
       display: grid;
       gap: 16px;
     }
@@ -84,11 +83,17 @@
       line-height: 1;
       margin-bottom: 4px;
     }
-    .board-wrap { padding: 18px; }
+    .board-wrap {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
     .board {
       display: grid;
       grid-template-columns: repeat(5, minmax(0,1fr));
       gap: 12px;
+      width: min(100%, 620px);
+      margin: 0 auto;
     }
     .tile {
       aspect-ratio: 1 / 1;
@@ -159,6 +164,25 @@
       line-height: 1.6;
       font-size: .95rem;
     }
+    @media (min-width: 920px) {
+      .app {
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+        grid-template-areas:
+          "intro board"
+          "help board";
+        align-items: start;
+      }
+      .intro-card { grid-area: intro; }
+      .board-wrap {
+        grid-area: board;
+        min-height: min(760px, calc(100vh - 48px));
+        align-content: start;
+      }
+      .help-card { grid-area: help; }
+      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .card { padding: 18px; }
+      .tile { border-radius: 20px; }
+    }
     @media (max-width: 720px) {
       .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .board { gap: 10px; }
@@ -168,7 +192,7 @@
 </head>
 <body>
   <main class="app">
-    <section class="card">
+    <section class="card intro-card">
       <div class="top">
         <div>
           <div class="version">TapMePlus1 · v47.9</div>
@@ -193,7 +217,7 @@
       </div>
     </section>
 
-    <section class="card help">
+    <section class="card help help-card">
       <strong>How it works</strong><br/>
       - Tap any square: it goes up by exactly 1.<br/>
       - If that creates a connected group of 3 or more equal numbers, they fuse into one <strong>next-level tile</strong>.<br/>
