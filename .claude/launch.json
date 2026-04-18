@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "oleatax-preview",
+      "name": "webapps-hub",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8901", "--directory", "oleataxco"],
-      "port": 8901
+      "runtimeArgs": ["-m", "http.server", "8900"],
+      "port": 8900
     }
   ]
 }
