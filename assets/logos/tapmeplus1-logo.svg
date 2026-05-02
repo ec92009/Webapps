@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">TapMePlus1 logo</title>
+  <desc id="desc">Cute sticker-style button character being tapped, with a plus one badge.</desc>
+  <defs>
+    <linearGradient id="tileOuter" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffcb97"/>
+      <stop offset="100%" stop-color="#ff9f71"/>
+    </linearGradient>
+    <linearGradient id="tileInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe5c7"/>
+      <stop offset="100%" stop-color="#ffbf8e"/>
+    </linearGradient>
+    <linearGradient id="tileFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff9a63"/>
+      <stop offset="100%" stop-color="#f77758"/>
+    </linearGradient>
+    <linearGradient id="bubbleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b3f29a"/>
+      <stop offset="100%" stop-color="#69cf74"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#2a1810" flood-opacity="0.26"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#fff1d9" flood-opacity="0.8"/>
+    </filter>
+    <style>
+      .outline { stroke: #74483d; stroke-width: 15; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke: #74483d; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .face { fill: #74483d; }
+      .blush { fill: #ffb6aa; opacity: 0.88; }
+      .whiteStroke { stroke: #fff4ea; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <g filter="url(#glow)">
+    <g filter="url(#shadow)">
+      <rect x="220" y="248" width="596" height="596" rx="148" fill="url(#tileOuter)" class="outline"/>
+      <rect x="254" y="282" width="528" height="528" rx="132" fill="url(#tileInner)" class="whiteStroke"/>
+      <rect x="308" y="336" width="420" height="420" rx="112" fill="url(#tileFace)" class="outline"/>
+
+      <rect x="110" y="540" width="236" height="186" rx="88" fill="#ffe1c5" class="outline"/>
+      <rect x="254" y="434" width="126" height="300" rx="58" fill="#ffe1c5" class="outline"/>
+      <ellipse cx="320" cy="472" rx="82" ry="78" fill="#ffd4b4" class="outline"/>
+      <ellipse cx="331" cy="501" rx="38" ry="28" fill="#fff1e5" opacity="0.7"/>
+
+      <circle cx="448" cy="514" r="14" class="face"/>
+      <circle cx="588" cy="514" r="14" class="face"/>
+      <ellipse cx="418" cy="560" rx="24" ry="15" class="blush"/>
+      <ellipse cx="618" cy="560" rx="24" ry="15" class="blush"/>
+      <path d="M470 574c18 24 78 24 96 0" fill="none" class="thin"/>
+
+      <circle cx="754" cy="248" r="132" fill="url(#bubbleFill)" class="outline"/>
+      <circle cx="754" cy="248" r="94" fill="#c9f7b3" class="whiteStroke"/>
+      <rect x="722" y="182" width="34" height="126" rx="16" fill="#fff"/>
+      <rect x="675" y="229" width="128" height="34" rx="16" fill="#fff"/>
+      <rect x="812" y="182" width="34" height="126" rx="16" fill="#fff"/>
+
+      <path d="M160 392l28-52 28 52 52 28-52 28-28 52-28-52-52-28z" fill="#fff1a9" opacity="0.8"/>
+      <path d="M762 530l18-34 18 34 34 18-34 18-18 34-18-34-34-18z" fill="#ffe7a6" opacity="0.8"/>
+      <path d="M230 790l14-26 14 26 26 14-26 14-14 26-14-26-26-14z" fill="#fff3cf" opacity="0.8"/>
+    </g>
+  </g>
+</svg>
