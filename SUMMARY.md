@@ -10,7 +10,7 @@ The Webapps repo acted as the hub for the Photos By Elie work. The hub now links
 
 - Added Photos By Elie as a top-level hub card alongside the existing web apps.
 - Kept the hub card pointed at `https://ec92009.github.io/PhotosByElie/`.
-- Updated the hub card version through the PhotosByElie iterations, ending at `v63.8`.
+- Updated the hub card version through the PhotosByElie iterations, ending at `v63.9`.
 - Synced the mirrored `PhotosByElie/` folder after each standalone site change.
 
 ## Mirrored PhotosByElie State
@@ -26,5 +26,5 @@ The Webapps repo acted as the hub for the Photos By Elie work. The hub now links
 
 - Repo: `https://github.com/ec92009/Webapps.git`
 - GitHub Pages: `https://ec92009.github.io/Webapps/`
-- Latest relevant hub version: `v63.8`
+- Latest relevant hub version: `v63.9`
 - Latest conversation push before this summary: `be14482 hub: sync Photos By Elie auto basket`
