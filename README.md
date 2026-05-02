@@ -6,7 +6,8 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - `index.html`: local landing page for the available sites
 - `assets/`: shared logos and images
-- `byElie/`, `conway/`, `reversi/`, `sortingalgos/`: static site/app folders
+- `PhotosByElie/`, `conway/`, `reversi/`, `sortingalgos/`: static site/app folders
+- By Elie is linked from the hub as an external GitHub Pages project at `https://ec92009.github.io/byElie/`
 - `oleamediaco/`, `oleataxco/`, `oleataxco-v25/`: marketing sites and supporting assets
 
 ## Dependencies
