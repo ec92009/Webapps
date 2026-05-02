@@ -10,7 +10,7 @@ The Webapps repo acted as the hub for the Photos By Elie work. The hub now links
 
 - Added Photos By Elie as a top-level hub card alongside the existing web apps.
 - Kept the hub card pointed at `https://ec92009.github.io/PhotosByElie/`.
-- Updated the hub card version through the PhotosByElie iterations, ending at `v63.10`.
+- Updated the hub card version through the PhotosByElie iterations, ending at `v63.11`.
 - Synced the mirrored `PhotosByElie/` folder after each standalone site change.
 
 ## Mirrored PhotosByElie State
@@ -22,10 +22,11 @@ The Webapps repo acted as the hub for the Photos By Elie work. The hub now links
 - `basket.html` is localStorage-backed and treats one photo as one charge row.
 - Resolution choices can be changed from either detail or basket.
 - Resolution choices are limited by each photo's source megapixels; 2 MP AI images only expose full/native and JPG 1 MP.
+- Full resolution checkboxes show the original source size, including source description and megapixel count.
 
 ## Deployment
 
 - Repo: `https://github.com/ec92009/Webapps.git`
 - GitHub Pages: `https://ec92009.github.io/Webapps/`
-- Latest relevant hub version: `v63.10`
-- Latest conversation push before this summary: Photos By Elie `v63.10` resolution availability sync.
+- Latest relevant hub version: `v63.11`
+- Latest conversation push before this summary: Photos By Elie `v63.11` original-size label sync.
