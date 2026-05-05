@@ -6,22 +6,17 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - `index.html`: local landing page for the available sites
 - `assets/`: shared logos and images
-- `PhotosByElie/`, `conway/`, `reversi/`, `sortingalgos/`: static site/app folders
-- By Elie is linked from the hub as an external GitHub Pages project at `https://ec92009.github.io/byElie/`
-- `oleamediaco/`, `oleataxco/`, `oleataxco-v25/`: marketing sites and supporting assets
+- `conway/`, `reversi/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
+- `scripts/`: repo maintenance scripts
+- `docs/`: generated and hand-written maintenance notes
+- `archive/`: removed mirrors, legacy routes, and review notes kept for recovery
 
-## Photos By Elie
+## Canonical Projects
 
-- Hub card points to the standalone PhotosByElie GitHub Pages site at `https://ec92009.github.io/PhotosByElie/`.
-- `PhotosByElie/` is also mirrored inside this repo for direct hub-relative access.
-- Current mirrored PhotosByElie version: `v63.12`.
-- Collections are France, USA, Spain, Mexico, and AI, with AI last.
-- The mirrored AI gallery includes resized Leonardo-generated JPG assets in `PhotosByElie/assets/ai/`.
-- Photo detail pages auto-sync resolution checkbox changes to the localStorage basket.
-- The basket is the source of truth and prevents duplicate charges for the same photo.
-- Resolution choices are limited by each photo's source megapixels; 2 MP AI images only expose full/native and JPG 1 MP.
-- Full resolution choices show the original source size next to the checkbox.
-- Basket rows stay visible when all resolutions are unchecked; only Remove deletes a photo row.
+- By Elie is canonical at `/Users/ecohen/Dev/byElie` and published at `https://ec92009.github.io/byElie/`.
+- Photos By Elie is canonical at `/Users/ecohen/Dev/photosByElie` and published at `https://ec92009.github.io/PhotosByElie/`.
+- Olea Tax Co is canonical at `/Users/ecohen/Dev/OleaTax` and published at `https://ec92009.github.io/OleaTax/`.
+- Webapps keeps only hub-required local apps in the live tree; old nested mirrors and unlinked variants live under `archive/`.
 
 ## Dependencies
 
@@ -30,7 +25,6 @@ This repo does not currently require a package manager or build step for the mai
 - Browser: all pages are plain HTML/CSS/JS
 - Local preview: `python3 -m http.server`
 - External assets: some pages load Google Fonts at runtime
-- PDF helper: `oleamediaco/source/make_offer_pdfs.py` uses macOS `sips`
 
 ## GitHub
 

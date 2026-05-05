@@ -8,7 +8,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 START = ROOT / "index.html"
-IGNORED_TOP_LEVEL_DIRS = {"archive"}
+IGNORED_TOP_LEVEL_DIRS = {"archive", ".claude", ".git", ".github"}
 
 FOLLOW_EXTENSIONS = {".html", ".css", ".js"}
 CONSIDER_EXTENSIONS = {
@@ -174,7 +174,6 @@ def main() -> None:
         path
         for path in ROOT.rglob("*")
         if path.is_file()
-        and ".git" not in path.parts
         and not any(part in IGNORED_TOP_LEVEL_DIRS for part in path.relative_to(ROOT).parts[:1])
     )
     considered = {

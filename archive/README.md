@@ -10,3 +10,5 @@ Archived here:
 - unlinked Olea Media variant files
 - unlinked Olea Tax concept pages
 - unlinked runtime assets and PDFs
+- nested project mirrors superseded by standalone `/Users/ecohen/Dev` projects
+- Codex review notes
