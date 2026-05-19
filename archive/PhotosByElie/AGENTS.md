@@ -1,6 +1,13 @@
 # AGENTS.md
 
-Repo-level working preferences for `/Users/ecohen/Dev/PhotosByElie`.
+Sub-project working preferences for `PhotosByElie` when it is mirrored under `/Users/ecohen/Dev/Webapps`.
+
+## Parent Hub Contract
+
+- This folder is a sub-project of `/Users/ecohen/Dev/Webapps`.
+- When a user-visible version changes in this sub-project, also update the Photos By Elie card in `/Users/ecohen/Dev/Webapps/index.html`.
+- The parent hub card should show the same visible version and, for public GitHub Pages links, may include a matching cache-bust query such as `?v=X.Y`.
+- If this folder is only a mirror of another canonical repo, preserve the canonical repo workflow, but still keep the Webapps hub metadata current when the mirrored visible version changes.
 
 ## Response Protocol
 
