@@ -15,6 +15,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - By Elie is canonical at `/Users/ecohen/Dev/byElie` and published at `https://ec92009.github.io/byElie/`.
 - Photos By Elie is canonical at `/Users/ecohen/Dev/photosByElie` and published at `https://ec92009.github.io/PhotosByElie/`.
+- Golden is canonical at `/Users/ecohen/Dev/Golden`, with the public preview at `/Users/ecohen/Dev/Golden-preview` and published at `https://ec92009.github.io/Golden-preview/`.
 - Olea Tax Co is canonical at `/Users/ecohen/Dev/OleaTax` and published at `https://ec92009.github.io/OleaTax/`.
 - Webapps keeps only hub-required local apps in the live tree; old nested mirrors and unlinked variants live under `archive/`.
 
