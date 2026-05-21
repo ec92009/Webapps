@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="refresh" content="10800" />
   <title>Codex Local Sites</title>
   <style>
     :root {
@@ -40,7 +41,7 @@
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 1rem;
     }
     .card-head {
@@ -84,70 +85,212 @@
 </head>
 <body>
   <main>
-    <h1>Codex Local Website Workspace · v80.7</h1>
+    <h1>Codex Local Website Workspace · <span id="hub-version">v82.0</span></h1>
     <p>Choose a project site to open.</p>
-    <div class="grid">
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/byelie-logo.png" alt="By Elie logo" /><h2>By Elie</h2></div>
-        <p>3D print plans, physical products, photos, and web services.</p>
-        <p><strong>Version:</strong> v66.1</p>
-        <a class="btn" href="https://ec92009.github.io/byElie/?v=66.1" target="_blank" rel="noopener">Open By Elie</a>
-      </section>
-      <section class="card">
+    <div class="grid" id="site-grid">
+      <!-- site-card:start -->
+      <section class="card" data-site-card data-site-id="photosbyelie" data-version-source="https://ec92009.github.io/PhotosByElie/" data-version="v81.16">
         <div class="card-head"><img class="logo" src="./assets/logos/photosbyelie-logo.png" alt="Photos By Elie logo" /><h2>Photos By Elie</h2></div>
         <p>Standalone photo galleries for France, USA, Spain, Mexico, and AI image work.</p>
-        <p><strong>Version:</strong> v79.30</p>
-        <a class="btn" href="https://ec92009.github.io/PhotosByElie/?v=79.30" target="_blank" rel="noopener">Open Photos By Elie</a>
+        <p><strong>Version:</strong> <span class="version-label">v81.16</span></p>
+        <a class="btn" href="https://ec92009.github.io/PhotosByElie/?v=81.16" target="_blank" rel="noopener">Open Photos By Elie</a>
       </section>
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/oleamedia-logo.png" alt="Olea Media logo" /><h2>Olea Media Co</h2></div>
-        <p>Website variants and multilingual offer PDFs.</p>
-        <p><strong>Version:</strong> v49.7</p>
-        <a class="btn" href="https://ec92009.github.io/oleamediaco/?v=49.7" target="_blank" rel="noopener">Open Olea Media Co</a>
-      </section>
-      <section class="card">
+      <section class="card" data-site-card data-site-id="oleataxco" data-version-source="https://ec92009.github.io/oleataxco/" data-version="v80.7">
         <div class="card-head"><img class="logo" src="./assets/logos/oleatax-logo.png" alt="Olea Tax logo" /><h2>Olea Tax Co</h2></div>
         <p>CPA advisory site with design preview and pod-model variant.</p>
-        <p><strong>Version:</strong> v80.6</p>
-        <a class="btn" href="https://ec92009.github.io/oleataxco/?v=80.6" target="_blank" rel="noopener">Open Olea Tax Co</a>
+        <p><strong>Version:</strong> <span class="version-label">v80.7</span></p>
+        <a class="btn" href="https://ec92009.github.io/oleataxco/?v=80.7" target="_blank" rel="noopener">Open Olea Tax Co</a>
       </section>
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/reversi-logo.png" alt="Reversi logo" /><h2>Reversi</h2></div>
-        <p>Playable Reversi/Othello with AI, settings, undo, and game tally.</p>
-        <p><strong>Version:</strong> v34.0</p>
-        <a class="btn" href="./reversi/">Open Reversi</a>
-      </section>
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/conway-logo.png" alt="Conway logo" /><h2>Conway Game of Life</h2></div>
-        <p>Interactive cellular automata playground with speed, grid size, random seed, and step mode.</p>
-        <p><strong>Version:</strong> v34.0</p>
-        <a class="btn" href="./conway/">Open Conway</a>
-      </section>
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/sorting-logo.png" alt="Sorting logo" /><h2>Sorting Algorithms</h2></div>
-        <p>Visual comparison of Bubble, Insertion, Selection, Merge, and Quick sort on 100 random integers.</p>
-        <p><strong>Version:</strong> v35.0</p>
-        <a class="btn" href="./sortingalgos/">Open Sorting Algos</a>
-      </section>
-      <section class="card">
-        <div class="card-head"><img class="logo" src="./assets/logos/trading-logo.svg" alt="Trading logo" /><h2>Trading</h2></div>
-        <p>External trading web app published outside this repo and linked from the hub.</p>
-        <p><strong>Version:</strong> v78.0</p>
-        <a class="btn" href="https://ec92009.github.io/trading/?v=78.0">Open Trading</a>
-      </section>
-      <section class="card">
+      <section class="card" data-site-card data-site-id="deliveries" data-version-source="https://ec92009.github.io/Deliveries/" data-version="v80.0">
         <div class="card-head"><img class="logo" src="./assets/logos/deliveries-logo.svg" alt="Deliveries logo" /><h2>Deliveries</h2></div>
         <p>Pending deliveries dashboard for Amazon, AliExpress, and Temu, refreshed from Gmail on a schedule.</p>
-        <p><strong>Version:</strong> v80.0</p>
+        <p><strong>Version:</strong> <span class="version-label">v80.0</span></p>
         <a class="btn" href="https://ec92009.github.io/Deliveries/?v=80.0">Open Deliveries</a>
       </section>
-      <section class="card">
+      <section class="card" data-site-card data-site-id="trading" data-version-source="https://ec92009.github.io/trading/" data-version="v78.0">
+        <div class="card-head"><img class="logo" src="./assets/logos/trading-logo.svg" alt="Trading logo" /><h2>Trading</h2></div>
+        <p>External trading web app published outside this repo and linked from the hub.</p>
+        <p><strong>Version:</strong> <span class="version-label">v78.0</span></p>
+        <a class="btn" href="https://ec92009.github.io/trading/?v=78.0">Open Trading</a>
+      </section>
+      <section class="card" data-site-card data-site-id="byelie" data-version-source="https://ec92009.github.io/byElie/" data-version="v66.1">
+        <div class="card-head"><img class="logo" src="./assets/logos/byelie-logo.png" alt="By Elie logo" /><h2>By Elie</h2></div>
+        <p>3D print plans, physical products, photos, and web services.</p>
+        <p><strong>Version:</strong> <span class="version-label">v66.1</span></p>
+        <a class="btn" href="https://ec92009.github.io/byElie/?v=66.1" target="_blank" rel="noopener">Open By Elie</a>
+      </section>
+      <section class="card" data-site-card data-site-id="oleamediaco" data-version-source="https://ec92009.github.io/oleamediaco/" data-version="v49.7">
+        <div class="card-head"><img class="logo" src="./assets/logos/oleamedia-logo.png" alt="Olea Media logo" /><h2>Olea Media Co</h2></div>
+        <p>Website variants and multilingual offer PDFs.</p>
+        <p><strong>Version:</strong> <span class="version-label">v49.7</span></p>
+        <a class="btn" href="https://ec92009.github.io/oleamediaco/?v=49.7" target="_blank" rel="noopener">Open Olea Media Co</a>
+      </section>
+      <section class="card" data-site-card data-site-id="tapmeplus1" data-version-source="./tapmeplus1/" data-version="v47.9">
         <div class="card-head"><img class="logo" src="./assets/logos/tapmeplus1-logo.svg" alt="TapMePlus1 logo" /><h2>TapMePlus1</h2></div>
         <p>A delightfully pointless tap game where every press gives you exactly one point.</p>
-        <p><strong>Version:</strong> v47.9</p>
+        <p><strong>Version:</strong> <span class="version-label">v47.9</span></p>
         <a class="btn" href="./tapmeplus1/">Open TapMePlus1</a>
       </section>
+      <section class="card" data-site-card data-site-id="sortingalgos" data-version-source="./sortingalgos/" data-version="v35.0">
+        <div class="card-head"><img class="logo" src="./assets/logos/sorting-logo.png" alt="Sorting logo" /><h2>Sorting Algorithms</h2></div>
+        <p>Visual comparison of Bubble, Insertion, Selection, Merge, and Quick sort on 100 random integers.</p>
+        <p><strong>Version:</strong> <span class="version-label">v35.0</span></p>
+        <a class="btn" href="./sortingalgos/">Open Sorting Algos</a>
+      </section>
+      <section class="card" data-site-card data-site-id="reversi" data-version-source="./reversi/" data-version="v34.0">
+        <div class="card-head"><img class="logo" src="./assets/logos/reversi-logo.png" alt="Reversi logo" /><h2>Reversi</h2></div>
+        <p>Playable Reversi/Othello with AI, settings, undo, and game tally.</p>
+        <p><strong>Version:</strong> <span class="version-label">v34.0</span></p>
+        <a class="btn" href="./reversi/">Open Reversi</a>
+      </section>
+      <section class="card" data-site-card data-site-id="conway" data-version-source="./conway/" data-version="v34.0">
+        <div class="card-head"><img class="logo" src="./assets/logos/conway-logo.png" alt="Conway logo" /><h2>Conway Game of Life</h2></div>
+        <p>Interactive cellular automata playground with speed, grid size, random seed, and step mode.</p>
+        <p><strong>Version:</strong> <span class="version-label">v34.0</span></p>
+        <a class="btn" href="./conway/">Open Conway</a>
+      </section>
+      <!-- site-card:end -->
     </div>
   </main>
+  <script>
+    (() => {
+      const REFRESH_INTERVAL_MS = 3 * 60 * 60 * 1000;
+      const VERSION_RE = /\bv(\d+)\.(\d+)\b/gi;
+      const MAX_PAGES_PER_SITE = 24;
+
+      const parseVersion = (version) => {
+        const match = String(version || "").match(/^v(\d+)\.(\d+)$/i);
+        return match ? [Number(match[1]), Number(match[2])] : [-1, -1];
+      };
+
+      const compareVersions = (a, b) => {
+        const [aMajor, aMinor] = parseVersion(a);
+        const [bMajor, bMinor] = parseVersion(b);
+        return aMajor === bMajor ? aMinor - bMinor : aMajor - bMajor;
+      };
+
+      const bestVersion = (versions) => versions.reduce((best, version) => (
+        compareVersions(version, best) > 0 ? version : best
+      ), "");
+
+      const versionsFromText = (text) => {
+        const versions = [];
+        for (const match of text.matchAll(VERSION_RE)) {
+          versions.push(`v${Number(match[1])}.${Number(match[2])}`);
+        }
+        return versions;
+      };
+
+      const sameSitePage = (url, root) => (
+        url.origin === root.origin &&
+        url.pathname.startsWith(root.pathname) &&
+        !url.hash &&
+        !/\.(avif|css|gif|ico|jpe?g|js|json|pdf|png|svg|webp|zip)$/i.test(url.pathname)
+      );
+
+      const sourceUrls = (card) => card.dataset.versionSource.split(",")
+        .map((source) => source.trim())
+        .filter(Boolean)
+        .map((source) => new URL(source, document.baseURI));
+
+      const addCacheBust = (url) => {
+        const next = new URL(url.href);
+        next.searchParams.set("_hub_check", String(Date.now()));
+        return next;
+      };
+
+      const fetchPage = async (url) => {
+        const response = await fetch(addCacheBust(url), { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+      };
+
+      const discoverSiteVersion = async (rootUrl) => {
+        const queue = [rootUrl];
+        const visited = new Set();
+        const versions = [];
+
+        while (queue.length && visited.size < MAX_PAGES_PER_SITE) {
+          const url = queue.shift();
+          const key = `${url.origin}${url.pathname}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          const html = await fetchPage(url);
+          versions.push(...versionsFromText(html));
+
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          for (const link of doc.querySelectorAll("a[href]")) {
+            const next = new URL(link.getAttribute("href"), url);
+            next.search = "";
+            next.hash = "";
+            if (sameSitePage(next, rootUrl) && !visited.has(`${next.origin}${next.pathname}`)) {
+              queue.push(next);
+            }
+          }
+        }
+
+        return bestVersion(versions);
+      };
+
+      const updateHrefVersion = (link, version) => {
+        if (!link || !version) return;
+        const url = new URL(link.getAttribute("href"), document.baseURI);
+        url.searchParams.set("v", version.replace(/^v/i, ""));
+        link.href = url.href;
+      };
+
+      const renderCardVersion = (card, version) => {
+        if (!version || compareVersions(version, card.dataset.version) <= 0) return false;
+        card.dataset.version = version;
+        const label = card.querySelector(".version-label");
+        if (label) label.textContent = version;
+        updateHrefVersion(card.querySelector(".btn"), version);
+        return true;
+      };
+
+      const sortCards = () => {
+        const grid = document.getElementById("site-grid");
+        const cards = [...grid.querySelectorAll("[data-site-card]")];
+        cards.sort((a, b) => compareVersions(b.dataset.version, a.dataset.version));
+        cards.forEach((card) => grid.appendChild(card));
+      };
+
+      const syncHubVersion = () => {
+        const hubVersion = document.getElementById("hub-version");
+        if (!hubVersion) return;
+        const versions = [...document.querySelectorAll("[data-site-card]")]
+          .map((card) => card.dataset.version);
+        const newestSiteVersion = bestVersion(versions);
+        if (compareVersions(newestSiteVersion, hubVersion.textContent.trim()) > 0) {
+          hubVersion.textContent = newestSiteVersion;
+        }
+      };
+
+      const refreshVersions = async () => {
+        const cards = [...document.querySelectorAll("[data-site-card]")];
+        await Promise.all(cards.map(async (card) => {
+          const discovered = [];
+          for (const url of sourceUrls(card)) {
+            try {
+              discovered.push(await discoverSiteVersion(url));
+            } catch (error) {
+              console.info(`Hub version check skipped ${url.href}: ${error.message}`);
+            }
+          }
+          renderCardVersion(card, bestVersion(discovered));
+        }));
+        sortCards();
+        syncHubVersion();
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        sortCards();
+        syncHubVersion();
+        refreshVersions();
+        window.setInterval(refreshVersions, REFRESH_INTERVAL_MS);
+      });
+    })();
+  </script>
 </body>
 </html>

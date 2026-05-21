@@ -1,0 +1,38 @@
+name: Refresh Webapps Hub
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-webapps-hub
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      WEBAPPS_VERSION_TZ: Europe/Madrid
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Refresh hub versions
+        run: python3 scripts/update_hub_versions.py
+
+      - name: Commit and push hub update
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No hub changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "webapps: refresh hub versions"
+          git push

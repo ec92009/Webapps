@@ -26,6 +26,16 @@ This repo does not currently require a package manager or build step for the mai
 - Local preview: `python3 -m http.server`
 - External assets: some pages load Google Fonts at runtime
 
+## Hub Version Refresh
+
+The root `index.html` keeps machine-readable version sources on each site card. It refreshes in-browser every three hours, and `.github/workflows/refresh-hub.yml` runs on the same cadence to check local subproject pages plus linked GitHub Pages projects, update card versions, reorder newest versions first, bump the hub version, commit the changed `index.html`, and push it so the Pages deploy publishes to github.io.
+
+Run the refresh locally with:
+
+```sh
+python3 scripts/update_hub_versions.py
+```
+
 ## GitHub
 
 The local repo is configured with:

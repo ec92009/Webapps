@@ -15,6 +15,7 @@ on:
       - 'oleataxco-v25/**'
       - 'reversi/**'
       - 'sortingalgos/**'
+      - 'tapmeplus1/**'
   workflow_dispatch:
 
 permissions:
