@@ -36,6 +36,8 @@ Repo-level working preferences for `/Users/ecohen/Dev/Webapps`.
 - Repo root: `/Users/ecohen/Dev/Webapps`
 - Top-level index: `/Users/ecohen/Dev/Webapps/index.html`
 - Shared assets: `/Users/ecohen/Dev/Webapps/assets`
+- New standalone projects should be created under `/Users/ecohen/Dev/<ProjectName>` by default, not inside this repo.
+- Add a new project to this Webapps hub only when the user explicitly asks for a hub/local-static-site entry.
 - Project folders:
   - `/Users/ecohen/Dev/Webapps/byElie`
   - `/Users/ecohen/Dev/Webapps/conway`
