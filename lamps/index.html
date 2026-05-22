@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lamps</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logos/lamps-logo.svg" />
+  <style>
+    :root {
+      --page: #eef2f5;
+      --ink: #17202a;
+      --muted: #52616f;
+      --panel: #f8fafb;
+      --panel-2: #ffffff;
+      --line: #cbd5df;
+      --metal: #232b35;
+      --teal: #2d8c9e;
+      --amber: #f2b447;
+      --coral: #c95b45;
+      --green: #607d3b;
+      --blue: #5d728f;
+      --wall: #dfe7e8;
+      --wall-2: #c8d5db;
+      --floor: #8d7a68;
+      --shade-accent: #2d8c9e;
+      --light-rgb: 255, 207, 126;
+      --room-brightness: 1;
+      --floor-opacity: .78;
+      --table-opacity: .58;
+      --pendant-opacity: .42;
+      --accent-opacity: .36;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(248, 250, 251, .94);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .version {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #e0ecf0;
+      color: #254957;
+      font-size: .78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-2);
+      padding: 7px 10px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      flex: 0 0 auto;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr) 270px;
+      gap: 14px;
+      padding: 14px;
+      min-height: 0;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-width: 0;
+    }
+
+    .controls,
+    .scene-panel {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+      padding: 14px;
+    }
+
+    .control-section {
+      display: grid;
+      gap: 10px;
+    }
+
+    .control-section + .control-section {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .segmented button,
+    .swatch {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      min-height: 36px;
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    .segmented button.active {
+      background: #1f2933;
+      border-color: #1f2933;
+      color: #fff;
+    }
+
+    .lamp-row {
+      display: grid;
+      grid-template-columns: 44px minmax(84px, 1fr) 52px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lamp-row input[type="range"] {
+      grid-column: 2 / 4;
+      width: 100%;
+      accent-color: var(--teal);
+    }
+
+    .lamp-toggle {
+      width: 42px;
+      height: 26px;
+      border: 1px solid #a9b7c3;
+      border-radius: 999px;
+      padding: 2px;
+      background: #d8e1e7;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .lamp-toggle::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(23, 32, 42, .25);
+      transition: transform .16s ease;
+    }
+
+    .lamp-toggle[aria-pressed="true"] {
+      justify-content: flex-start;
+      background: var(--amber);
+      border-color: #d39525;
+    }
+
+    .lamp-toggle[aria-pressed="true"]::before {
+      transform: translateX(16px);
+    }
+
+    .lamp-name {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    output {
+      color: var(--muted);
+      font-size: .88rem;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .range-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .range-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--coral);
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .swatch {
+      min-height: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swatch::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 4px;
+      background: var(--swatch);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
+    }
+
+    .swatch.active {
+      outline: 3px solid rgba(45, 140, 158, .35);
+      border-color: var(--teal);
+    }
+
+    .stage-wrap {
+      display: grid;
+      grid-template-rows: minmax(440px, 1fr) auto;
+      gap: 12px;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .room {
+      position: relative;
+      min-height: 440px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, var(--wall) 0%, var(--wall-2) 62%, var(--floor) 62%, #6f5e51 100%);
+      box-shadow: inset 0 -80px 120px rgba(23, 32, 42, .12);
+      filter: brightness(var(--room-brightness));
+      isolation: isolate;
+    }
+
+    .room::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 61.8%;
+      height: 1px;
+      background: rgba(23, 32, 42, .22);
+      z-index: 1;
+    }
+
+    .window {
+      position: absolute;
+      left: 7%;
+      top: 9%;
+      width: 19%;
+      height: 31%;
+      border: 8px solid #f6f8f9;
+      background:
+        linear-gradient(90deg, transparent 48%, rgba(255,255,255,.9) 48%, rgba(255,255,255,.9) 53%, transparent 53%),
+        linear-gradient(180deg, #8fb1c4, #dbe9ed);
+      box-shadow: 0 12px 26px rgba(23, 32, 42, .12);
+      z-index: 2;
+    }
+
+    .art {
+      position: absolute;
+      right: 14%;
+      top: 13%;
+      width: 17%;
+      height: 20%;
+      border: 8px solid #f4f2ee;
+      background:
+        linear-gradient(135deg, var(--shade-accent) 0 36%, #e8d8bd 36% 62%, var(--coral) 62% 100%);
+      box-shadow: 0 12px 26px rgba(23, 32, 42, .14);
+      z-index: 2;
+    }
+
+    .sideboard {
+      position: absolute;
+      right: 9%;
+      bottom: 19%;
+      width: 28%;
+      height: 9%;
+      background: #34404b;
+      border-radius: 4px;
+      box-shadow: 0 18px 26px rgba(23, 32, 42, .2);
+      z-index: 5;
+    }
+
+    .sideboard::before,
+    .sideboard::after {
+      content: "";
+      position: absolute;
+      bottom: -42%;
+      width: 6%;
+      height: 46%;
+      background: #232b35;
+    }
+
+    .sideboard::before {
+      left: 10%;
+    }
+
+    .sideboard::after {
+      right: 10%;
+    }
+
+    .sofa {
+      position: absolute;
+      left: 22%;
+      bottom: 17%;
+      width: 32%;
+      height: 14%;
+      background: #5d728f;
+      border-radius: 8px 8px 4px 4px;
+      box-shadow: 0 20px 34px rgba(23, 32, 42, .22);
+      z-index: 4;
+    }
+
+    .sofa::before,
+    .sofa::after {
+      content: "";
+      position: absolute;
+      top: -38%;
+      height: 54%;
+      width: 45%;
+      background: #6f83a0;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .sofa::before {
+      left: 2%;
+    }
+
+    .sofa::after {
+      right: 2%;
+    }
+
+    .rug {
+      position: absolute;
+      left: 25%;
+      bottom: 5%;
+      width: 44%;
+      height: 16%;
+      border-radius: 50%;
+      background: rgba(45, 140, 158, .24);
+      transform: perspective(420px) rotateX(62deg);
+      z-index: 2;
+    }
+
+    .lamp,
+    .glow {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .glow {
+      mix-blend-mode: screen;
+      z-index: 3;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .floor-glow {
+      left: 0;
+      bottom: 8%;
+      width: 38%;
+      height: 57%;
+      opacity: var(--floor-opacity);
+      background: radial-gradient(ellipse at 35% 28%, rgba(var(--light-rgb), .82), rgba(var(--light-rgb), .34) 32%, rgba(var(--light-rgb), 0) 70%);
+    }
+
+    .table-glow {
+      right: 11%;
+      bottom: 23%;
+      width: 29%;
+      height: 38%;
+      opacity: var(--table-opacity);
+      background: radial-gradient(ellipse at 54% 42%, rgba(var(--light-rgb), .78), rgba(var(--light-rgb), .28) 34%, rgba(var(--light-rgb), 0) 72%);
+    }
+
+    .pendant-glow {
+      left: 33%;
+      top: 0;
+      width: 34%;
+      height: 72%;
+      opacity: var(--pendant-opacity);
+      background: radial-gradient(ellipse at 50% 18%, rgba(var(--light-rgb), .76), rgba(var(--light-rgb), .25) 38%, rgba(var(--light-rgb), 0) 76%);
+    }
+
+    .accent-glow {
+      right: 4%;
+      top: 8%;
+      width: 24%;
+      height: 28%;
+      opacity: var(--accent-opacity);
+      background: radial-gradient(ellipse at 50% 50%, rgba(var(--light-rgb), .62), rgba(var(--light-rgb), .2) 36%, rgba(var(--light-rgb), 0) 72%);
+    }
+
+    .floor-lamp {
+      left: 9%;
+      bottom: 13%;
+      width: 78px;
+      height: 260px;
+      z-index: 6;
+    }
+
+    .floor-lamp .shade {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      width: 54px;
+      height: 54px;
+      background: var(--shade-accent);
+      clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
+      box-shadow: inset 0 -10px 0 rgba(23, 32, 42, .16);
+    }
+
+    .floor-lamp .pole {
+      position: absolute;
+      left: 37px;
+      top: 54px;
+      width: 6px;
+      height: 178px;
+      background: var(--metal);
+    }
+
+    .floor-lamp .base {
+      position: absolute;
+      left: 14px;
+      bottom: 0;
+      width: 50px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--metal);
+    }
+
+    .table-lamp {
+      right: 20%;
+      bottom: 28%;
+      width: 64px;
+      height: 116px;
+      z-index: 7;
+    }
+
+    .table-lamp .shade {
+      position: absolute;
+      left: 7px;
+      top: 0;
+      width: 50px;
+      height: 42px;
+      background: var(--shade-accent);
+      clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+    }
+
+    .table-lamp .pole {
+      position: absolute;
+      left: 30px;
+      top: 42px;
+      width: 5px;
+      height: 50px;
+      background: var(--metal);
+    }
+
+    .table-lamp .base {
+      position: absolute;
+      left: 14px;
+      bottom: 8px;
+      width: 36px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--metal);
+    }
+
+    .pendant-lamp {
+      left: 45%;
+      top: 0;
+      width: 92px;
+      height: 170px;
+      z-index: 6;
+    }
+
+    .pendant-lamp .cord {
+      position: absolute;
+      left: 45px;
+      top: 0;
+      width: 4px;
+      height: 84px;
+      background: var(--metal);
+    }
+
+    .pendant-lamp .shade {
+      position: absolute;
+      left: 12px;
+      top: 82px;
+      width: 68px;
+      height: 48px;
+      background: var(--shade-accent);
+      clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+    }
+
+    .sconce {
+      right: 9%;
+      top: 15%;
+      width: 54px;
+      height: 54px;
+      z-index: 6;
+    }
+
+    .sconce .plate {
+      position: absolute;
+      inset: 10px 20px;
+      background: var(--metal);
+      border-radius: 4px;
+    }
+
+    .sconce .shade {
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      width: 42px;
+      height: 28px;
+      background: var(--shade-accent);
+      clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    }
+
+    .lamp.off {
+      opacity: .48;
+      filter: grayscale(.7);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 72px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      align-content: center;
+      gap: 4px;
+    }
+
+    .metric strong {
+      font-size: 1.12rem;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .lamp-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lamp-chip {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px;
+      align-items: center;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--chip);
+      box-shadow: 0 0 0 3px rgba(var(--light-rgb), .16);
+    }
+
+    .chip-text {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .chip-text strong {
+      font-size: .92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chip-text span,
+    .chip-value {
+      color: var(--muted);
+      font-size: .8rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .saved-scenes {
+      display: grid;
+      gap: 8px;
+    }
+
+    .saved-scene {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      min-height: 36px;
+      cursor: pointer;
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 750;
+    }
+
+    .saved-scene.empty {
+      color: var(--muted);
+      cursor: default;
+    }
+
+    @media (max-width: 1180px) {
+      .workspace {
+        grid-template-columns: 300px minmax(0, 1fr);
+      }
+
+      .scene-panel {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 840px) {
+      .topbar {
+        align-items: flex-start;
+        position: static;
+      }
+
+      .workspace,
+      .scene-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-wrap {
+        grid-template-rows: minmax(360px, auto) auto;
+      }
+
+      .room {
+        min-height: 360px;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .floor-lamp {
+        transform: scale(.68);
+        transform-origin: bottom left;
+      }
+
+      .pendant-lamp {
+        transform: scale(.82);
+        transform-origin: top center;
+      }
+
+      .art {
+        right: 20%;
+      }
+
+      .sconce {
+        right: 3%;
+        top: 12%;
+        transform: scale(.82);
+        transform-origin: top right;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        display: grid;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .workspace {
+        padding: 10px;
+      }
+
+      .segmented {
+        grid-template-columns: 1fr;
+      }
+
+      .swatch-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .lamp-row {
+        grid-template-columns: 42px minmax(0, 1fr) 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="../assets/logos/lamps-logo.svg" alt="Lamps logo" />
+        <div>
+          <h1>Lamps</h1>
+          <span class="version">v83.7</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="resetBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v6h6"/><path d="M20 12a8 8 0 1 1-2.34-5.66L4 11"/></svg>
+          Reset
+        </button>
+        <button class="btn primary" id="saveBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+          Save Scene
+        </button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="panel controls" aria-label="Lamp controls">
+        <section class="control-section">
+          <h2 class="section-title">Preset</h2>
+          <div class="segmented" id="presetButtons">
+            <button type="button" data-preset="reading">Reading</button>
+            <button type="button" data-preset="dinner">Dinner</button>
+            <button type="button" data-preset="focus">Focus</button>
+            <button type="button" data-preset="cinema">Cinema</button>
+            <button type="button" data-preset="gallery">Gallery</button>
+            <button type="button" data-preset="night">Night</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2 class="section-title">Layers</h2>
+          <div class="lamp-row" data-lamp-row="floor">
+            <button class="lamp-toggle" type="button" data-toggle="floor" aria-label="Toggle floor lamp" aria-pressed="true"></button>
+            <label class="lamp-name" for="floorLevel">Floor</label>
+            <output id="floorOutput" for="floorLevel">72%</output>
+            <input id="floorLevel" data-level="floor" type="range" min="0" max="100" value="72" />
+          </div>
+          <div class="lamp-row" data-lamp-row="table">
+            <button class="lamp-toggle" type="button" data-toggle="table" aria-label="Toggle table lamp" aria-pressed="true"></button>
+            <label class="lamp-name" for="tableLevel">Table</label>
+            <output id="tableOutput" for="tableLevel">58%</output>
+            <input id="tableLevel" data-level="table" type="range" min="0" max="100" value="58" />
+          </div>
+          <div class="lamp-row" data-lamp-row="pendant">
+            <button class="lamp-toggle" type="button" data-toggle="pendant" aria-label="Toggle pendant lamp" aria-pressed="true"></button>
+            <label class="lamp-name" for="pendantLevel">Pendant</label>
+            <output id="pendantOutput" for="pendantLevel">42%</output>
+            <input id="pendantLevel" data-level="pendant" type="range" min="0" max="100" value="42" />
+          </div>
+          <div class="lamp-row" data-lamp-row="accent">
+            <button class="lamp-toggle" type="button" data-toggle="accent" aria-label="Toggle accent lamp" aria-pressed="true"></button>
+            <label class="lamp-name" for="accentLevel">Accent</label>
+            <output id="accentOutput" for="accentLevel">36%</output>
+            <input id="accentLevel" data-level="accent" type="range" min="0" max="100" value="36" />
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2 class="section-title">Temperature</h2>
+          <div class="range-field">
+            <div class="range-head">
+              <label for="temperature">Color</label>
+              <output id="temperatureOutput" for="temperature">3000 K</output>
+            </div>
+            <input id="temperature" type="range" min="2200" max="5200" step="100" value="3000" />
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2 class="section-title">Room</h2>
+          <div class="swatch-grid" id="wallButtons">
+            <button class="swatch" type="button" data-wall="mist" style="--swatch: #dfe7e8" aria-label="Mist wall color"></button>
+            <button class="swatch" type="button" data-wall="moss" style="--swatch: #c5d0bd" aria-label="Moss wall color"></button>
+            <button class="swatch" type="button" data-wall="clay" style="--swatch: #d7b6a7" aria-label="Clay wall color"></button>
+            <button class="swatch" type="button" data-wall="ink" style="--swatch: #495265" aria-label="Ink wall color"></button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2 class="section-title">Shade</h2>
+          <div class="swatch-grid" id="shadeButtons">
+            <button class="swatch" type="button" data-shade="teal" style="--swatch: #2d8c9e" aria-label="Teal lamp shade"></button>
+            <button class="swatch" type="button" data-shade="coral" style="--swatch: #c95b45" aria-label="Coral lamp shade"></button>
+            <button class="swatch" type="button" data-shade="olive" style="--swatch: #607d3b" aria-label="Olive lamp shade"></button>
+            <button class="swatch" type="button" data-shade="slate" style="--swatch: #38435a" aria-label="Slate lamp shade"></button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="stage-wrap" aria-label="Lighting preview">
+        <div class="room" id="room">
+          <div class="window" aria-hidden="true"></div>
+          <div class="art" aria-hidden="true"></div>
+          <div class="rug" aria-hidden="true"></div>
+          <div class="sofa" aria-hidden="true"></div>
+          <div class="sideboard" aria-hidden="true"></div>
+          <div class="glow floor-glow" data-glow="floor" aria-hidden="true"></div>
+          <div class="glow table-glow" data-glow="table" aria-hidden="true"></div>
+          <div class="glow pendant-glow" data-glow="pendant" aria-hidden="true"></div>
+          <div class="glow accent-glow" data-glow="accent" aria-hidden="true"></div>
+          <div class="lamp floor-lamp" data-scene-lamp="floor" aria-hidden="true">
+            <div class="shade"></div><div class="pole"></div><div class="base"></div>
+          </div>
+          <div class="lamp table-lamp" data-scene-lamp="table" aria-hidden="true">
+            <div class="shade"></div><div class="pole"></div><div class="base"></div>
+          </div>
+          <div class="lamp pendant-lamp" data-scene-lamp="pendant" aria-hidden="true">
+            <div class="cord"></div><div class="shade"></div>
+          </div>
+          <div class="lamp sconce" data-scene-lamp="accent" aria-hidden="true">
+            <div class="plate"></div><div class="shade"></div>
+          </div>
+        </div>
+
+        <div class="metrics" aria-live="polite">
+          <div class="metric"><strong id="lumensMetric">0 lm</strong><span>Lumens</span></div>
+          <div class="metric"><strong id="wattsMetric">0 W</strong><span>Estimated load</span></div>
+          <div class="metric"><strong id="moodMetric">Balanced</strong><span>Profile</span></div>
+          <div class="metric"><strong id="coverageMetric">0%</strong><span>Coverage</span></div>
+        </div>
+      </section>
+
+      <aside class="panel scene-panel" aria-label="Scene details">
+        <section class="control-section">
+          <h2 class="section-title">Fixture Mix</h2>
+          <div class="lamp-list" id="lampList"></div>
+        </section>
+        <section class="control-section">
+          <h2 class="section-title">Saved Scenes</h2>
+          <div class="saved-scenes" id="savedScenes"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const VERSION = "v83.7";
+    const STORAGE_KEY = "lamps-saved-scenes";
+    const LAMPS = {
+      floor: { label: "Floor", lumens: 820, watts: 10, chip: "#2d8c9e" },
+      table: { label: "Table", lumens: 520, watts: 6, chip: "#f2b447" },
+      pendant: { label: "Pendant", lumens: 1120, watts: 14, chip: "#c95b45" },
+      accent: { label: "Accent", lumens: 310, watts: 4, chip: "#607d3b" }
+    };
+
+    const WALLS = {
+      mist: { wall: "#dfe7e8", wall2: "#c8d5db", floor: "#8d7a68" },
+      moss: { wall: "#c5d0bd", wall2: "#acba9e", floor: "#7f715b" },
+      clay: { wall: "#d7b6a7", wall2: "#bd927f", floor: "#806252" },
+      ink: { wall: "#495265", wall2: "#343c4c", floor: "#5b4d44" }
+    };
+
+    const SHADES = {
+      teal: "#2d8c9e",
+      coral: "#c95b45",
+      olive: "#607d3b",
+      slate: "#38435a"
+    };
+
+    const PRESETS = {
+      reading: {
+        temp: 3000, wall: "mist", shade: "teal",
+        lamps: { floor: [true, 82], table: [true, 56], pendant: [true, 22], accent: [true, 36] }
+      },
+      dinner: {
+        temp: 2400, wall: "clay", shade: "coral",
+        lamps: { floor: [true, 38], table: [true, 78], pendant: [true, 46], accent: [true, 58] }
+      },
+      focus: {
+        temp: 4200, wall: "mist", shade: "slate",
+        lamps: { floor: [true, 66], table: [true, 86], pendant: [true, 92], accent: [false, 0] }
+      },
+      cinema: {
+        temp: 2200, wall: "ink", shade: "teal",
+        lamps: { floor: [true, 16], table: [true, 28], pendant: [false, 0], accent: [true, 82] }
+      },
+      gallery: {
+        temp: 3500, wall: "moss", shade: "olive",
+        lamps: { floor: [true, 46], table: [false, 0], pendant: [true, 72], accent: [true, 90] }
+      },
+      night: {
+        temp: 2200, wall: "mist", shade: "slate",
+        lamps: { floor: [false, 0], table: [true, 18], pendant: [false, 0], accent: [true, 24] }
+      }
+    };
+
+    const state = {
+      preset: "reading",
+      temp: 3000,
+      wall: "mist",
+      shade: "teal",
+      lamps: {
+        floor: { on: true, level: 82 },
+        table: { on: true, level: 56 },
+        pendant: { on: true, level: 22 },
+        accent: { on: true, level: 36 }
+      }
+    };
+
+    const root = document.documentElement;
+    const room = document.getElementById("room");
+    const lampList = document.getElementById("lampList");
+    const savedScenesEl = document.getElementById("savedScenes");
+    const lumensMetric = document.getElementById("lumensMetric");
+    const wattsMetric = document.getElementById("wattsMetric");
+    const moodMetric = document.getElementById("moodMetric");
+    const coverageMetric = document.getElementById("coverageMetric");
+
+    const loadSavedScenes = () => {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    };
+
+    const saveSavedScenes = (scenes) => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(scenes.slice(0, 8)));
+    };
+
+    const cloneState = () => JSON.parse(JSON.stringify(state));
+
+    const applyPreset = (name) => {
+      const preset = PRESETS[name];
+      if (!preset) return;
+      state.preset = name;
+      state.temp = preset.temp;
+      state.wall = preset.wall;
+      state.shade = preset.shade;
+      for (const [key, value] of Object.entries(preset.lamps)) {
+        state.lamps[key].on = value[0];
+        state.lamps[key].level = value[1];
+      }
+      render();
+    };
+
+    const kelvinToRgb = (kelvin) => {
+      const temp = kelvin / 100;
+      let red;
+      let green;
+      let blue;
+
+      if (temp <= 66) {
+        red = 255;
+        green = 99.4708025861 * Math.log(temp) - 161.1195681661;
+        blue = temp <= 19 ? 0 : 138.5177312231 * Math.log(temp - 10) - 305.0447927307;
+      } else {
+        red = 329.698727446 * Math.pow(temp - 60, -0.1332047592);
+        green = 288.1221695283 * Math.pow(temp - 60, -0.0755148492);
+        blue = 255;
+      }
+
+      return [red, green, blue].map((value) => Math.max(0, Math.min(255, Math.round(value))));
+    };
+
+    const formatNumber = (value) => new Intl.NumberFormat("en-US").format(Math.round(value));
+
+    const setActive = (selector, attr, value) => {
+      document.querySelectorAll(selector).forEach((button) => {
+        button.classList.toggle("active", button.dataset[attr] === value);
+      });
+    };
+
+    const renderLampControls = () => {
+      for (const key of Object.keys(LAMPS)) {
+        const lamp = state.lamps[key];
+        const toggle = document.querySelector(`[data-toggle="${key}"]`);
+        const input = document.querySelector(`[data-level="${key}"]`);
+        const output = document.getElementById(`${key}Output`);
+        const sceneLamp = document.querySelector(`[data-scene-lamp="${key}"]`);
+        const row = document.querySelector(`[data-lamp-row="${key}"]`);
+        const opacity = lamp.on ? lamp.level / 100 : 0;
+
+        toggle.setAttribute("aria-pressed", String(lamp.on));
+        input.value = lamp.level;
+        input.disabled = !lamp.on;
+        output.textContent = `${lamp.level}%`;
+        root.style.setProperty(`--${key}-opacity`, opacity.toFixed(2));
+        sceneLamp.classList.toggle("off", !lamp.on);
+        row.style.opacity = lamp.on ? "1" : ".58";
+      }
+    };
+
+    const renderMetrics = () => {
+      let lumens = 0;
+      let watts = 0;
+      let active = 0;
+
+      for (const [key, lamp] of Object.entries(state.lamps)) {
+        const spec = LAMPS[key];
+        if (!lamp.on) continue;
+        active += 1;
+        lumens += spec.lumens * (lamp.level / 100);
+        watts += spec.watts * (lamp.level / 100);
+      }
+
+      const coverage = Math.min(100, Math.round((lumens / 2100) * 100));
+      const warmth = state.temp < 2700 ? "Warm" : state.temp < 3800 ? "Balanced" : "Clear";
+      const profile = active <= 1 ? "Low" : lumens > 1750 ? `${warmth} bright` : `${warmth} layered`;
+      const roomBrightness = Math.max(.72, Math.min(1.14, .76 + lumens / 4800));
+
+      lumensMetric.textContent = `${formatNumber(lumens)} lm`;
+      wattsMetric.textContent = `${Math.max(1, Math.round(watts))} W`;
+      moodMetric.textContent = profile;
+      coverageMetric.textContent = `${coverage}%`;
+      root.style.setProperty("--room-brightness", roomBrightness.toFixed(2));
+    };
+
+    const renderLampList = () => {
+      lampList.innerHTML = "";
+      for (const [key, spec] of Object.entries(LAMPS)) {
+        const lamp = state.lamps[key];
+        const chip = document.createElement("div");
+        chip.className = "lamp-chip";
+        chip.style.setProperty("--chip", spec.chip);
+        chip.innerHTML = `
+          <span class="dot" aria-hidden="true"></span>
+          <span class="chip-text"><strong>${spec.label}</strong><span>${lamp.on ? "On" : "Off"}</span></span>
+          <span class="chip-value">${lamp.level}%</span>
+        `;
+        lampList.appendChild(chip);
+      }
+    };
+
+    const renderSavedScenes = () => {
+      const scenes = loadSavedScenes();
+      savedScenesEl.innerHTML = "";
+
+      if (!scenes.length) {
+        const empty = document.createElement("button");
+        empty.className = "saved-scene empty";
+        empty.type = "button";
+        empty.disabled = true;
+        empty.textContent = "No saved scenes";
+        savedScenesEl.appendChild(empty);
+        return;
+      }
+
+      scenes.forEach((scene, index) => {
+        const button = document.createElement("button");
+        button.className = "saved-scene";
+        button.type = "button";
+        button.textContent = scene.name;
+        button.addEventListener("click", () => {
+          Object.assign(state, JSON.parse(JSON.stringify(scene.state)));
+          state.preset = "custom";
+          render();
+        });
+        button.addEventListener("dblclick", () => {
+          const next = loadSavedScenes().filter((_, sceneIndex) => sceneIndex !== index);
+          saveSavedScenes(next);
+          renderSavedScenes();
+        });
+        savedScenesEl.appendChild(button);
+      });
+    };
+
+    const render = () => {
+      const wall = WALLS[state.wall];
+      const rgb = kelvinToRgb(state.temp);
+
+      root.style.setProperty("--wall", wall.wall);
+      root.style.setProperty("--wall-2", wall.wall2);
+      root.style.setProperty("--floor", wall.floor);
+      root.style.setProperty("--shade-accent", SHADES[state.shade]);
+      root.style.setProperty("--light-rgb", rgb.join(", "));
+
+      document.getElementById("temperature").value = state.temp;
+      document.getElementById("temperatureOutput").textContent = `${state.temp} K`;
+      setActive("#presetButtons button", "preset", state.preset);
+      setActive("#wallButtons button", "wall", state.wall);
+      setActive("#shadeButtons button", "shade", state.shade);
+
+      renderLampControls();
+      renderMetrics();
+      renderLampList();
+      room.setAttribute("aria-label", `Lamps lighting preview ${VERSION}`);
+    };
+
+    document.getElementById("presetButtons").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-preset]");
+      if (button) applyPreset(button.dataset.preset);
+    });
+
+    document.querySelectorAll("[data-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.toggle;
+        state.preset = "custom";
+        state.lamps[key].on = !state.lamps[key].on;
+        render();
+      });
+    });
+
+    document.querySelectorAll("[data-level]").forEach((input) => {
+      input.addEventListener("input", () => {
+        const key = input.dataset.level;
+        state.preset = "custom";
+        state.lamps[key].level = Number(input.value);
+        state.lamps[key].on = state.lamps[key].level > 0;
+        render();
+      });
+    });
+
+    document.getElementById("temperature").addEventListener("input", (event) => {
+      state.preset = "custom";
+      state.temp = Number(event.target.value);
+      render();
+    });
+
+    document.getElementById("wallButtons").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-wall]");
+      if (!button) return;
+      state.preset = "custom";
+      state.wall = button.dataset.wall;
+      render();
+    });
+
+    document.getElementById("shadeButtons").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-shade]");
+      if (!button) return;
+      state.preset = "custom";
+      state.shade = button.dataset.shade;
+      render();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => applyPreset("reading"));
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      const scenes = loadSavedScenes();
+      const name = `Scene ${scenes.length + 1}`;
+      scenes.unshift({ name, state: cloneState() });
+      saveSavedScenes(scenes);
+      renderSavedScenes();
+    });
+
+    applyPreset("reading");
+    renderSavedScenes();
+  </script>
+</body>
+</html>
