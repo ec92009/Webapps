@@ -38,14 +38,12 @@ Repo-level working preferences for `/Users/ecohen/Dev/Webapps`.
 - Shared assets: `/Users/ecohen/Dev/Webapps/assets`
 - New standalone projects should be created under `/Users/ecohen/Dev/<ProjectName>` by default, not inside this repo.
 - Add a new project to this Webapps hub only when the user explicitly asks for a hub/local-static-site entry.
-- Project folders:
-  - `/Users/ecohen/Dev/Webapps/byElie`
+- Local project folders:
   - `/Users/ecohen/Dev/Webapps/conway`
   - `/Users/ecohen/Dev/Webapps/reversi`
   - `/Users/ecohen/Dev/Webapps/sortingalgos`
-  - `/Users/ecohen/Dev/Webapps/oleamediaco`
-  - `/Users/ecohen/Dev/Webapps/oleataxco`
-  - `/Users/ecohen/Dev/Webapps/oleataxco-v25`
+  - `/Users/ecohen/Dev/Webapps/tapmeplus1`
+- Linked standalone sibling projects include `/Users/ecohen/Dev/Lamps`; follow the sibling repo's own `AGENTS.md` before making changes there.
 
 ## Project Boundaries
 
@@ -58,9 +56,9 @@ Repo-level working preferences for `/Users/ecohen/Dev/Webapps`.
 - Start a local server from the repo root with `python3 -m http.server 8000`.
 - Main index: `http://localhost:8000/`
 - Example project URLs:
-  - `http://localhost:8000/oleamediaco/`
-  - `http://localhost:8000/oleataxco/`
-  - `http://localhost:8000/byElie/`
+  - `http://localhost:8000/conway/`
+  - `http://localhost:8000/reversi/`
+  - `http://localhost:8000/tapmeplus1/`
 
 ## Execution Discipline
 
