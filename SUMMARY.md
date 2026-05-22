@@ -1,33 +1,33 @@
 # Conversation Summary
 
-Date: 2026-05-02
+Date: 2026-05-22
 
 ## Scope
 
-The Webapps repo acted as the hub for the Photos By Elie work. The hub now links to the standalone PhotosByElie GitHub Pages site and also carries a mirrored `PhotosByElie/` folder for direct hub-relative access.
+The Webapps repo is the GitHub Pages hub for local static apps and selected external project links. The current handoff adds a new local Lamps app and keeps the hub card/version metadata aligned with that app.
 
-## Hub Updates
+## Current Hub State
 
-- Added Photos By Elie as a top-level hub card alongside the existing web apps.
-- Kept the hub card pointed at `https://ec92009.github.io/PhotosByElie/`.
-- Updated the hub card version through the PhotosByElie iterations, ending at `v63.12`.
-- Synced the mirrored `PhotosByElie/` folder after each standalone site change.
+- Root hub version: `v83.7`.
+- New local app: `lamps/` at version `v83.7`.
+- New shared logo: `assets/logos/lamps-logo.svg`.
+- The root hub includes a Lamps card that opens `./lamps/index.html` and uses the same visible version as the app.
 
-## Mirrored PhotosByElie State
+## Lamps State
 
-- Collections: France, USA, Spain, Mexico, AI.
-- AI remains last in the collection order.
-- AI gallery uses eight resized Leonardo-generated JPGs in `PhotosByElie/assets/ai/`.
-- `photo.html` detail pages auto-sync checkbox changes to the basket.
-- `basket.html` is localStorage-backed and treats one photo as one charge row.
-- Resolution choices can be changed from either detail or basket.
-- Resolution choices are limited by each photo's source megapixels; 2 MP AI images only expose full/native and JPG 1 MP.
-- Full resolution checkboxes show the original source size, including source description and megapixel count.
-- Basket rows stay visible at `$0` when all resolutions are unchecked; only Remove deletes the row.
+- `lamps/index.html` is a dependency-free static lighting planner.
+- It supports room modes, color temperature, individual lamp toggles/levels, shade colors, and saved scenes through browser localStorage.
+- The app follows the Webapps visible version pattern and displays `v83.7` in the top bar.
+- `lamps/AGENTS.md` documents the sub-project contract: keep the parent hub card version aligned with the Lamps visible version.
+
+## Handoff Notes
+
+- `.playwright-cli/` is ignored as local browser-test output.
+- No package manager or build step is required for the main static apps.
+- Local preview: run `python3 -m http.server 8000` from `/Users/ecohen/Dev/Webapps` and open `http://localhost:8000/lamps/`.
 
 ## Deployment
 
 - Repo: `https://github.com/ec92009/Webapps.git`
 - GitHub Pages: `https://ec92009.github.io/Webapps/`
-- Latest relevant hub version: `v63.12`
-- Latest conversation push before this summary: Photos By Elie `v63.12` basket empty-selection sync.
+- Latest relevant hub/app version: `v83.7`

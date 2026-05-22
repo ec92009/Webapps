@@ -6,7 +6,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - `index.html`: local landing page for the available sites
 - `assets/`: shared logos and images
-- `conway/`, `reversi/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
+- `conway/`, `lamps/`, `reversi/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
 - `scripts/`: repo maintenance scripts
 - `docs/`: generated and hand-written maintenance notes
 - `archive/`: removed mirrors, legacy routes, and review notes kept for recovery
