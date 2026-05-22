@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Lamps logo</title>
+  <desc id="desc">A stylized lamp casting a warm cone of light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#edf4f5"/>
+      <stop offset="1" stop-color="#bccbd2"/>
+    </linearGradient>
+    <linearGradient id="shade" x1="18" y1="16" x2="46" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2d8c9e"/>
+      <stop offset=".55" stop-color="#38435a"/>
+      <stop offset="1" stop-color="#c95b45"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="58%" r="44%">
+      <stop offset="0" stop-color="#f2b447" stop-opacity=".82"/>
+      <stop offset=".58" stop-color="#f2b447" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#f2b447" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+  <ellipse cx="32" cy="41" rx="21" ry="17" fill="url(#glow)"/>
+  <path d="M22 15h20l5 16H17l5-16Z" fill="url(#shade)"/>
+  <path d="M24 31h16v4H24zM30 35h4v13h-4zM22 48h20v4H22z" fill="#1f2933"/>
+  <path d="M23 18h18" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
+</svg>
