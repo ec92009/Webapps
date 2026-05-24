@@ -155,38 +155,6 @@
       text-align: right;
     }
 
-    .map-button,
-    .branch-toggle {
-      min-height: 32px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: #fff;
-      color: #334155;
-      cursor: pointer;
-      font-weight: 850;
-      font-size: .82rem;
-    }
-
-    .map-button {
-      padding: 5px 9px;
-    }
-
-    .branch-toggle {
-      width: 100%;
-      padding: 6px 8px;
-      background: var(--panel-2);
-      text-align: left;
-    }
-
-    .map-button:hover,
-    .branch-toggle:hover,
-    .map-button:focus-visible,
-    .branch-toggle:focus-visible {
-      outline: none;
-      border-color: #94a3b8;
-      color: #111827;
-    }
-
     .tree {
       display: grid;
       gap: 24px;
@@ -244,18 +212,6 @@
       background: var(--line);
     }
 
-    .lane.collapsed .children {
-      display: none;
-    }
-
-    .lane.collapsed .branch-toggle::before {
-      content: "+ ";
-    }
-
-    .lane:not(.collapsed) .branch-toggle::before {
-      content: "- ";
-    }
-
     .node {
       width: 100%;
       min-height: 62px;
@@ -310,6 +266,29 @@
       line-height: 1.15;
     }
 
+    .node.has-children .node-title {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+    }
+
+    .node.has-children .node-title::after {
+      content: "-";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, .08);
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .tree-item.collapsed > .node.has-children .node-title::after {
+      content: "+";
+    }
+
     .node-meta {
       color: var(--muted);
       font-size: .82rem;
@@ -321,6 +300,26 @@
       gap: 8px;
       padding-left: 14px;
       border-left: 2px solid rgba(148, 163, 184, .55);
+    }
+
+    .tree-item {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .tree-item.collapsed > .children {
+      display: none;
+    }
+
+    .nested-item {
+      gap: 7px;
+    }
+
+    .children.nested-children {
+      margin-left: 10px;
+      padding-left: 12px;
+      border-left-style: dashed;
     }
 
     .child-node {
@@ -647,7 +646,7 @@
           <p class="subtitle">Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.</p>
         </div>
       </div>
-      <div class="version-pill">Version <span id="version">v85.1</span></div>
+      <div class="version-pill">Version <span id="version">v85.2</span></div>
     </header>
 
     <div class="workspace">
@@ -655,9 +654,7 @@
         <div class="section-head">
           <h2 id="map-title">Project Tree</h2>
           <div class="section-actions">
-            <div class="privacy-note">Click a node to focus; collapse branches when you need less noise.</div>
-            <button class="map-button" id="expand-all" type="button">Expand All</button>
-            <button class="map-button" id="collapse-all" type="button">Collapse All</button>
+            <div class="privacy-note">Click a card to focus it and open or close its next layer.</div>
           </div>
         </div>
 
@@ -670,21 +667,34 @@
           </div>
 
           <div class="lane-grid">
-            <section class="lane" aria-label="Manou lane">
-              <button class="node manou" data-node="manou" type="button">
+            <section class="lane tree-item" data-tree-item="manou" aria-label="Manou lane">
+              <button class="node manou has-children" data-node="manou" type="button" aria-expanded="true">
                 <span class="node-title">Manou <span class="badge active">Priority</span></span>
                 <span class="node-meta">Residence proof, document recovery, empadronamiento, healthcare route.</span>
               </button>
               <div class="children">
                 <button class="node child-node manou" data-node="manou-property" type="button"><span class="node-title">Ownership Proof <span class="badge waiting">Waiting</span></span></button>
-                <button class="node child-node manou" data-node="manou-safe" type="button"><span class="node-title">Safe / Locksmiths <span class="badge waiting">Waiting</span></span></button>
+                <div class="tree-item nested-item collapsed" data-tree-item="manou-safe">
+                  <button class="node child-node manou has-children" data-node="manou-safe" type="button" aria-expanded="false">
+                    <span class="node-title">Safe / Locksmiths <span class="badge waiting">Waiting</span></span>
+                    <span class="node-meta">Quote paths, proof gate, and booking decision.</span>
+                  </button>
+                  <div class="children nested-children">
+                    <button class="node child-node manou" data-node="manou-safe-cf" type="button"><span class="node-title">CF / WhatsApp <span class="badge active">Active</span></span></button>
+                    <button class="node child-node manou" data-node="manou-safe-bermudez" type="button"><span class="node-title">Bermudez / Email <span class="badge waiting">Waiting</span></span></button>
+                    <button class="node child-node manou" data-node="manou-safe-fpoint" type="button"><span class="node-title">FPoint / Email <span class="badge waiting">Waiting</span></span></button>
+                    <button class="node child-node manou" data-node="manou-safe-vallejo" type="button"><span class="node-title">Vallejo / Email <span class="badge waiting">Waiting</span></span></button>
+                    <button class="node child-node manou" data-node="manou-safe-mayorga" type="button"><span class="node-title">Mayorga / Email <span class="badge waiting">Waiting</span></span></button>
+                    <button class="node child-node manou" data-node="manou-safe-authority" type="button"><span class="node-title">Proof Packet <span class="badge next">Next</span></span></button>
+                  </div>
+                </div>
                 <button class="node child-node manou" data-node="manou-padron" type="button"><span class="node-title">Empadronamiento <span class="badge next">Next</span></span></button>
                 <button class="node child-node manou" data-node="manou-health" type="button"><span class="node-title">Healthcare Route <span class="badge next">Next</span></span></button>
               </div>
             </section>
 
-            <section class="lane" aria-label="Agnes lane">
-              <button class="node agnes" data-node="agnes" type="button">
+            <section class="lane tree-item" data-tree-item="agnes" aria-label="Agnes lane">
+              <button class="node agnes has-children" data-node="agnes" type="button" aria-expanded="true">
                 <span class="node-title">Agnes <span class="badge next">Next</span></span>
                 <span class="node-meta">Retirement-rights discovery and possible S1 dependency route.</span>
               </button>
@@ -695,8 +705,8 @@
               </div>
             </section>
 
-            <section class="lane" aria-label="Elie lane">
-              <button class="node elie" data-node="elie" type="button">
+            <section class="lane tree-item" data-tree-item="elie" aria-label="Elie lane">
+              <button class="node elie has-children" data-node="elie" type="button" aria-expanded="true">
                 <span class="node-title">Elie <span class="badge next">Next</span></span>
                 <span class="node-meta">Pensioner S1 request, registration, and Spanish health-card follow-through.</span>
               </button>
@@ -759,13 +769,13 @@
         title: "S1 for all",
         status: "active",
         summary: "The shared goal is Spanish public-health coverage through the right route for each person, with Manou as the urgent lane.",
-        includes: ["all", "manou", "manou-property", "manou-safe", "manou-padron", "manou-health", "agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu", "elie", "elie-s1", "elie-spain", "ops"]
+        includes: ["all", "manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health", "agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu", "elie", "elie-s1", "elie-spain", "ops"]
       },
       manou: {
         title: "Manou",
         status: "active",
         summary: "Priority lane: establish residence proof, recover possible property documents, get empadronamiento, and clarify the French/Spanish healthcare route.",
-        includes: ["manou", "manou-property", "manou-safe", "manou-padron", "manou-health"]
+        includes: ["manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health"]
       },
       "manou-property": {
         title: "Ownership Proof",
@@ -777,7 +787,43 @@
         title: "Safe / Locksmiths",
         status: "waiting",
         summary: "Compare locksmith responses and keep the authority/proof packet private until a provider is chosen.",
-        includes: ["manou-safe"]
+        includes: ["manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority"]
+      },
+      "manou-safe-cf": {
+        title: "CF / WhatsApp",
+        status: "active",
+        summary: "First firm quote path is active on WhatsApp; hold booking until the competing quote is evaluated.",
+        includes: ["manou-safe-cf"]
+      },
+      "manou-safe-bermudez": {
+        title: "Bermudez / Email",
+        status: "waiting",
+        summary: "Photos were sent by email; wait for price, proof requirements, invoice, and timing.",
+        includes: ["manou-safe-bermudez"]
+      },
+      "manou-safe-fpoint": {
+        title: "FPoint / Email",
+        status: "waiting",
+        summary: "Second-wave email outreach stays open until a reply or timeout.",
+        includes: ["manou-safe-fpoint"]
+      },
+      "manou-safe-vallejo": {
+        title: "Vallejo / Email",
+        status: "waiting",
+        summary: "Sent email was restored and now sits on the same footing as the other email quote paths.",
+        includes: ["manou-safe-vallejo"]
+      },
+      "manou-safe-mayorga": {
+        title: "Mayorga / Email",
+        status: "waiting",
+        summary: "Email quote path remains open for response monitoring.",
+        includes: ["manou-safe-mayorga"]
+      },
+      "manou-safe-authority": {
+        title: "Proof Packet",
+        status: "next",
+        summary: "Prepare proof for the appointment, but keep identity and property documents private until the provider and handoff are confirmed.",
+        includes: ["manou-safe-authority"]
       },
       "manou-padron": {
         title: "Empadronamiento",
@@ -877,7 +923,7 @@
           "Added a hub tile and deploy workflow path.",
           "Verified the public URL after GitHub Pages deployment."
         ],
-        witness: "Live page and hub card published as v85.0; this revision deepens it to v85.1."
+        witness: "Live page and hub card published as v85.0; this revision deepens it to v85.2 with self-expanding cards."
       },
       {
         lane: "manou-property",
@@ -956,7 +1002,7 @@
         witness: "Emails sent and tracked in the private S1 log."
       },
       {
-        lane: "manou-safe",
+        lane: "manou-safe-vallejo",
         status: "done",
         title: "Restored the sent Vallejo email",
         owner: "Codex",
@@ -969,10 +1015,22 @@
         witness: "Private Gmail state was corrected; no message body is published here."
       },
       {
-        lane: "manou-safe",
+        lane: "manou-safe-vallejo",
+        status: "waiting",
+        title: "Watch Vallejo reply",
+        owner: "Monitor",
+        body: "Keep the restored sent email in the active quote pool.",
+        details: [
+          "Treat it as a live provider path, not an accidental duplicate.",
+          "Compare any reply against the WhatsApp quote and the photo-based email quote.",
+          "Record only public-safe conclusions here."
+        ]
+      },
+      {
+        lane: "manou-safe-cf",
         status: "done",
         title: "Received first firm opening quote",
-        owner: "Agnes + provider",
+        owner: "Agnes + CF path",
         body: "One provider gave an opening price and basic documentation expectation.",
         details: [
           "Provider understands no key/no combination.",
@@ -982,7 +1040,19 @@
         witness: "WhatsApp exchange summarized privately; public page keeps only the operational result."
       },
       {
-        lane: "manou-safe",
+        lane: "manou-safe-cf",
+        status: "next",
+        title: "Hold CF booking until quote comparison",
+        owner: "Elie + Agnes",
+        body: "Use this path as the current baseline but wait for the competing photo-based quote if timing allows.",
+        details: [
+          "Confirm whether travel and invoice are included.",
+          "Confirm earliest appointment only after comparing the second quote.",
+          "Keep the owner-present and house-document requirement ready but private."
+        ]
+      },
+      {
+        lane: "manou-safe-bermudez",
         status: "done",
         title: "Prepared safe photos for quoting",
         owner: "Codex + Elie",
@@ -995,15 +1065,39 @@
         witness: "Private Gmail sent state confirms the photo reply went out."
       },
       {
-        lane: "manou-safe",
+        lane: "manou-safe-bermudez",
         status: "waiting",
-        title: "Wait for competing locksmith quote",
+        title: "Wait for Bermudez quote",
         owner: "Monitor",
         body: "A provider has the safe photos and should reply with price, invoice, timing, and proof requirements.",
         details: [
           "Compare against the existing quote before booking.",
           "Watch whether travel/call-out is included.",
           "Capture whether destructive opening is expected."
+        ]
+      },
+      {
+        lane: "manou-safe-fpoint",
+        status: "waiting",
+        title: "Watch FPoint reply",
+        owner: "Monitor",
+        body: "Keep this second-wave email path open while the automation checks for movement.",
+        details: [
+          "Useful reply fields: can open this type of safe, price range, timing, proof requirements, and invoice.",
+          "If no reply arrives after the active comparison window, mark it stale privately.",
+          "Do not resend the same first-contact email."
+        ]
+      },
+      {
+        lane: "manou-safe-mayorga",
+        status: "waiting",
+        title: "Watch Mayorga reply",
+        owner: "Monitor",
+        body: "Keep this email path in the quote pool until a reply or timeout.",
+        details: [
+          "Compare any useful quote against the WhatsApp path and the photo-based email path.",
+          "Avoid sending documents or address details until appointment logistics require it.",
+          "Escalate only if this becomes the best price/timing candidate."
         ]
       },
       {
@@ -1019,7 +1113,7 @@
         ]
       },
       {
-        lane: "manou-safe",
+        lane: "manou-safe-authority",
         status: "next",
         title: "Do not send authority docs casually",
         owner: "Elie",
@@ -1310,52 +1404,70 @@
       selected: location.hash.replace("#", "") || "all",
       filter: "all",
       query: "",
-      branches: {
+      expanded: {
         manou: true,
         agnes: true,
-        elie: true
+        elie: true,
+        "manou-safe": false
       }
     };
 
+    const parentByNode = {
+      "manou-property": "manou",
+      "manou-safe": "manou",
+      "manou-safe-cf": "manou-safe",
+      "manou-safe-bermudez": "manou-safe",
+      "manou-safe-fpoint": "manou-safe",
+      "manou-safe-vallejo": "manou-safe",
+      "manou-safe-mayorga": "manou-safe",
+      "manou-safe-authority": "manou-safe",
+      "manou-padron": "manou",
+      "manou-health": "manou",
+      "agnes-retirement": "agnes",
+      "agnes-beneficiary": "agnes",
+      "agnes-eu": "agnes",
+      "elie-s1": "elie",
+      "elie-spain": "elie",
+      ops: "elie"
+    };
+
     const nodeButtons = [...document.querySelectorAll("[data-node]")];
-    const lanes = [...document.querySelectorAll(".lane")];
+    const treeItems = [...document.querySelectorAll("[data-tree-item]")];
     const filterButtons = [...document.querySelectorAll("[data-filter]")];
     const taskList = document.querySelector("#task-list");
     const search = document.querySelector("#search");
     const copyButton = document.querySelector("#copy");
     const copyState = document.querySelector("#copy-state");
-    const expandAllButton = document.querySelector("#expand-all");
-    const collapseAllButton = document.querySelector("#collapse-all");
 
-    function installBranchToggles() {
-      lanes.forEach((lane) => {
-        const branchNode = lane.querySelector(":scope > .node[data-node]");
-        if (!branchNode) return;
-        const branch = branchNode.dataset.node;
-        const toggle = document.createElement("button");
-        toggle.className = "branch-toggle";
-        toggle.type = "button";
-        toggle.dataset.branchToggle = branch;
-        toggle.addEventListener("click", () => {
-          state.branches[branch] = !state.branches[branch];
-          renderBranches();
-        });
-        branchNode.after(toggle);
-      });
+    function hasExpandableNode(nodeId) {
+      return Object.prototype.hasOwnProperty.call(state.expanded, nodeId);
     }
 
-    function renderBranches() {
-      lanes.forEach((lane) => {
-        const branchNode = lane.querySelector(":scope > .node[data-node]");
-        if (!branchNode) return;
-        const branch = branchNode.dataset.node;
-        const expanded = state.branches[branch] !== false;
-        lane.classList.toggle("collapsed", !expanded);
-        const toggle = lane.querySelector(`[data-branch-toggle="${branch}"]`);
-        if (toggle) {
-          toggle.textContent = `${expanded ? "Collapse" : "Expand"} branch`;
-          toggle.setAttribute("aria-expanded", String(expanded));
-          toggle.setAttribute("aria-label", `${expanded ? "Collapse" : "Expand"} ${nodes[branch].title} branch`);
+    function openAncestors(nodeId) {
+      let parent = parentByNode[nodeId];
+      while (parent) {
+        if (hasExpandableNode(parent)) {
+          state.expanded[parent] = true;
+        }
+        parent = parentByNode[parent];
+      }
+    }
+
+    function revealNode(nodeId) {
+      openAncestors(nodeId);
+      if (hasExpandableNode(nodeId)) {
+        state.expanded[nodeId] = true;
+      }
+    }
+
+    function renderTreeItems() {
+      treeItems.forEach((item) => {
+        const nodeId = item.dataset.treeItem;
+        const expanded = state.expanded[nodeId] !== false;
+        item.classList.toggle("collapsed", !expanded);
+        const button = item.querySelector(":scope > .node[data-node]");
+        if (button) {
+          button.setAttribute("aria-expanded", String(expanded));
         }
       });
     }
@@ -1433,7 +1545,7 @@
 
     function render() {
       renderActiveControls();
-      renderBranches();
+      renderTreeItems();
       renderDetail();
       const valid = nodes[state.selected] ? state.selected : "all";
       if (location.hash.replace("#", "") !== valid) {
@@ -1443,7 +1555,12 @@
 
     nodeButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        state.selected = button.dataset.node;
+        const nodeId = button.dataset.node;
+        state.selected = nodeId;
+        if (hasExpandableNode(nodeId)) {
+          state.expanded[nodeId] = state.expanded[nodeId] === false;
+        }
+        openAncestors(nodeId);
         copyState.textContent = "Snapshot ready.";
         render();
       });
@@ -1454,20 +1571,6 @@
         state.filter = button.dataset.filter;
         render();
       });
-    });
-
-    expandAllButton.addEventListener("click", () => {
-      Object.keys(state.branches).forEach((branch) => {
-        state.branches[branch] = true;
-      });
-      renderBranches();
-    });
-
-    collapseAllButton.addEventListener("click", () => {
-      Object.keys(state.branches).forEach((branch) => {
-        state.branches[branch] = false;
-      });
-      renderBranches();
     });
 
     search.addEventListener("input", () => {
@@ -1495,12 +1598,13 @@
       const next = location.hash.replace("#", "");
       if (nodes[next]) {
         state.selected = next;
+        revealNode(next);
         render();
       }
     });
 
     if (!nodes[state.selected]) state.selected = "all";
-    installBranchToggles();
+    revealNode(state.selected);
     render();
   </script>
 </body>
