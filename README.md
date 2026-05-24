@@ -30,7 +30,7 @@ This repo does not currently require a package manager or build step for the mai
 
 ## Current Local Apps
 
-- `s1/`: interactive public-safe S1 project task tree for Manou, Agnes, and Elie.
+- `s1/`: interactive public-safe S1 project task tree for Manou, Agnes, and Elie, including done-task witness cards and collapsible branches.
 - `conway/`: Game of Life playground.
 - `reversi/`: playable Reversi/Othello.
 - `sortingalgos/`: sorting algorithm visualizer.
