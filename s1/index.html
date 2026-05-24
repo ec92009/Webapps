@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>S1 Task Tree</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logos/s1-logo.svg" />
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --ink: #17202a;
+      --muted: #5f6b7a;
+      --panel: #ffffff;
+      --panel-2: #f2f5f8;
+      --line: #cbd5e1;
+      --blue: #2563eb;
+      --cyan: #0891b2;
+      --amber: #b45309;
+      --green: #15803d;
+      --violet: #7c3aed;
+      --rose: #be123c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(120deg, rgba(8,145,178,.11), transparent 34%),
+        linear-gradient(300deg, rgba(180,83,9,.10), transparent 38%),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 16px;
+      padding: 14px 0 18px;
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, .18);
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .version-pill {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(520px, 1.35fr) minmax(360px, .9fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .map-section,
+    .detail-section {
+      min-width: 0;
+      border: 1px solid rgba(148, 163, 184, .65);
+      background: rgba(255,255,255,.84);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .map-section {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .detail-section {
+      border-radius: 16px;
+      overflow: hidden;
+      position: sticky;
+      top: 16px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2,
+    .detail-title h2 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0;
+    }
+
+    .privacy-note {
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: right;
+    }
+
+    .tree {
+      display: grid;
+      gap: 24px;
+    }
+
+    .root-zone {
+      display: grid;
+      justify-items: center;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .root-zone::after {
+      content: "";
+      position: absolute;
+      bottom: -13px;
+      width: 2px;
+      height: 24px;
+      background: var(--line);
+    }
+
+    .lane-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      position: relative;
+      padding-top: 24px;
+    }
+
+    .lane-grid::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: calc(16.666% + 7px);
+      right: calc(16.666% + 7px);
+      height: 2px;
+      background: var(--line);
+    }
+
+    .lane {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .lane::before {
+      content: "";
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      width: 2px;
+      height: 24px;
+      background: var(--line);
+    }
+
+    .node {
+      width: 100%;
+      min-height: 62px;
+      display: grid;
+      gap: 5px;
+      align-content: center;
+      border: 1px solid var(--line);
+      border-left-width: 6px;
+      border-radius: 12px;
+      background: var(--panel);
+      color: var(--ink);
+      text-align: left;
+      padding: 10px 11px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+
+    .node:hover,
+    .node:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .14);
+      border-color: #94a3b8;
+    }
+
+    .node.active {
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .18), 0 16px 30px rgba(15, 23, 42, .16);
+      border-color: var(--blue);
+    }
+
+    .node.root {
+      width: min(360px, 100%);
+      border-left-color: var(--blue);
+      background: #101827;
+      color: #f8fafc;
+      text-align: center;
+    }
+
+    .node.root .node-meta { color: #cbd5e1; }
+    .node.manou { border-left-color: var(--amber); }
+    .node.agnes { border-left-color: var(--green); }
+    .node.elie { border-left-color: var(--violet); }
+    .node.ops { border-left-color: var(--cyan); }
+
+    .node-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 850;
+      line-height: 1.15;
+    }
+
+    .node-meta {
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.25;
+    }
+
+    .children {
+      display: grid;
+      gap: 8px;
+      padding-left: 14px;
+      border-left: 2px solid rgba(148, 163, 184, .55);
+    }
+
+    .child-node {
+      min-height: 46px;
+      border-left-width: 4px;
+      padding: 8px 10px;
+      box-shadow: none;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+    .badge.next { background: #dbeafe; color: #1d4ed8; }
+    .badge.waiting { background: #fef3c7; color: #92400e; }
+    .badge.active { background: #dcfce7; color: #166534; }
+    .badge.later { background: #ede9fe; color: #6d28d9; }
+    .badge.done { background: #e2e8f0; color: #334155; }
+
+    .tools {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .search {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 8px 10px;
+      color: var(--ink);
+    }
+
+    .filters {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-2);
+    }
+
+    .filter {
+      min-height: 32px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      padding: 5px 9px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filter.active {
+      background: #111827;
+      color: #fff;
+    }
+
+    .detail-header {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      background: #111827;
+      color: #f8fafc;
+    }
+
+    .detail-title {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .detail-summary {
+      margin: 0;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: #cbd5e1;
+      border-top: 1px solid rgba(203, 213, 225, .6);
+    }
+
+    .stat {
+      display: grid;
+      gap: 2px;
+      padding: 10px;
+      background: #fff;
+      min-width: 0;
+    }
+
+    .stat strong {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .detail-body {
+      display: grid;
+      gap: 14px;
+      padding: 16px 18px 18px;
+      background: rgba(255,255,255,.95);
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: var(--pct, 0%);
+      background: linear-gradient(90deg, var(--cyan), var(--green), var(--amber));
+    }
+
+    .task-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .task {
+      display: grid;
+      gap: 6px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .task.hidden { display: none; }
+
+    .task-top {
+      display: flex;
+      gap: 8px;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    .task h3 {
+      margin: 0;
+      font-size: .96rem;
+      line-height: 1.2;
+    }
+
+    .task p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.38;
+      font-size: .9rem;
+    }
+
+    .task footer {
+      color: #334155;
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .round-robin {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: var(--panel-2);
+      color: #334155;
+      font-weight: 800;
+    }
+
+    .copy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .copy-button {
+      min-height: 36px;
+      border: 1px solid #111827;
+      border-radius: 10px;
+      background: #111827;
+      color: #fff;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .copy-state {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    @media (max-width: 980px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-section {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 12px; }
+      .topbar { grid-template-columns: 1fr; align-items: start; }
+      .version-pill { justify-self: start; }
+      .lane-grid {
+        grid-template-columns: 1fr;
+        padding-top: 8px;
+      }
+      .lane-grid::before,
+      .lane::before,
+      .root-zone::after {
+        display: none;
+      }
+      .tools {
+        grid-template-columns: 1fr;
+      }
+      .filters {
+        width: 100%;
+        overflow-x: auto;
+      }
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .privacy-note {
+        text-align: left;
+      }
+      .detail-title {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="title-group">
+        <img class="brand" src="../assets/logos/s1-logo.svg" alt="S1 task tree logo" />
+        <div>
+          <h1>S1 For All Task Tree</h1>
+          <p class="subtitle">Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.</p>
+        </div>
+      </div>
+      <div class="version-pill">Version <span id="version">v85.0</span></div>
+    </header>
+
+    <div class="workspace">
+      <section class="map-section" aria-labelledby="map-title">
+        <div class="section-head">
+          <h2 id="map-title">Project Tree</h2>
+          <div class="privacy-note">Click any branch to focus the task list.</div>
+        </div>
+
+        <div class="tree" id="tree">
+          <div class="root-zone">
+            <button class="node root" data-node="all" type="button">
+              <span class="node-title">S1 for all <span class="badge active">Active</span></span>
+              <span class="node-meta">Three lanes, one round-robin operating rule.</span>
+            </button>
+          </div>
+
+          <div class="lane-grid">
+            <section class="lane" aria-label="Manou lane">
+              <button class="node manou" data-node="manou" type="button">
+                <span class="node-title">Manou <span class="badge active">Priority</span></span>
+                <span class="node-meta">Residence proof, document recovery, empadronamiento, healthcare route.</span>
+              </button>
+              <div class="children">
+                <button class="node child-node manou" data-node="manou-property" type="button"><span class="node-title">Ownership Proof <span class="badge waiting">Waiting</span></span></button>
+                <button class="node child-node manou" data-node="manou-safe" type="button"><span class="node-title">Safe / Locksmiths <span class="badge waiting">Waiting</span></span></button>
+                <button class="node child-node manou" data-node="manou-padron" type="button"><span class="node-title">Empadronamiento <span class="badge next">Next</span></span></button>
+                <button class="node child-node manou" data-node="manou-health" type="button"><span class="node-title">Healthcare Route <span class="badge next">Next</span></span></button>
+              </div>
+            </section>
+
+            <section class="lane" aria-label="Agnes lane">
+              <button class="node agnes" data-node="agnes" type="button">
+                <span class="node-title">Agnes <span class="badge next">Next</span></span>
+                <span class="node-meta">Retirement-rights discovery and possible S1 dependency route.</span>
+              </button>
+              <div class="children">
+                <button class="node child-node agnes" data-node="agnes-retirement" type="button"><span class="node-title">Own Rights <span class="badge next">Next</span></span></button>
+                <button class="node child-node agnes" data-node="agnes-beneficiary" type="button"><span class="node-title">Beneficiary Route <span class="badge waiting">Waiting</span></span></button>
+                <button class="node child-node agnes" data-node="agnes-eu" type="button"><span class="node-title">EU Residence Support <span class="badge later">Later</span></span></button>
+              </div>
+            </section>
+
+            <section class="lane" aria-label="Elie lane">
+              <button class="node elie" data-node="elie" type="button">
+                <span class="node-title">Elie <span class="badge next">Next</span></span>
+                <span class="node-meta">Pensioner S1 request, registration, and Spanish health-card follow-through.</span>
+              </button>
+              <div class="children">
+                <button class="node child-node elie" data-node="elie-s1" type="button"><span class="node-title">S1 Request <span class="badge next">Next</span></span></button>
+                <button class="node child-node elie" data-node="elie-spain" type="button"><span class="node-title">INSS / Andalucia <span class="badge later">Later</span></span></button>
+                <button class="node child-node ops" data-node="ops" type="button"><span class="node-title">Ops / Monitoring <span class="badge active">Active</span></span></button>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="tools">
+          <input class="search" id="search" type="search" placeholder="Search tasks, owners, blockers..." aria-label="Search tasks" />
+          <div class="filters" role="group" aria-label="Task status filter">
+            <button class="filter active" type="button" data-filter="all">All</button>
+            <button class="filter" type="button" data-filter="next">Next</button>
+            <button class="filter" type="button" data-filter="waiting">Waiting</button>
+            <button class="filter" type="button" data-filter="later">Later</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="detail-section" aria-live="polite">
+        <div class="detail-header">
+          <div class="detail-title">
+            <h2 id="detail-title">S1 for all</h2>
+            <span class="badge active" id="detail-status">Active</span>
+          </div>
+          <p class="detail-summary" id="detail-summary">Manou first. When blocked, advance Agnes retirement rights, then Elie's own S1.</p>
+          <div class="round-robin" aria-label="Round robin order">
+            <span>Round robin:</span>
+            <span class="chip">1 Manou</span>
+            <span class="chip">2 Agnes</span>
+            <span class="chip">3 Elie</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong id="stat-total">0</strong><span>Total</span></div>
+          <div class="stat"><strong id="stat-next">0</strong><span>Next</span></div>
+          <div class="stat"><strong id="stat-waiting">0</strong><span>Waiting</span></div>
+          <div class="stat"><strong id="stat-done">0</strong><span>Done</span></div>
+        </div>
+        <div class="detail-body">
+          <div class="progress" aria-label="Completion progress"><span id="progress-bar"></span></div>
+          <div class="task-list" id="task-list"></div>
+          <div class="copy-row">
+            <span class="copy-state" id="copy-state">Snapshot ready.</span>
+            <button class="copy-button" id="copy" type="button">Copy Snapshot</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const nodes = {
+      all: {
+        title: "S1 for all",
+        status: "active",
+        summary: "The shared goal is Spanish public-health coverage through the right route for each person, with Manou as the urgent lane.",
+        includes: ["all", "manou", "manou-property", "manou-safe", "manou-padron", "manou-health", "agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu", "elie", "elie-s1", "elie-spain", "ops"]
+      },
+      manou: {
+        title: "Manou",
+        status: "active",
+        summary: "Priority lane: establish residence proof, recover possible property documents, get empadronamiento, and clarify the French/Spanish healthcare route.",
+        includes: ["manou", "manou-property", "manou-safe", "manou-padron", "manou-health"]
+      },
+      "manou-property": {
+        title: "Ownership Proof",
+        status: "waiting",
+        summary: "Wait for the property registry result and use only the non-sensitive conclusion in project notes.",
+        includes: ["manou-property"]
+      },
+      "manou-safe": {
+        title: "Safe / Locksmiths",
+        status: "waiting",
+        summary: "Compare locksmith responses and keep the authority/proof packet private until a provider is chosen.",
+        includes: ["manou-safe"]
+      },
+      "manou-padron": {
+        title: "Empadronamiento",
+        status: "next",
+        summary: "Prepare a one-trip Fuengirola registration packet with ID, forms, ownership proof, and utility bills as backup.",
+        includes: ["manou-padron"]
+      },
+      "manou-health": {
+        title: "Healthcare Route",
+        status: "next",
+        summary: "Get the French written answer first, then choose S1, an alternate exportable document, or the Spanish fallback path.",
+        includes: ["manou-health"]
+      },
+      agnes: {
+        title: "Agnes",
+        status: "next",
+        summary: "Determine whether Agnes has independent French retirement rights while also preserving the spouse/beneficiary route through Elie's S1.",
+        includes: ["agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu"]
+      },
+      "agnes-retirement": {
+        title: "Own Retirement Rights",
+        status: "next",
+        summary: "Use official portals to inspect career records, then summarize only high-level conclusions.",
+        includes: ["agnes-retirement"]
+      },
+      "agnes-beneficiary": {
+        title: "Beneficiary Route",
+        status: "waiting",
+        summary: "Ask for Agnes to be included in Elie's pensioner S1 request where possible.",
+        includes: ["agnes-beneficiary"]
+      },
+      "agnes-eu": {
+        title: "EU Residence Support",
+        status: "later",
+        summary: "Gather private-insurance and residence evidence only if the administrative route requires it.",
+        includes: ["agnes-eu"]
+      },
+      elie: {
+        title: "Elie",
+        status: "next",
+        summary: "Request the French pensioner S1, include Agnes if possible, then prepare the Spanish registration step.",
+        includes: ["elie", "elie-s1", "elie-spain", "ops"]
+      },
+      "elie-s1": {
+        title: "S1 Request",
+        status: "next",
+        summary: "Submit the French pensioner S1 request through the competent retirement channel and record the reference only.",
+        includes: ["elie-s1"]
+      },
+      "elie-spain": {
+        title: "INSS / Andalucia",
+        status: "later",
+        summary: "Once the S1 exists, register it with Spain and move to the regional health-card step.",
+        includes: ["elie-spain"]
+      },
+      ops: {
+        title: "Ops / Monitoring",
+        status: "active",
+        summary: "Keep the monitor, timelog, GitHub handoff, and privacy rules current.",
+        includes: ["ops"]
+      }
+    };
+
+    const tasks = [
+      { lane: "all", status: "active", title: "Protect private material", owner: "Everyone", body: "No scans, full identifiers, exact address, photos, payment details, or account data on the public page or in GitHub Pages." },
+      { lane: "all", status: "active", title: "Round-robin discipline", owner: "Codex", body: "Manou first. If blocked, advance Agnes. If Agnes is blocked, advance Elie." },
+      { lane: "manou-property", status: "waiting", title: "Watch for registry result", owner: "Automation + Elie", body: "When the registry email arrives, Elie downloads it outside the repo and reports only whether it confirms the expected owner." },
+      { lane: "manou-property", status: "next", title: "Use ownership proof as authority packet anchor", owner: "Elie + Agnes", body: "If the result is clean, combine it privately with ID/presence and utility bills for town hall or locksmith logistics." },
+      { lane: "manou-safe", status: "waiting", title: "Wait for competing locksmith quote", owner: "Monitor", body: "One quote exists; another provider has photos and should reply with price, factura, timing, and proof requirements." },
+      { lane: "manou-safe", status: "next", title: "Confirm all-in price before booking", owner: "Elie + Agnes", body: "Ask whether travel, opening, invoice, and any destructive opening caveat are included before choosing a provider." },
+      { lane: "manou-safe", status: "next", title: "Do not send authority docs casually", owner: "Elie", body: "No ID photos, exact address, property documents, or extra safe photos by WhatsApp/email unless the recipient and content are approved." },
+      { lane: "manou-padron", status: "next", title: "Assemble Fuengirola packet", owner: "Elie + Agnes + Leonarda", body: "Form, ID, copy, contact details, voting declaration if applicable, payment method, ownership proof, and electric bills as backup." },
+      { lane: "manou-padron", status: "next", title: "Plan one assisted visit", owner: "Elie + Leonarda", body: "Best route is Manou attending and signing in person, with support, once the proof packet is strong enough." },
+      { lane: "manou-health", status: "next", title: "Send CNAV / Assurance Retraite question", owner: "Sophie", body: "Ask whether S1 or any equivalent exportable healthcare document exists, and whether any widow/reversion route makes CNAV competent." },
+      { lane: "manou-health", status: "waiting", title: "Branch after written answer", owner: "Codex + Elie", body: "If yes, register the exportable right in Spain. If no, ask for written non-exportability and evaluate the Spanish fallback." },
+      { lane: "agnes-retirement", status: "next", title: "Access official retirement portal", owner: "Agnes + Elie", body: "Use the personal number only on official portals. Do not store screenshots or statements in this public workspace." },
+      { lane: "agnes-retirement", status: "next", title: "Review high-level career record", owner: "Agnes + Elie", body: "Capture regimes found, broad quarters/points status, and obvious missing periods without publishing detailed records." },
+      { lane: "agnes-retirement", status: "later", title: "Check child, maternity, AVPF, gaps", owner: "Agnes + Elie", body: "Look for periods that may affect rights or corrections once the official statement is visible." },
+      { lane: "agnes-beneficiary", status: "waiting", title: "Tie Agnes to Elie's S1 request", owner: "Elie", body: "Ask for an individual nominative S1 or dependent recognition where the French/Spanish process allows it." },
+      { lane: "agnes-eu", status: "later", title: "Request insurance certificate only if needed", owner: "Agnes + Elie", body: "If EU residence paperwork needs private insurance proof, ask for a certificate matching Spanish requirements." },
+      { lane: "elie-s1", status: "next", title: "Submit French pensioner S1 request", owner: "Elie", body: "Use the prepared draft, include Agnes where possible, and save only submission date, channel, and reference number." },
+      { lane: "elie-spain", status: "later", title: "Register S1 with INSS / CAISS", owner: "Elie", body: "After the S1 arrives, move to Spanish registration and then the Andalucian health-card step." },
+      { lane: "ops", status: "active", title: "Telegram communication monitor", owner: "Codex automation", body: "Email and local WhatsApp checks run during Spain daytime and alert by Telegram only when new movement appears." },
+      { lane: "ops", status: "active", title: "Keep GitHub handoffs fresh", owner: "Codex", body: "Update docs, timelog, and backlog when material facts change, without copying private documents into the site." }
+    ];
+
+    const state = {
+      selected: location.hash.replace("#", "") || "all",
+      filter: "all",
+      query: ""
+    };
+
+    const nodeButtons = [...document.querySelectorAll("[data-node]")];
+    const filterButtons = [...document.querySelectorAll("[data-filter]")];
+    const taskList = document.querySelector("#task-list");
+    const search = document.querySelector("#search");
+    const copyButton = document.querySelector("#copy");
+    const copyState = document.querySelector("#copy-state");
+
+    function badge(status) {
+      const label = status === "active" ? "Active" : status === "next" ? "Next" : status === "waiting" ? "Waiting" : status === "later" ? "Later" : "Done";
+      return `<span class="badge ${status}">${label}</span>`;
+    }
+
+    function selectedTasks() {
+      const node = nodes[state.selected] || nodes.all;
+      const allowed = new Set(node.includes);
+      const query = state.query.trim().toLowerCase();
+      return tasks.filter((task) => {
+        if (!allowed.has(task.lane)) return false;
+        if (state.filter !== "all" && task.status !== state.filter) return false;
+        if (!query) return true;
+        return `${task.title} ${task.owner} ${task.body} ${task.status}`.toLowerCase().includes(query);
+      });
+    }
+
+    function allSelectedTasks() {
+      const node = nodes[state.selected] || nodes.all;
+      const allowed = new Set(node.includes);
+      return tasks.filter((task) => allowed.has(task.lane));
+    }
+
+    function renderTasks() {
+      const visible = selectedTasks();
+      taskList.innerHTML = visible.length ? visible.map((task) => `
+        <article class="task">
+          <div class="task-top">
+            <h3>${task.title}</h3>
+            ${badge(task.status)}
+          </div>
+          <p>${task.body}</p>
+          <footer>Owner: ${task.owner}</footer>
+        </article>
+      `).join("") : `<article class="task"><h3>No matching tasks</h3><p>Clear the search or change the status filter.</p></article>`;
+    }
+
+    function renderDetail() {
+      const node = nodes[state.selected] || nodes.all;
+      document.querySelector("#detail-title").textContent = node.title;
+      document.querySelector("#detail-status").className = `badge ${node.status}`;
+      document.querySelector("#detail-status").textContent = node.status === "active" ? "Active" : node.status === "next" ? "Next" : node.status === "waiting" ? "Waiting" : "Later";
+      document.querySelector("#detail-summary").textContent = node.summary;
+
+      const scopeTasks = allSelectedTasks();
+      const counts = scopeTasks.reduce((acc, task) => {
+        acc[task.status] = (acc[task.status] || 0) + 1;
+        return acc;
+      }, {});
+      const done = counts.done || 0;
+      const total = scopeTasks.length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.querySelector("#stat-total").textContent = total;
+      document.querySelector("#stat-next").textContent = counts.next || 0;
+      document.querySelector("#stat-waiting").textContent = counts.waiting || 0;
+      document.querySelector("#stat-done").textContent = done;
+      document.querySelector("#progress-bar").style.setProperty("--pct", `${pct}%`);
+      renderTasks();
+    }
+
+    function renderActiveControls() {
+      nodeButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.node === state.selected);
+      });
+      filterButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.filter === state.filter);
+      });
+    }
+
+    function render() {
+      renderActiveControls();
+      renderDetail();
+      const valid = nodes[state.selected] ? state.selected : "all";
+      if (location.hash.replace("#", "") !== valid) {
+        history.replaceState(null, "", `#${valid}`);
+      }
+    }
+
+    nodeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selected = button.dataset.node;
+        copyState.textContent = "Snapshot ready.";
+        render();
+      });
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.filter = button.dataset.filter;
+        render();
+      });
+    });
+
+    search.addEventListener("input", () => {
+      state.query = search.value;
+      renderTasks();
+    });
+
+    copyButton.addEventListener("click", async () => {
+      const node = nodes[state.selected] || nodes.all;
+      const lines = selectedTasks().map((task) => `- [${task.status}] ${task.title} — ${task.owner}: ${task.body}`);
+      const snapshot = `S1 task tree / ${node.title}\n${node.summary}\n\n${lines.join("\n")}`;
+      try {
+        await navigator.clipboard.writeText(snapshot);
+        copyState.textContent = "Snapshot copied.";
+      } catch {
+        copyState.textContent = "Clipboard unavailable in this browser.";
+      }
+    });
+
+    window.addEventListener("hashchange", () => {
+      const next = location.hash.replace("#", "");
+      if (nodes[next]) {
+        state.selected = next;
+        render();
+      }
+    });
+
+    if (!nodes[state.selected]) state.selected = "all";
+    render();
+  </script>
+</body>
+</html>

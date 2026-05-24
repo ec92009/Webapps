@@ -6,7 +6,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - `index.html`: local landing page for the available sites
 - `assets/`: shared logos and images
-- `conway/`, `reversi/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
+- `conway/`, `reversi/`, `s1/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
 - `scripts/`: repo maintenance scripts
 - `docs/`: generated and hand-written maintenance notes
 - `archive/`: removed mirrors, legacy routes, and review notes kept for recovery
@@ -27,6 +27,14 @@ This repo does not currently require a package manager or build step for the mai
 - Browser: all pages are plain HTML/CSS/JS
 - Local preview: `python3 -m http.server`
 - External assets: some pages load Google Fonts at runtime
+
+## Current Local Apps
+
+- `s1/`: interactive public-safe S1 project task tree for Manou, Agnes, and Elie.
+- `conway/`: Game of Life playground.
+- `reversi/`: playable Reversi/Othello.
+- `sortingalgos/`: sorting algorithm visualizer.
+- `tapmeplus1/`: tap counter game.
 
 ## Hub Version Refresh
 
