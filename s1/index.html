@@ -83,8 +83,16 @@
       font-size: .95rem;
     }
 
-    .version-pill {
+    .top-actions {
       justify-self: end;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .version-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -96,6 +104,31 @@
       color: var(--muted);
       font-weight: 700;
       white-space: nowrap;
+    }
+
+    .language-toggle {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .language-toggle button {
+      min-width: 42px;
+      min-height: 28px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .language-toggle button.active {
+      background: #111827;
+      color: #fff;
     }
 
     .workspace {
@@ -386,6 +419,18 @@
       border-top: 1px solid var(--line);
     }
 
+    .detail-header .tools {
+      grid-template-columns: 1fr;
+      margin-top: 2px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(203, 213, 225, .22);
+    }
+
+    .detail-header .filters {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     .search {
       width: 100%;
       min-height: 40px;
@@ -629,7 +674,7 @@
     @media (max-width: 760px) {
       .page { padding: 12px; }
       .topbar { grid-template-columns: 1fr; align-items: start; }
-      .version-pill { justify-self: start; }
+      .top-actions { justify-self: start; justify-content: flex-start; }
       .lane-grid {
         grid-template-columns: 1fr;
         padding-top: 8px;
@@ -669,11 +714,17 @@
       <div class="title-group">
         <img class="brand" src="../assets/logos/s1-logo.svg" alt="S1 task tree logo" />
         <div>
-          <h1>S1 For All Task Tree</h1>
-          <p class="subtitle">Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.</p>
+          <h1 id="app-title">S1 For All Task Tree</h1>
+          <p class="subtitle" id="subtitle">Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.</p>
         </div>
       </div>
-      <div class="version-pill">Version <span id="version">v85.4</span></div>
+      <div class="top-actions">
+        <div class="version-pill"><span id="version-label">Version</span> <span id="version">v85.7</span></div>
+        <div class="language-toggle" id="language-toggle" aria-label="Language">
+          <button type="button" data-locale="en" class="active">EN</button>
+          <button type="button" data-locale="fr">FR</button>
+        </div>
+      </div>
     </header>
 
     <div class="workspace">
@@ -681,133 +732,14 @@
         <div class="section-head">
           <h2 id="map-title">Project Tree</h2>
           <div class="section-actions">
-            <div class="privacy-note">Click a card to focus it and open or close its next layer.</div>
+            <div class="privacy-note" id="privacy-note">Click a card to focus it and open or close its next layer.</div>
           </div>
         </div>
 
         <div class="tree" id="tree">
-          <div class="root-zone">
-            <button class="node root" data-node="all" type="button">
-              <span class="node-title">S1 for all <span class="badge next">Next</span></span>
-              <span class="node-meta">One current next leaf, with its parent path highlighted.</span>
-            </button>
-          </div>
-
-          <div class="lane-grid">
-            <section class="lane tree-item" data-tree-item="manou" aria-label="Manou lane">
-              <button class="node manou has-children" data-node="manou" type="button" aria-expanded="true">
-                <span class="node-title">Manou <span class="badge waiting">Waiting</span></span>
-                <span class="node-meta">Priority lane, currently blocked on outside proof and replies.</span>
-              </button>
-              <div class="children">
-                <div class="tree-item nested-item collapsed" data-tree-item="manou-property">
-                  <button class="node child-node manou has-children" data-node="manou-property" type="button" aria-expanded="false"><span class="node-title">Ownership Proof <span class="badge waiting">Waiting</span></span></button>
-                  <div class="children nested-children">
-                    <div class="blocker-card"><strong>Blocked by</strong> Registry result not downloaded yet; IBI/title deed not located.</div>
-                  </div>
-                </div>
-                <div class="tree-item nested-item collapsed" data-tree-item="manou-safe">
-                  <button class="node child-node manou has-children" data-node="manou-safe" type="button" aria-expanded="false">
-                    <span class="node-title">Safe / Locksmiths <span class="badge waiting">Waiting</span></span>
-                    <span class="node-meta">Quote paths, proof gate, and booking decision.</span>
-                  </button>
-                  <div class="children nested-children">
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-cf">
-                      <button class="node child-node manou has-children" data-node="manou-safe-cf" type="button" aria-expanded="false"><span class="node-title">CF / WhatsApp <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> Compare against competing quote before booking; confirm all-in price and proof requirement if chosen.</div>
-                      </div>
-                    </div>
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-bermudez">
-                      <button class="node child-node manou has-children" data-node="manou-safe-bermudez" type="button" aria-expanded="false"><span class="node-title">Bermudez / Email <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> Waiting for price, factura, timing, proof requirements, and opening approach after photos were sent.</div>
-                      </div>
-                    </div>
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-fpoint">
-                      <button class="node child-node manou has-children" data-node="manou-safe-fpoint" type="button" aria-expanded="false"><span class="node-title">FPoint / Email <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> No useful reply yet from the email quote path.</div>
-                      </div>
-                    </div>
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-vallejo">
-                      <button class="node child-node manou has-children" data-node="manou-safe-vallejo" type="button" aria-expanded="false"><span class="node-title">Vallejo / Email <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> Sent email is restored and live; no inbound quote yet.</div>
-                      </div>
-                    </div>
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-mayorga">
-                      <button class="node child-node manou has-children" data-node="manou-safe-mayorga" type="button" aria-expanded="false"><span class="node-title">Mayorga / Email <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> No inbound quote yet from this provider path.</div>
-                      </div>
-                    </div>
-                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-authority">
-                      <button class="node child-node manou has-children" data-node="manou-safe-authority" type="button" aria-expanded="false"><span class="node-title">Proof Packet <span class="badge waiting">Waiting</span></span></button>
-                      <div class="children nested-children">
-                        <div class="blocker-card"><strong>Blocked by</strong> Need clean ownership proof and chosen provider before sharing any private documents.</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tree-item nested-item collapsed" data-tree-item="manou-padron">
-                  <button class="node child-node manou has-children" data-node="manou-padron" type="button" aria-expanded="false"><span class="node-title">Empadronamiento <span class="badge waiting">Waiting</span></span></button>
-                  <div class="children nested-children">
-                    <div class="blocker-card"><strong>Blocked by</strong> Need primary housing proof: nota simple, IBI, or title deed. Electric bills are backup only.</div>
-                    <div class="blocker-card"><strong>Also confirm</strong> Manou can attend/sign, or Fuengirola accepts representation for this visit.</div>
-                  </div>
-                </div>
-                <div class="tree-item nested-item collapsed" data-tree-item="manou-health">
-                  <button class="node child-node manou has-children" data-node="manou-health" type="button" aria-expanded="false"><span class="node-title">Healthcare Route <span class="badge waiting">Waiting</span></span></button>
-                  <div class="children nested-children">
-                    <div class="blocker-card"><strong>Blocked by</strong> Need CNAV / Assurance Retraite written answer on S1, alternate exportable document, or non-exportability.</div>
-                    <div class="blocker-card"><strong>Downstream</strong> Spanish/Andalucia route depends on that answer and empadronamiento.</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="lane tree-item" data-tree-item="agnes" aria-label="Agnes lane">
-              <button class="node agnes has-children" data-node="agnes" type="button" aria-expanded="true">
-                <span class="node-title">Agnes <span class="badge next">Next</span></span>
-                <span class="node-meta">Retirement-rights discovery and possible S1 dependency route.</span>
-              </button>
-              <div class="children">
-                <button class="node child-node agnes" data-node="agnes-retirement" type="button"><span class="node-title">Own Rights <span class="badge next">Next</span></span></button>
-                <div class="tree-item nested-item collapsed" data-tree-item="agnes-beneficiary">
-                  <button class="node child-node agnes has-children" data-node="agnes-beneficiary" type="button" aria-expanded="false"><span class="node-title">Beneficiary Route <span class="badge waiting">Waiting</span></span></button>
-                  <div class="children nested-children">
-                    <div class="blocker-card"><strong>Blocked by</strong> Need Elie's S1 request and official answer on whether Agnes can be handled as spouse/family member.</div>
-                  </div>
-                </div>
-                <button class="node child-node agnes" data-node="agnes-eu" type="button"><span class="node-title">EU Residence Support <span class="badge later">Later</span></span></button>
-              </div>
-            </section>
-
-            <section class="lane tree-item" data-tree-item="elie" aria-label="Elie lane">
-              <button class="node elie has-children" data-node="elie" type="button" aria-expanded="true">
-                <span class="node-title">Elie <span class="badge later">Later</span></span>
-                <span class="node-meta">Pensioner S1 request follows when Agnes is blocked or done.</span>
-              </button>
-              <div class="children">
-                <button class="node child-node elie" data-node="elie-s1" type="button"><span class="node-title">S1 Request <span class="badge later">Later</span></span></button>
-                <button class="node child-node elie" data-node="elie-spain" type="button"><span class="node-title">INSS / Andalucia <span class="badge later">Later</span></span></button>
-                <button class="node child-node ops" data-node="ops" type="button"><span class="node-title">Ops / Monitoring <span class="badge active">Active</span></span></button>
-              </div>
-            </section>
-          </div>
+          <div class="blocker-card"><strong>Loading</strong> Reading the public task-tree data file.</div>
         </div>
 
-        <div class="tools">
-          <input class="search" id="search" type="search" placeholder="Search tasks, owners, blockers..." aria-label="Search tasks" />
-          <div class="filters" role="group" aria-label="Task status filter">
-            <button class="filter active" type="button" data-filter="all">All</button>
-            <button class="filter" type="button" data-filter="next">Next</button>
-            <button class="filter" type="button" data-filter="waiting">Waiting</button>
-            <button class="filter" type="button" data-filter="later">Later</button>
-            <button class="filter" type="button" data-filter="done">Done</button>
-          </div>
-        </div>
       </section>
 
       <aside class="detail-section" aria-live="polite">
@@ -817,18 +749,23 @@
             <span class="badge active" id="detail-status">Active</span>
           </div>
           <p class="detail-summary" id="detail-summary">Manou first when unblocked. Current actionable lane is Agnes retirement rights, then Elie's own S1.</p>
-          <div class="round-robin" aria-label="Round robin order">
-            <span>Current queue:</span>
-            <span class="chip">1 Agnes</span>
-            <span class="chip">2 Elie</span>
-            <span class="chip">3 Manou waiting</span>
+          <div class="round-robin" id="queue" aria-label="Round robin order"></div>
+          <div class="tools">
+            <input class="search" id="search" type="search" placeholder="Search tasks, owners, blockers..." aria-label="Search tasks" />
+            <div class="filters" role="group" aria-label="Task status filter">
+              <button class="filter active" type="button" data-filter="all">All</button>
+              <button class="filter" type="button" data-filter="next">Next</button>
+              <button class="filter" type="button" data-filter="waiting">Waiting</button>
+              <button class="filter" type="button" data-filter="later">Later</button>
+              <button class="filter" type="button" data-filter="done">Done</button>
+            </div>
           </div>
         </div>
         <div class="stats">
-          <div class="stat"><strong id="stat-total">0</strong><span>Total</span></div>
-          <div class="stat"><strong id="stat-next">0</strong><span>Next</span></div>
-          <div class="stat"><strong id="stat-waiting">0</strong><span>Waiting</span></div>
-          <div class="stat"><strong id="stat-done">0</strong><span>Done</span></div>
+          <div class="stat"><strong id="stat-total">0</strong><span data-stat-label="total">Total</span></div>
+          <div class="stat"><strong id="stat-next">0</strong><span data-stat-label="next">Next</span></div>
+          <div class="stat"><strong id="stat-waiting">0</strong><span data-stat-label="waiting">Waiting</span></div>
+          <div class="stat"><strong id="stat-done">0</strong><span data-stat-label="done">Done</span></div>
         </div>
         <div class="detail-body">
           <div class="progress" aria-label="Completion progress"><span id="progress-bar"></span></div>
@@ -843,706 +780,192 @@
   </main>
 
   <script>
-    const nodes = {
-      all: {
-        title: "S1 for all",
-        status: "next",
-        summary: "The single current next action is in Agnes's retirement-rights lane while Manou waits on outside proof and replies.",
-        includes: ["all", "manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health", "agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu", "elie", "elie-s1", "elie-spain", "ops"]
-      },
-      manou: {
-        title: "Manou",
-        status: "waiting",
-        summary: "Priority lane is blocked on outside inputs: ownership proof, locksmith/registry movement, accepted empadronamiento proof, and the French healthcare answer.",
-        includes: ["manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health"]
-      },
-      "manou-property": {
-        title: "Ownership Proof",
-        status: "waiting",
-        summary: "Wait for the property registry result and use only the non-sensitive conclusion in project notes.",
-        includes: ["manou-property"]
-      },
-      "manou-safe": {
-        title: "Safe / Locksmiths",
-        status: "waiting",
-        summary: "Compare locksmith responses and keep the authority/proof packet private until a provider is chosen.",
-        includes: ["manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority"]
-      },
-      "manou-safe-cf": {
-        title: "CF / WhatsApp",
-        status: "waiting",
-        summary: "First firm quote path is the baseline; hold booking until the competing quote and proof packet are evaluated.",
-        includes: ["manou-safe-cf"]
-      },
-      "manou-safe-bermudez": {
-        title: "Bermudez / Email",
-        status: "waiting",
-        summary: "Photos were sent by email; wait for price, proof requirements, invoice, and timing.",
-        includes: ["manou-safe-bermudez"]
-      },
-      "manou-safe-fpoint": {
-        title: "FPoint / Email",
-        status: "waiting",
-        summary: "Second-wave email outreach stays open until a reply or timeout.",
-        includes: ["manou-safe-fpoint"]
-      },
-      "manou-safe-vallejo": {
-        title: "Vallejo / Email",
-        status: "waiting",
-        summary: "Sent email was restored and now sits on the same footing as the other email quote paths.",
-        includes: ["manou-safe-vallejo"]
-      },
-      "manou-safe-mayorga": {
-        title: "Mayorga / Email",
-        status: "waiting",
-        summary: "Email quote path remains open for response monitoring.",
-        includes: ["manou-safe-mayorga"]
-      },
-      "manou-safe-authority": {
-        title: "Proof Packet",
-        status: "waiting",
-        summary: "Prepare proof only after ownership evidence and the provider handoff are confirmed; keep identity and property documents private.",
-        includes: ["manou-safe-authority"]
-      },
-      "manou-padron": {
-        title: "Empadronamiento",
-        status: "waiting",
-        summary: "Wait for primary housing proof, ideally the nota simple or IBI/title deed, before attempting the one-trip Fuengirola visit.",
-        includes: ["manou-padron"]
-      },
-      "manou-health": {
-        title: "Healthcare Route",
-        status: "waiting",
-        summary: "Wait for the CNAV / Assurance Retraite answer before choosing S1, an alternate exportable document, or the Spanish fallback path.",
-        includes: ["manou-health"]
-      },
-      agnes: {
-        title: "Agnes",
-        status: "next",
-        summary: "Determine whether Agnes has independent French retirement rights while also preserving the spouse/beneficiary route through Elie's S1.",
-        includes: ["agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu"]
-      },
-      "agnes-retirement": {
-        title: "Own Retirement Rights",
-        status: "next",
-        summary: "Use official portals to inspect career records, then summarize only high-level conclusions.",
-        includes: ["agnes-retirement"]
-      },
-      "agnes-beneficiary": {
-        title: "Beneficiary Route",
-        status: "waiting",
-        summary: "Ask for Agnes to be included in Elie's pensioner S1 request where possible.",
-        includes: ["agnes-beneficiary"]
-      },
-      "agnes-eu": {
-        title: "EU Residence Support",
-        status: "later",
-        summary: "Gather private-insurance and residence evidence only if the administrative route requires it.",
-        includes: ["agnes-eu"]
-      },
-      elie: {
-        title: "Elie",
-        status: "later",
-        summary: "Request the French pensioner S1 after Agnes's immediate portal-access step is blocked or complete.",
-        includes: ["elie", "elie-s1", "elie-spain", "ops"]
-      },
-      "elie-s1": {
-        title: "S1 Request",
-        status: "later",
-        summary: "Submit the French pensioner S1 request after the current Agnes step, including Agnes where possible.",
-        includes: ["elie-s1"]
-      },
-      "elie-spain": {
-        title: "INSS / Andalucia",
-        status: "later",
-        summary: "Once the S1 exists, register it with Spain and move to the regional health-card step.",
-        includes: ["elie-spain"]
-      },
-      ops: {
-        title: "Ops / Monitoring",
-        status: "active",
-        summary: "Keep the monitor, timelog, GitHub handoff, and privacy rules current.",
-        includes: ["ops"]
-      }
-    };
+    let nodes = {};
+    let tasks = [];
 
-    const tasks = [
-      {
-        lane: "all",
-        status: "active",
-        title: "Protect private material",
-        owner: "Everyone",
-        body: "Keep the public page useful without exposing private facts.",
-        details: [
-          "No scans, full identifiers, exact address, photos, payment details, or account data.",
-          "Use only operational labels, roles, and non-sensitive conclusions.",
-          "Downloaded documents stay outside GitHub Pages unless deliberately approved."
-        ]
-      },
-      {
-        lane: "all",
-        status: "active",
-        title: "Round-robin discipline",
-        owner: "Codex",
-        body: "Manou first; when blocked, advance Agnes; when Agnes is blocked, advance Elie.",
-        details: [
-          "Manou is priority because the residence/healthcare situation is urgent.",
-          "Agnes gets retirement-rights discovery when Manou is waiting.",
-          "Elie's S1 lane moves when the first two lanes are blocked."
-        ]
-      },
-      {
-        lane: "all",
-        status: "done",
-        title: "Created the public task-tree page",
-        owner: "Codex",
-        body: "Built the first GitHub Pages version and attached it to the Webapps hub.",
-        details: [
-          "Added the S1 tree as a local static app.",
-          "Added a hub tile and deploy workflow path.",
-          "Verified the public URL after GitHub Pages deployment."
-        ],
-        witness: "Live page and hub card published as v85.0; this revision deepens it to v85.4 with self-expanding cards, lane-safe layout, and the corrected Agnes-first queue."
-      },
-      {
-        lane: "all",
-        status: "done",
-        title: "Promoted Agnes while Manou waits",
-        owner: "Elie + Codex",
-        body: "Reclassified Manou's empadronamiento and healthcare work as waiting so Agnes is now the next actionable lane.",
-        details: [
-          "Empadronamiento waits on accepted housing proof, ideally nota simple or IBI/title.",
-          "Healthcare waits on the CNAV / Assurance Retraite answer.",
-          "The current queue now starts with Agnes retirement-rights discovery."
-        ],
-        witness: "This v85.4 page shows Manou as waiting and Agnes as the first current queue item."
-      },
-      {
-        lane: "manou-property",
-        status: "done",
-        title: "Confirmed property-search starting point",
-        owner: "Codex + Elie",
-        body: "Identified the correct public property record context without putting the exact address on this public page.",
-        details: [
-          "Matched the apartment through public property-search context.",
-          "Recorded the sensitive particulars only in the private project repo.",
-          "Kept this page to the operational conclusion: property proof is in progress."
-        ],
-        witness: "Private S1 docs contain the source trail; public page only shows the lane state."
-      },
-      {
-        lane: "manou-property",
-        status: "done",
-        title: "Started registry proof request",
-        owner: "Elie + Codex",
-        body: "Submitted the property registry request and confirmed it entered processing.",
-        details: [
-          "The request was submitted through the official property-registry channel.",
-          "Confirmation email was received.",
-          "No registry PDF or application number is published here."
-        ],
-        witness: "Private repo records the date and status; the public witness is the completed task card."
-      },
-      {
-        lane: "manou-property",
-        status: "waiting",
-        title: "Watch for registry result",
-        owner: "Automation + Elie",
-        body: "When the registry email arrives, Elie downloads it outside the repo and reports only the ownership conclusion.",
-        details: [
-          "Expected useful output: whether the expected owner is named.",
-          "If clean, use it as primary proof for empadronamiento and safe-opening authority.",
-          "If not clean, record only the non-sensitive problem category."
-        ]
-      },
-      {
-        lane: "manou-property",
-        status: "waiting",
-        title: "Build private authority packet",
-        owner: "Elie + Agnes",
-        body: "Wait for clean ownership proof, then combine it privately with identity/presence and utility evidence.",
-        details: [
-          "Property proof acts as the anchor.",
-          "Identity proof stays private and is shown only to the appropriate office/provider.",
-          "Electric bills are backup/supporting evidence, not the only planned proof."
-        ]
-      },
-      {
-        lane: "manou-safe",
-        status: "done",
-        title: "Captured safe constraints",
-        owner: "Elie + Agnes",
-        body: "The working constraints are clear enough to quote safely.",
-        details: [
-          "No key and no combination are available.",
-          "The family does not need the safe restored for reuse.",
-          "Primary purpose is document recovery for family/property administration."
-        ],
-        witness: "Provider conversations and private notes established the constraints."
-      },
-      {
-        lane: "manou-safe",
-        status: "done",
-        title: "Sent initial locksmith outreach",
-        owner: "Codex + Elie",
-        body: "Multiple providers were contacted with a privacy-light quote request.",
-        details: [
-          "Asked capability, quote process, proof requirements, non-destructive opening, invoice, and timing.",
-          "Did not include exact address, full name, ID numbers, property documents, or safe photos in the first emails.",
-          "Separated first-wave and second-wave outreach to avoid duplicate sending."
-        ],
-        witness: "Emails sent and tracked in the private S1 log."
-      },
-      {
-        lane: "manou-safe-vallejo",
-        status: "done",
-        title: "Restored the sent Vallejo email",
-        owner: "Codex",
-        body: "Corrected mailbox state after a sent email had been accidentally moved to Trash.",
-        details: [
-          "Verified the email had actually been sent.",
-          "Restored it to normal Sent status.",
-          "Placed it back on equal footing with other provider outreach."
-        ],
-        witness: "Private Gmail state was corrected; no message body is published here."
-      },
-      {
-        lane: "manou-safe-vallejo",
-        status: "waiting",
-        title: "Watch Vallejo reply",
-        owner: "Monitor",
-        body: "Keep the restored sent email in the active quote pool.",
-        details: [
-          "Treat it as a live provider path, not an accidental duplicate.",
-          "Compare any reply against the WhatsApp quote and the photo-based email quote.",
-          "Record only public-safe conclusions here."
-        ]
-      },
-      {
-        lane: "manou-safe-cf",
-        status: "done",
-        title: "Received first firm opening quote",
-        owner: "Agnes + CF path",
-        body: "One provider gave an opening price and basic documentation expectation.",
-        details: [
-          "Provider understands no key/no combination.",
-          "Provider understands no repair/reuse is needed.",
-          "The proof packet likely includes ID plus some house document, with the owner present."
-        ],
-        witness: "WhatsApp exchange summarized privately; public page keeps only the operational result."
-      },
-      {
-        lane: "manou-safe-cf",
-        status: "waiting",
-        title: "Hold CF booking until quote comparison",
-        owner: "Elie + Agnes",
-        body: "Use this path as the current baseline but wait for the competing photo-based quote if timing allows.",
-        details: [
-          "Confirm whether travel and invoice are included.",
-          "Confirm earliest appointment only after comparing the second quote.",
-          "Keep the owner-present and house-document requirement ready but private."
-        ]
-      },
-      {
-        lane: "manou-safe-bermudez",
-        status: "done",
-        title: "Prepared safe photos for quoting",
-        owner: "Codex + Elie",
-        body: "Photos were handled in a privacy-light way before forwarding to the provider who asked.",
-        details: [
-          "User exported safe photos to the local repo only.",
-          "Metadata was stripped before sharing.",
-          "A single contact sheet was created and sent by email."
-        ],
-        witness: "Private Gmail sent state confirms the photo reply went out."
-      },
-      {
-        lane: "manou-safe-bermudez",
-        status: "waiting",
-        title: "Wait for Bermudez quote",
-        owner: "Monitor",
-        body: "A provider has the safe photos and should reply with price, invoice, timing, and proof requirements.",
-        details: [
-          "Compare against the existing quote before booking.",
-          "Watch whether travel/call-out is included.",
-          "Capture whether destructive opening is expected."
-        ]
-      },
-      {
-        lane: "manou-safe-fpoint",
-        status: "waiting",
-        title: "Watch FPoint reply",
-        owner: "Monitor",
-        body: "Keep this second-wave email path open while the automation checks for movement.",
-        details: [
-          "Useful reply fields: can open this type of safe, price range, timing, proof requirements, and invoice.",
-          "If no reply arrives after the active comparison window, mark it stale privately.",
-          "Do not resend the same first-contact email."
-        ]
-      },
-      {
-        lane: "manou-safe-mayorga",
-        status: "waiting",
-        title: "Watch Mayorga reply",
-        owner: "Monitor",
-        body: "Keep this email path in the quote pool until a reply or timeout.",
-        details: [
-          "Compare any useful quote against the WhatsApp path and the photo-based email path.",
-          "Avoid sending documents or address details until appointment logistics require it.",
-          "Escalate only if this becomes the best price/timing candidate."
-        ]
-      },
-      {
-        lane: "manou-safe",
-        status: "waiting",
-        title: "Confirm all-in price before booking",
-        owner: "Elie + Agnes",
-        body: "Ask whether travel, opening, invoice, and any destructive-opening caveat are included.",
-        details: [
-          "Confirm earliest possible appointment.",
-          "Confirm what exact documents are required on-site.",
-          "Prefer written confirmation before sending any private documents."
-        ]
-      },
-      {
-        lane: "manou-safe-authority",
-        status: "active",
-        title: "Do not send authority docs casually",
-        owner: "Elie",
-        body: "Keep identity and property proof private until the recipient and exact content are approved.",
-        details: [
-          "No ID photos in WhatsApp by default.",
-          "No exact address by email until appointment logistics require it.",
-          "No registry PDF or utility bill copy without deliberate approval."
-        ]
-      },
-      {
-        lane: "manou-padron",
-        status: "done",
-        title: "Verified Fuengirola packet shape",
-        owner: "Codex",
-        body: "The empadronamiento packet has a concrete checklist.",
-        details: [
-          "Core form and identity requirements are known.",
-          "Property proof route and owner-authorization fallback are documented privately.",
-          "Electric bills are available as backup."
-        ],
-        witness: "Private S1 docs contain the checklist and official-source notes."
-      },
-      {
-        lane: "manou-padron",
-        status: "waiting",
-        title: "Assemble appointment folder",
-        owner: "Elie + Agnes + Leonarda",
-        body: "Wait for primary housing proof, then make one physical packet that can survive a town-hall counter visit.",
-        details: [
-          "Forms, identity document, copy, contact details, and payment method.",
-          "Property proof if the registry result arrives in time.",
-          "Electric bills as backup/supporting evidence."
-        ]
-      },
-      {
-        lane: "manou-padron",
-        status: "waiting",
-        title: "Plan one assisted visit",
-        owner: "Elie + Leonarda",
-        body: "Best route is Manou attending and signing in person, with support, once the proof packet is strong enough.",
-        details: [
-          "Minimize trips because leaving home is difficult.",
-          "Confirm whether Leonarda can accompany locally.",
-          "If Manou cannot attend, call the office before relying on representation."
-        ]
-      },
-      {
-        lane: "manou-health",
-        status: "done",
-        title: "Obtained current French health-rights attestation",
-        owner: "Sophie",
-        body: "The French health-coverage baseline is documented privately.",
-        details: [
-          "Active rights were confirmed from the official French account.",
-          "Sensitive medical and account details are not published here.",
-          "This became the starting point for the French exportability question."
-        ],
-        witness: "Private S1 docs record the attestation date and non-sensitive status."
-      },
-      {
-        lane: "manou-health",
-        status: "done",
-        title: "Captured CPAM redirect",
-        owner: "Sophie + Elie",
-        body: "CPAM directed the question to the retirement channel.",
-        details: [
-          "This changed the next French contact from health office to retirement office.",
-          "The question now includes S1/exportability and possible widow/reversion rights.",
-          "The page does not publish account messages."
-        ],
-        witness: "Private conversation log records the redirect."
-      },
-      {
-        lane: "manou-health",
-        status: "waiting",
-        title: "Send CNAV / Assurance Retraite question",
-        owner: "Sophie",
-        body: "Wait for Sophie/CNAV movement on whether S1 or any equivalent exportable healthcare document exists, and whether any widow/reversion route makes CNAV competent.",
-        details: [
-          "Ask for a written answer.",
-          "Ask who can issue non-exportability proof if France cannot export rights.",
-          "Ask who is competent if CNAV is not."
-        ]
-      },
-      {
-        lane: "manou-health",
-        status: "waiting",
-        title: "Branch after written answer",
-        owner: "Codex + Elie",
-        body: "Use the written French answer to choose the Spanish route.",
-        details: [
-          "If exportable document exists: register in Spain.",
-          "If no exportable right exists: preserve the refusal/non-exportability proof.",
-          "If redirected: follow the named competent institution."
-        ]
-      },
-      {
-        lane: "agnes-retirement",
-        status: "done",
-        title: "Captured Agnes identity baseline",
-        owner: "Elie + Codex",
-        body: "The retirement-rights lane has the personal facts needed for official portal work, without publishing identifiers.",
-        details: [
-          "Name and broad identity context are known privately.",
-          "The personal number is used only on official portals.",
-          "This public page avoids birth details and social-security numbers."
-        ],
-        witness: "Private S1 docs note that the card was reviewed without transcribing the full number."
-      },
-      {
-        lane: "agnes-retirement",
-        status: "done",
-        title: "Opened Agnes retirement lane",
-        owner: "Codex",
-        body: "Created the checklist for determining whether Agnes has her own French pension rights.",
-        details: [
-          "Portal access is the first concrete step.",
-          "Career record review is the main evidence source.",
-          "Only high-level conclusions should be summarized."
-        ],
-        witness: "Private repo contains the Agnes retirement next-actions file."
-      },
-      {
-        lane: "agnes-retirement",
-        status: "next",
-        title: "Access official retirement portal",
-        owner: "Agnes + Elie",
-        body: "Use official access to inspect career documents.",
-        details: [
-          "Use the personal number only in the official flow.",
-          "Do not store screenshots or downloaded statements in this public workspace.",
-          "Record only whether access worked and what documents exist."
-        ]
-      },
-      {
-        lane: "agnes-retirement",
-        status: "waiting",
-        title: "Review high-level career record",
-        owner: "Agnes + Elie",
-        body: "Wait until portal access works, then capture regimes found, broad quarters/points status, and obvious missing periods without publishing detailed records.",
-        details: [
-          "Look for employment, self-employment, childcare, unemployment, sickness, and missing periods.",
-          "Summarize by category, not by sensitive full statements.",
-          "Identify whether an independent pension/S1 route is plausible."
-        ]
-      },
-      {
-        lane: "agnes-retirement",
-        status: "later",
-        title: "Check child, maternity, AVPF, gaps",
-        owner: "Agnes + Elie",
-        body: "Look for periods that may affect rights or corrections once the official statement is visible.",
-        details: [
-          "Child-related credits can be material.",
-          "Missing periods may need correction requests.",
-          "Corrections wait until the official record is visible."
-        ]
-      },
-      {
-        lane: "agnes-beneficiary",
-        status: "waiting",
-        title: "Tie Agnes to Elie's S1 request",
-        owner: "Elie",
-        body: "Ask for an individual nominative S1 or dependent recognition where the French/Spanish process allows it.",
-        details: [
-          "This depends partly on Elie's S1 request.",
-          "The request should mention spouse/family-member handling explicitly.",
-          "If refused, preserve the reason for the Spanish office."
-        ]
-      },
-      {
-        lane: "agnes-eu",
-        status: "later",
-        title: "Request insurance certificate only if needed",
-        owner: "Agnes + Elie",
-        body: "If EU residence paperwork needs private-insurance proof, ask for a certificate matching Spanish requirements.",
-        details: [
-          "Certificate should confirm active coverage and relevant Spanish scope.",
-          "Only pursue if the administrative route requires it.",
-          "Do not publish policy numbers."
-        ]
-      },
-      {
-        lane: "elie-s1",
-        status: "done",
-        title: "Opened Elie's S1 lane",
-        owner: "Elie + Codex",
-        body: "Separated Elie's pensioner S1 work from Manou and Agnes lanes.",
-        details: [
-          "Elie has the basic pensioner fact pattern for a French S1 request.",
-          "Agnes should be included where possible.",
-          "Only submission facts and references should be stored."
-        ],
-        witness: "Private repo contains the Elie S1 next-actions file and draft."
-      },
-      {
-        lane: "elie-s1",
-        status: "done",
-        title: "Calculated check-key workflow",
-        owner: "Codex + Elie",
-        body: "Established how to calculate the French number check key for official use without publishing the full number.",
-        details: [
-          "The rule was documented privately from official schema notes.",
-          "The public page does not include the number or the key.",
-          "Use only in official portals/forms."
-        ],
-        witness: "Private source notes preserve the algorithm."
-      },
-      {
-        lane: "elie-s1",
-        status: "later",
-        title: "Submit French pensioner S1 request",
-        owner: "Elie",
-        body: "Use the prepared draft, include Agnes where possible, and save only submission date, channel, and reference number.",
-        details: [
-          "Target the competent French retirement channel.",
-          "Ask for individual/nominative handling for spouse if available.",
-          "Do not put portal screenshots or full identifiers into the public app."
-        ]
-      },
-      {
-        lane: "elie-spain",
-        status: "later",
-        title: "Register S1 with INSS / CAISS",
-        owner: "Elie",
-        body: "After the S1 arrives, move to Spanish registration and then the Andalucian health-card step.",
-        details: [
-          "Spanish registration waits for the actual S1.",
-          "Then move to regional health-card logistics.",
-          "Record only non-sensitive status transitions."
-        ]
-      },
-      {
-        lane: "ops",
-        status: "done",
-        title: "Copied timelog SOP and started active-time tracking",
-        owner: "Codex",
-        body: "The S1 repo now has a clear rule for counting only active collaboration time.",
-        details: [
-          "Golden timelog SOP was copied into the private repo.",
-          "Active collaboration time is logged conservatively.",
-          "Background tool/runtime time is excluded."
-        ],
-        witness: "Private S1 repo has the SOP and TIMELOG."
-      },
-      {
-        lane: "ops",
-        status: "done",
-        title: "Installed Telegram communication monitor",
-        owner: "Codex automation",
-        body: "Email and local WhatsApp checks run during Spain daytime and alert by Telegram only when new movement appears.",
-        details: [
-          "Launchd job runs every two hours during daytime.",
-          "Apple Mail's Gmail index and local WhatsApp Desktop database are watched.",
-          "Telegram route was tested, including phone/watch notification behavior."
-        ],
-        witness: "Private S1 repo contains monitor script, launchd plist, and docs."
-      },
-      {
-        lane: "ops",
-        status: "done",
-        title: "Published Webapps hub integration",
-        owner: "Codex",
-        body: "The S1 task tree was added to the Webapps hub and deployed through GitHub Pages.",
-        details: [
-          "Created a standalone static page.",
-          "Added a shared logo and hub card.",
-          "Verified public URLs after deployment."
-        ],
-        witness: "Webapps commit and GitHub Pages deployment are the witness."
-      },
-      {
-        lane: "ops",
-        status: "active",
-        title: "Keep GitHub handoffs fresh",
-        owner: "Codex",
-        body: "Update docs, timelog, and backlog when material facts change, without copying private documents into the site.",
-        details: [
-          "Commit and push only public-safe changes.",
-          "Keep private repo as source of truth for sensitive operational details.",
-          "Use this page as a dashboard, not a records vault."
-        ]
-      }
-    ];
+    let appData = null;
 
     const state = {
       selected: location.hash.replace("#", "") || "all",
       filter: "all",
       query: "",
-      expanded: {
-        manou: true,
-        agnes: true,
-        elie: true,
-        "manou-property": false,
-        "manou-safe": false,
-        "manou-safe-cf": false,
-        "manou-safe-bermudez": false,
-        "manou-safe-fpoint": false,
-        "manou-safe-vallejo": false,
-        "manou-safe-mayorga": false,
-        "manou-safe-authority": false,
-        "manou-padron": false,
-        "manou-health": false,
-        "agnes-beneficiary": false
-      }
+      expanded: {}
     };
 
-    const parentByNode = {
-      "manou-property": "manou",
-      "manou-safe": "manou",
-      "manou-safe-cf": "manou-safe",
-      "manou-safe-bermudez": "manou-safe",
-      "manou-safe-fpoint": "manou-safe",
-      "manou-safe-vallejo": "manou-safe",
-      "manou-safe-mayorga": "manou-safe",
-      "manou-safe-authority": "manou-safe",
-      "manou-padron": "manou",
-      "manou-health": "manou",
-      "agnes-retirement": "agnes",
-      "agnes-beneficiary": "agnes",
-      "agnes-eu": "agnes",
-      "elie-s1": "elie",
-      "elie-spain": "elie",
-      ops: "elie"
-    };
-
-    const nodeButtons = [...document.querySelectorAll("[data-node]")];
-    const treeItems = [...document.querySelectorAll("[data-tree-item]")];
+    let parentByNode = {};
+    let expandableNodes = new Set();
+    let nodeButtons = [];
+    let treeItems = [];
     const filterButtons = [...document.querySelectorAll("[data-filter]")];
+    const languageButtons = [...document.querySelectorAll("[data-locale]")];
     const taskList = document.querySelector("#task-list");
     const search = document.querySelector("#search");
     const copyButton = document.querySelector("#copy");
     const copyState = document.querySelector("#copy-state");
+    const preferredLocale = new URLSearchParams(location.search).get("lang") || localStorage.getItem("s1-task-tree-locale") || "en";
+    state.locale = preferredLocale === "fr" ? "fr" : "en";
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function statusLabel(status) {
+      return ui("status", status, status === "active" ? "Active"
+        : status === "next" ? "Next"
+        : status === "waiting" ? "Waiting"
+        : status === "later" ? "Later"
+        : "Done");
+    }
+
+    function ui(section, key, fallback = "") {
+      return appData?.ui?.[state.locale]?.[section]?.[key]
+        || appData?.ui?.en?.[section]?.[key]
+        || fallback;
+    }
+
+    function localize(value = "") {
+      if (value && typeof value === "object") {
+        return value[state.locale] || value.en || Object.values(value)[0] || "";
+      }
+      const text = String(value ?? "");
+      if (state.locale === "en") return text;
+      return appData?.translations?.[state.locale]?.[text] || text;
+    }
+
+    function nodeTheme(branch) {
+      if (branch.theme) return branch.theme;
+      const parent = parentByNode[branch.id];
+      if (parent === "manou" || branch.id.startsWith("manou")) return "manou";
+      if (parent === "agnes" || branch.id.startsWith("agnes")) return "agnes";
+      if (parent === "elie" || branch.id.startsWith("elie")) return "elie";
+      if (branch.id === "ops") return "ops";
+      return "root";
+    }
+
+    function nodeButton(branch, level = "child") {
+      const node = nodes[branch.id] || {};
+      const status = node.status || "later";
+      const hasChildren = Boolean(branch.children?.length || branch.blockers?.length);
+      const theme = nodeTheme(branch);
+      const classes = ["node", level === "child" ? "child-node" : theme, level === "child" ? theme : "", hasChildren ? "has-children" : ""]
+        .filter(Boolean)
+        .join(" ");
+      const expanded = hasChildren ? ` aria-expanded="${state.expanded[branch.id] === true}"` : "";
+      const meta = branch.meta ? `<span class="node-meta">${escapeHtml(localize(branch.meta))}</span>` : "";
+      return `
+        <button class="${classes}" data-node="${escapeHtml(branch.id)}" type="button"${expanded}>
+          <span class="node-title">${escapeHtml(localize(node.title || branch.id))} ${badge(status)}</span>
+          ${meta}
+        </button>
+      `;
+    }
+
+    function blockerCards(blockers = []) {
+      return blockers.map((blocker) => `
+        <div class="blocker-card"><strong>${escapeHtml(localize(blocker.label || "Blocked by"))}</strong> ${escapeHtml(localize(blocker.text || ""))}</div>
+      `).join("");
+    }
+
+    function branchHtml(branch, depth = 0) {
+      const hasChildren = Boolean(branch.children?.length || branch.blockers?.length);
+      if (!hasChildren && depth > 0) return nodeButton(branch);
+
+      const childHtml = (branch.children || []).map((child) => branchHtml(child, depth + 1)).join("");
+      const nestedClass = depth > 0 ? " nested-item" : "";
+      const childrenClass = depth > 0 ? "children nested-children" : "children";
+      return `
+        <div class="tree-item${nestedClass}" data-tree-item="${escapeHtml(branch.id)}">
+          ${nodeButton(branch, depth > 0 ? "child" : "lane")}
+          <div class="${childrenClass}">
+            ${childHtml}
+            ${blockerCards(branch.blockers)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTree(data) {
+      const root = data.tree;
+      const tree = document.querySelector("#tree");
+      const lanes = (root.children || []).map((lane) => {
+        const node = nodes[lane.id] || {};
+        return `<section class="lane tree-item" data-tree-item="${escapeHtml(lane.id)}" aria-label="${escapeHtml(localize(node.title || lane.id))} lane">
+          ${nodeButton(lane, "lane")}
+          <div class="children">
+            ${(lane.children || []).map((child) => branchHtml(child, 1)).join("")}
+            ${blockerCards(lane.blockers)}
+          </div>
+        </section>`;
+      }).join("");
+      tree.innerHTML = `
+        <div class="root-zone">${nodeButton(root, "root")}</div>
+        <div class="lane-grid">${lanes}</div>
+      `;
+      nodeButtons = [...document.querySelectorAll("[data-node]")];
+      treeItems = [...document.querySelectorAll("[data-tree-item]")];
+      bindNodeButtons();
+    }
+
+    function indexTree(root) {
+      parentByNode = {};
+      expandableNodes = new Set();
+      const visit = (branch, parent = null) => {
+        if (parent) parentByNode[branch.id] = parent;
+        if (branch.children?.length || branch.blockers?.length) expandableNodes.add(branch.id);
+        (branch.children || []).forEach((child) => visit(child, branch.id));
+      };
+      visit(root);
+    }
+
+    function resetExpansion(data) {
+      state.expanded = {};
+      expandableNodes.forEach((nodeId) => {
+        state.expanded[nodeId] = false;
+      });
+      (data.defaultExpanded || []).forEach((nodeId) => {
+        if (hasExpandableNode(nodeId)) state.expanded[nodeId] = true;
+      });
+    }
+
+    function renderQueue(data) {
+      const queue = document.querySelector("#queue");
+      const items = data.queue || [];
+      queue.innerHTML = `<span>${escapeHtml(ui("labels", "currentQueue", "Current queue:"))}</span>${items.map((item, index) => `<span class="chip">${index + 1} ${escapeHtml(localize(item))}</span>`).join("")}`;
+    }
+
+    function renderLocaleText() {
+      document.documentElement.lang = state.locale;
+      document.querySelector("#app-title").textContent = ui("labels", "title", "S1 For All Task Tree");
+      document.querySelector("#version-label").textContent = ui("labels", "version", "Version");
+      document.querySelector("#subtitle").textContent = localize(appData?.subtitle || "");
+      document.querySelector("#map-title").textContent = ui("labels", "projectTree", "Project Tree");
+      document.querySelector("#privacy-note").textContent = ui("labels", "cardHint", "Click a card to focus it and open or close its next layer.");
+      search.placeholder = ui("labels", "searchPlaceholder", "Search tasks, owners, blockers...");
+      search.setAttribute("aria-label", ui("labels", "searchAria", "Search tasks"));
+      copyButton.textContent = ui("labels", "copySnapshot", "Copy Snapshot");
+      if (copyState.textContent === "Snapshot ready." || copyState.dataset.managed === "true") {
+        copyState.textContent = ui("labels", "snapshotReady", "Snapshot ready.");
+        copyState.dataset.managed = "true";
+      }
+      document.querySelectorAll("[data-stat-label]").forEach((label) => {
+        label.textContent = ui("status", label.dataset.statLabel, label.textContent);
+      });
+      filterButtons.forEach((button) => {
+        button.textContent = ui("status", button.dataset.filter, button.textContent);
+      });
+      languageButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.locale === state.locale);
+      });
+      document.querySelector("#language-toggle").setAttribute("aria-label", ui("labels", "language", "Language"));
+    }
 
     function hasExpandableNode(nodeId) {
-      return Object.prototype.hasOwnProperty.call(state.expanded, nodeId);
+      return expandableNodes.has(nodeId);
     }
 
     function openAncestors(nodeId) {
@@ -1565,7 +988,7 @@
     function renderTreeItems() {
       treeItems.forEach((item) => {
         const nodeId = item.dataset.treeItem;
-        const expanded = state.expanded[nodeId] !== false;
+        const expanded = state.expanded[nodeId] === true;
         item.classList.toggle("collapsed", !expanded);
         const button = item.querySelector(":scope > .node[data-node]");
         if (button) {
@@ -1575,8 +998,7 @@
     }
 
     function badge(status) {
-      const label = status === "active" ? "Active" : status === "next" ? "Next" : status === "waiting" ? "Waiting" : status === "later" ? "Later" : "Done";
-      return `<span class="badge ${status}">${label}</span>`;
+      return `<span class="badge ${escapeHtml(status)}">${statusLabel(status)}</span>`;
     }
 
     function selectedTasks() {
@@ -1587,7 +1009,7 @@
         if (!allowed.has(task.lane)) return false;
         if (state.filter !== "all" && task.status !== state.filter) return false;
         if (!query) return true;
-        return `${task.title} ${task.owner} ${task.body} ${task.status} ${(task.details || []).join(" ")} ${task.witness || ""}`.toLowerCase().includes(query);
+        return `${localize(task.title)} ${localize(task.owner)} ${localize(task.body)} ${statusLabel(task.status)} ${(task.details || []).map(localize).join(" ")} ${localize(task.witness || "")}`.toLowerCase().includes(query);
       });
     }
 
@@ -1600,25 +1022,25 @@
     function renderTasks() {
       const visible = selectedTasks();
       taskList.innerHTML = visible.length ? visible.map((task) => `
-        <details class="task ${task.status}" open>
+        <details class="task ${escapeHtml(task.status)}" open>
           <summary class="task-top">
-            <h3>${task.title}</h3>
+            <h3>${escapeHtml(localize(task.title))}</h3>
             ${badge(task.status)}
           </summary>
-          <p>${task.body}</p>
-          ${task.details?.length ? `<ul class="task-details">${task.details.map((detail) => `<li>${detail}</li>`).join("")}</ul>` : ""}
-          ${task.witness ? `<div class="task-evidence">Witness: ${task.witness}</div>` : ""}
-          <footer>Owner: ${task.owner}</footer>
+          <p>${escapeHtml(localize(task.body))}</p>
+          ${task.details?.length ? `<ul class="task-details">${task.details.map((detail) => `<li>${escapeHtml(localize(detail))}</li>`).join("")}</ul>` : ""}
+          ${task.witness ? `<div class="task-evidence">${escapeHtml(ui("labels", "witness", "Witness"))}: ${escapeHtml(localize(task.witness))}</div>` : ""}
+          <footer>${escapeHtml(ui("labels", "owner", "Owner"))}: ${escapeHtml(localize(task.owner))}</footer>
         </details>
-      `).join("") : `<article class="task"><h3>No matching tasks</h3><p>Clear the search or change the status filter.</p></article>`;
+      `).join("") : `<article class="task"><h3>${escapeHtml(ui("empty", "title", "No matching tasks"))}</h3><p>${escapeHtml(ui("empty", "body", "Clear the search or change the status filter."))}</p></article>`;
     }
 
     function renderDetail() {
       const node = nodes[state.selected] || nodes.all;
-      document.querySelector("#detail-title").textContent = node.title;
+      document.querySelector("#detail-title").textContent = localize(node.title);
       document.querySelector("#detail-status").className = `badge ${node.status}`;
-      document.querySelector("#detail-status").textContent = node.status === "active" ? "Active" : node.status === "next" ? "Next" : node.status === "waiting" ? "Waiting" : "Later";
-      document.querySelector("#detail-summary").textContent = node.summary;
+      document.querySelector("#detail-status").textContent = statusLabel(node.status);
+      document.querySelector("#detail-summary").textContent = localize(node.summary);
 
       const scopeTasks = allSelectedTasks();
       const counts = scopeTasks.reduce((acc, task) => {
@@ -1646,6 +1068,8 @@
     }
 
     function render() {
+      renderLocaleText();
+      if (appData) renderQueue(appData);
       renderActiveControls();
       renderTreeItems();
       renderDetail();
@@ -1655,22 +1079,37 @@
       }
     }
 
-    nodeButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const nodeId = button.dataset.node;
-        state.selected = nodeId;
-        if (hasExpandableNode(nodeId)) {
-          state.expanded[nodeId] = state.expanded[nodeId] === false;
-        }
-        openAncestors(nodeId);
-        copyState.textContent = "Snapshot ready.";
-        render();
+    function bindNodeButtons() {
+      nodeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const nodeId = button.dataset.node;
+          state.selected = nodeId;
+          if (hasExpandableNode(nodeId)) {
+            state.expanded[nodeId] = state.expanded[nodeId] !== true;
+          }
+          openAncestors(nodeId);
+          copyState.textContent = "Snapshot ready.";
+          render();
+        });
       });
-    });
+    }
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         state.filter = button.dataset.filter;
+        render();
+      });
+    });
+
+    languageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (state.locale === button.dataset.locale || !appData) return;
+        state.locale = button.dataset.locale;
+        localStorage.setItem("s1-task-tree-locale", state.locale);
+        renderTree(appData);
+        revealNode(state.selected);
+        copyState.dataset.managed = "true";
+        copyState.textContent = ui("labels", "snapshotReady", "Snapshot ready.");
         render();
       });
     });
@@ -1683,16 +1122,18 @@
     copyButton.addEventListener("click", async () => {
       const node = nodes[state.selected] || nodes.all;
       const lines = selectedTasks().map((task) => {
-        const details = task.details?.length ? `\n  - ${task.details.join("\n  - ")}` : "";
-        const witness = task.witness ? `\n  Witness: ${task.witness}` : "";
-        return `- [${task.status}] ${task.title} — ${task.owner}: ${task.body}${details}${witness}`;
+        const details = task.details?.length ? `\n  - ${task.details.map(localize).join("\n  - ")}` : "";
+        const witness = task.witness ? `\n  ${ui("labels", "witness", "Witness")}: ${localize(task.witness)}` : "";
+        return `- [${statusLabel(task.status)}] ${localize(task.title)} - ${localize(task.owner)}: ${localize(task.body)}${details}${witness}`;
       });
-      const snapshot = `S1 task tree / ${node.title}\n${node.summary}\n\n${lines.join("\n")}`;
+      const snapshot = `${ui("labels", "title", "S1 task tree")} / ${localize(node.title)}\n${localize(node.summary)}\n\n${lines.join("\n")}`;
       try {
         await navigator.clipboard.writeText(snapshot);
-        copyState.textContent = "Snapshot copied.";
+        copyState.textContent = ui("labels", "snapshotCopied", "Snapshot copied.");
+        copyState.dataset.managed = "false";
       } catch {
-        copyState.textContent = "Clipboard unavailable in this browser.";
+        copyState.textContent = ui("labels", "clipboardUnavailable", "Clipboard unavailable in this browser.");
+        copyState.dataset.managed = "false";
       }
     });
 
@@ -1705,9 +1146,37 @@
       }
     });
 
-    if (!nodes[state.selected]) state.selected = "all";
-    revealNode(state.selected);
-    render();
+    async function loadTaskTree() {
+      const url = new URL("task-tree.json", location.href);
+      url.searchParams.set("refresh", String(Date.now()));
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Could not load task-tree.json (${response.status})`);
+      return response.json();
+    }
+
+    async function init() {
+      try {
+        appData = await loadTaskTree();
+        if (!appData.tree || !appData.nodes || !appData.tasks) {
+          throw new Error("task-tree.json is missing tree, nodes, or tasks");
+        }
+        nodes = appData.nodes;
+        tasks = appData.tasks;
+        document.querySelector("#version").textContent = appData.version || "v85.7";
+        indexTree(appData.tree);
+        resetExpansion(appData);
+        if (!nodes[state.selected]) state.selected = appData.defaultSelected || "all";
+        renderTree(appData);
+        revealNode(state.selected);
+        render();
+      } catch (error) {
+        document.querySelector("#tree").innerHTML = `<div class="blocker-card"><strong>Data error</strong> ${escapeHtml(error.message)}</div>`;
+        taskList.innerHTML = `<article class="task"><h3>Task data unavailable</h3><p>Refresh after the data file is available.</p></article>`;
+        copyState.textContent = "Task data unavailable.";
+      }
+    }
+
+    init();
   </script>
 </body>
 </html>

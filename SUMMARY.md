@@ -8,7 +8,7 @@ The Webapps repo is the GitHub Pages hub for local static apps and selected exte
 
 ## Current Hub State
 
-- Root hub version: `v85.4`.
+- Root hub version: `v85.7`.
 - Local app folders in this repo: `conway/`, `reversi/`, `s1/`, `sortingalgos/`, and `tapmeplus1/`.
 - The root hub includes a Lamps card that opens `https://ec92009.github.io/Lamps/` and tracks that site's visible version.
 - The root hub includes an S1 Task Tree card that opens `./s1/index.html`.
@@ -17,9 +17,11 @@ The Webapps repo is the GitHub Pages hub for local static apps and selected exte
 ## S1 State
 
 - `/Users/ecohen/Dev/Webapps/s1/index.html` is a dependency-free interactive task-tree dashboard.
-- It maps the S1-for-all project into Manou, Agnes, and Elie lanes with click-to-expand subprojects, provider-level Safe / Locksmiths detail, lane-safe responsive spacing, filters including Done, search, counts, done-task witness cards, granular details, and copyable snapshots. The current queue has a single Next leaf: Agnes portal access, with waiting badges expanding to blocker details.
+- It maps the S1-for-all project into Manou, Agnes, and Elie lanes with click-to-expand subprojects, provider-level Safe / Locksmiths detail, lane-safe responsive spacing, filters including Done, search, counts, done-task witness cards, granular details, and copyable snapshots. The current queue has a single Next leaf: Agnes Ameli / FranceConnect access, with waiting badges expanding to blocker details.
+- The public task tree now renders from `s1/task-tree.json`, which carries tree structure, node status, blockers, queue labels, task cards, and English/French copy. The app shell is presentation logic only.
 - It is deliberately public-safe: no exact addresses, IDs, account data, scans, or sensitive documents.
-- The app displays `v85.4`.
+- The app displays `v85.7`.
+- It has an EN/FR language toggle. UI labels and operational text are loaded from `s1/task-tree.json`; any newly added untranslated string falls back to English until its French translation is added.
 
 ## Handoff Notes
 
@@ -32,4 +34,4 @@ The Webapps repo is the GitHub Pages hub for local static apps and selected exte
 
 - Repo: `https://github.com/ec92009/Webapps.git`
 - GitHub Pages: `https://ec92009.github.io/Webapps/`
-- Latest relevant hub/app version: `v85.4`
+- Latest relevant hub/app version: `v85.7`
