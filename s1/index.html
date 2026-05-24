@@ -335,6 +335,26 @@
       box-shadow: none;
     }
 
+    .blocker-card {
+      border: 1px solid rgba(148, 163, 184, .72);
+      border-left: 4px solid #94a3b8;
+      border-radius: 10px;
+      background: rgba(248, 250, 252, .92);
+      padding: 8px 10px;
+      color: #334155;
+      font-size: .8rem;
+      line-height: 1.28;
+    }
+
+    .blocker-card strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #111827;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
     .badge {
       flex: 0 0 auto;
       display: inline-flex;
@@ -653,7 +673,7 @@
           <p class="subtitle">Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.</p>
         </div>
       </div>
-      <div class="version-pill">Version <span id="version">v85.3</span></div>
+      <div class="version-pill">Version <span id="version">v85.4</span></div>
     </header>
 
     <div class="workspace">
@@ -668,35 +688,82 @@
         <div class="tree" id="tree">
           <div class="root-zone">
             <button class="node root" data-node="all" type="button">
-              <span class="node-title">S1 for all <span class="badge active">Active</span></span>
-              <span class="node-meta">Three lanes, one round-robin operating rule.</span>
+              <span class="node-title">S1 for all <span class="badge next">Next</span></span>
+              <span class="node-meta">One current next leaf, with its parent path highlighted.</span>
             </button>
           </div>
 
           <div class="lane-grid">
             <section class="lane tree-item" data-tree-item="manou" aria-label="Manou lane">
               <button class="node manou has-children" data-node="manou" type="button" aria-expanded="true">
-                <span class="node-title">Manou <span class="badge active">Priority</span></span>
-                <span class="node-meta">Residence proof, document recovery, empadronamiento, healthcare route.</span>
+                <span class="node-title">Manou <span class="badge waiting">Waiting</span></span>
+                <span class="node-meta">Priority lane, currently blocked on outside proof and replies.</span>
               </button>
               <div class="children">
-                <button class="node child-node manou" data-node="manou-property" type="button"><span class="node-title">Ownership Proof <span class="badge waiting">Waiting</span></span></button>
+                <div class="tree-item nested-item collapsed" data-tree-item="manou-property">
+                  <button class="node child-node manou has-children" data-node="manou-property" type="button" aria-expanded="false"><span class="node-title">Ownership Proof <span class="badge waiting">Waiting</span></span></button>
+                  <div class="children nested-children">
+                    <div class="blocker-card"><strong>Blocked by</strong> Registry result not downloaded yet; IBI/title deed not located.</div>
+                  </div>
+                </div>
                 <div class="tree-item nested-item collapsed" data-tree-item="manou-safe">
                   <button class="node child-node manou has-children" data-node="manou-safe" type="button" aria-expanded="false">
                     <span class="node-title">Safe / Locksmiths <span class="badge waiting">Waiting</span></span>
                     <span class="node-meta">Quote paths, proof gate, and booking decision.</span>
                   </button>
                   <div class="children nested-children">
-                    <button class="node child-node manou" data-node="manou-safe-cf" type="button"><span class="node-title">CF / WhatsApp <span class="badge active">Active</span></span></button>
-                    <button class="node child-node manou" data-node="manou-safe-bermudez" type="button"><span class="node-title">Bermudez / Email <span class="badge waiting">Waiting</span></span></button>
-                    <button class="node child-node manou" data-node="manou-safe-fpoint" type="button"><span class="node-title">FPoint / Email <span class="badge waiting">Waiting</span></span></button>
-                    <button class="node child-node manou" data-node="manou-safe-vallejo" type="button"><span class="node-title">Vallejo / Email <span class="badge waiting">Waiting</span></span></button>
-                    <button class="node child-node manou" data-node="manou-safe-mayorga" type="button"><span class="node-title">Mayorga / Email <span class="badge waiting">Waiting</span></span></button>
-                    <button class="node child-node manou" data-node="manou-safe-authority" type="button"><span class="node-title">Proof Packet <span class="badge next">Next</span></span></button>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-cf">
+                      <button class="node child-node manou has-children" data-node="manou-safe-cf" type="button" aria-expanded="false"><span class="node-title">CF / WhatsApp <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> Compare against competing quote before booking; confirm all-in price and proof requirement if chosen.</div>
+                      </div>
+                    </div>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-bermudez">
+                      <button class="node child-node manou has-children" data-node="manou-safe-bermudez" type="button" aria-expanded="false"><span class="node-title">Bermudez / Email <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> Waiting for price, factura, timing, proof requirements, and opening approach after photos were sent.</div>
+                      </div>
+                    </div>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-fpoint">
+                      <button class="node child-node manou has-children" data-node="manou-safe-fpoint" type="button" aria-expanded="false"><span class="node-title">FPoint / Email <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> No useful reply yet from the email quote path.</div>
+                      </div>
+                    </div>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-vallejo">
+                      <button class="node child-node manou has-children" data-node="manou-safe-vallejo" type="button" aria-expanded="false"><span class="node-title">Vallejo / Email <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> Sent email is restored and live; no inbound quote yet.</div>
+                      </div>
+                    </div>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-mayorga">
+                      <button class="node child-node manou has-children" data-node="manou-safe-mayorga" type="button" aria-expanded="false"><span class="node-title">Mayorga / Email <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> No inbound quote yet from this provider path.</div>
+                      </div>
+                    </div>
+                    <div class="tree-item nested-item collapsed" data-tree-item="manou-safe-authority">
+                      <button class="node child-node manou has-children" data-node="manou-safe-authority" type="button" aria-expanded="false"><span class="node-title">Proof Packet <span class="badge waiting">Waiting</span></span></button>
+                      <div class="children nested-children">
+                        <div class="blocker-card"><strong>Blocked by</strong> Need clean ownership proof and chosen provider before sharing any private documents.</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button class="node child-node manou" data-node="manou-padron" type="button"><span class="node-title">Empadronamiento <span class="badge next">Next</span></span></button>
-                <button class="node child-node manou" data-node="manou-health" type="button"><span class="node-title">Healthcare Route <span class="badge next">Next</span></span></button>
+                <div class="tree-item nested-item collapsed" data-tree-item="manou-padron">
+                  <button class="node child-node manou has-children" data-node="manou-padron" type="button" aria-expanded="false"><span class="node-title">Empadronamiento <span class="badge waiting">Waiting</span></span></button>
+                  <div class="children nested-children">
+                    <div class="blocker-card"><strong>Blocked by</strong> Need primary housing proof: nota simple, IBI, or title deed. Electric bills are backup only.</div>
+                    <div class="blocker-card"><strong>Also confirm</strong> Manou can attend/sign, or Fuengirola accepts representation for this visit.</div>
+                  </div>
+                </div>
+                <div class="tree-item nested-item collapsed" data-tree-item="manou-health">
+                  <button class="node child-node manou has-children" data-node="manou-health" type="button" aria-expanded="false"><span class="node-title">Healthcare Route <span class="badge waiting">Waiting</span></span></button>
+                  <div class="children nested-children">
+                    <div class="blocker-card"><strong>Blocked by</strong> Need CNAV / Assurance Retraite written answer on S1, alternate exportable document, or non-exportability.</div>
+                    <div class="blocker-card"><strong>Downstream</strong> Spanish/Andalucia route depends on that answer and empadronamiento.</div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -707,18 +774,23 @@
               </button>
               <div class="children">
                 <button class="node child-node agnes" data-node="agnes-retirement" type="button"><span class="node-title">Own Rights <span class="badge next">Next</span></span></button>
-                <button class="node child-node agnes" data-node="agnes-beneficiary" type="button"><span class="node-title">Beneficiary Route <span class="badge waiting">Waiting</span></span></button>
+                <div class="tree-item nested-item collapsed" data-tree-item="agnes-beneficiary">
+                  <button class="node child-node agnes has-children" data-node="agnes-beneficiary" type="button" aria-expanded="false"><span class="node-title">Beneficiary Route <span class="badge waiting">Waiting</span></span></button>
+                  <div class="children nested-children">
+                    <div class="blocker-card"><strong>Blocked by</strong> Need Elie's S1 request and official answer on whether Agnes can be handled as spouse/family member.</div>
+                  </div>
+                </div>
                 <button class="node child-node agnes" data-node="agnes-eu" type="button"><span class="node-title">EU Residence Support <span class="badge later">Later</span></span></button>
               </div>
             </section>
 
             <section class="lane tree-item" data-tree-item="elie" aria-label="Elie lane">
               <button class="node elie has-children" data-node="elie" type="button" aria-expanded="true">
-                <span class="node-title">Elie <span class="badge next">Next</span></span>
-                <span class="node-meta">Pensioner S1 request, registration, and Spanish health-card follow-through.</span>
+                <span class="node-title">Elie <span class="badge later">Later</span></span>
+                <span class="node-meta">Pensioner S1 request follows when Agnes is blocked or done.</span>
               </button>
               <div class="children">
-                <button class="node child-node elie" data-node="elie-s1" type="button"><span class="node-title">S1 Request <span class="badge next">Next</span></span></button>
+                <button class="node child-node elie" data-node="elie-s1" type="button"><span class="node-title">S1 Request <span class="badge later">Later</span></span></button>
                 <button class="node child-node elie" data-node="elie-spain" type="button"><span class="node-title">INSS / Andalucia <span class="badge later">Later</span></span></button>
                 <button class="node child-node ops" data-node="ops" type="button"><span class="node-title">Ops / Monitoring <span class="badge active">Active</span></span></button>
               </div>
@@ -744,12 +816,12 @@
             <h2 id="detail-title">S1 for all</h2>
             <span class="badge active" id="detail-status">Active</span>
           </div>
-          <p class="detail-summary" id="detail-summary">Manou first. When blocked, advance Agnes retirement rights, then Elie's own S1.</p>
+          <p class="detail-summary" id="detail-summary">Manou first when unblocked. Current actionable lane is Agnes retirement rights, then Elie's own S1.</p>
           <div class="round-robin" aria-label="Round robin order">
-            <span>Round robin:</span>
-            <span class="chip">1 Manou</span>
-            <span class="chip">2 Agnes</span>
-            <span class="chip">3 Elie</span>
+            <span>Current queue:</span>
+            <span class="chip">1 Agnes</span>
+            <span class="chip">2 Elie</span>
+            <span class="chip">3 Manou waiting</span>
           </div>
         </div>
         <div class="stats">
@@ -774,14 +846,14 @@
     const nodes = {
       all: {
         title: "S1 for all",
-        status: "active",
-        summary: "The shared goal is Spanish public-health coverage through the right route for each person, with Manou as the urgent lane.",
+        status: "next",
+        summary: "The single current next action is in Agnes's retirement-rights lane while Manou waits on outside proof and replies.",
         includes: ["all", "manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health", "agnes", "agnes-retirement", "agnes-beneficiary", "agnes-eu", "elie", "elie-s1", "elie-spain", "ops"]
       },
       manou: {
         title: "Manou",
-        status: "active",
-        summary: "Priority lane: establish residence proof, recover possible property documents, get empadronamiento, and clarify the French/Spanish healthcare route.",
+        status: "waiting",
+        summary: "Priority lane is blocked on outside inputs: ownership proof, locksmith/registry movement, accepted empadronamiento proof, and the French healthcare answer.",
         includes: ["manou", "manou-property", "manou-safe", "manou-safe-cf", "manou-safe-bermudez", "manou-safe-fpoint", "manou-safe-vallejo", "manou-safe-mayorga", "manou-safe-authority", "manou-padron", "manou-health"]
       },
       "manou-property": {
@@ -798,8 +870,8 @@
       },
       "manou-safe-cf": {
         title: "CF / WhatsApp",
-        status: "active",
-        summary: "First firm quote path is active on WhatsApp; hold booking until the competing quote is evaluated.",
+        status: "waiting",
+        summary: "First firm quote path is the baseline; hold booking until the competing quote and proof packet are evaluated.",
         includes: ["manou-safe-cf"]
       },
       "manou-safe-bermudez": {
@@ -828,20 +900,20 @@
       },
       "manou-safe-authority": {
         title: "Proof Packet",
-        status: "next",
-        summary: "Prepare proof for the appointment, but keep identity and property documents private until the provider and handoff are confirmed.",
+        status: "waiting",
+        summary: "Prepare proof only after ownership evidence and the provider handoff are confirmed; keep identity and property documents private.",
         includes: ["manou-safe-authority"]
       },
       "manou-padron": {
         title: "Empadronamiento",
-        status: "next",
-        summary: "Prepare a one-trip Fuengirola registration packet with ID, forms, ownership proof, and utility bills as backup.",
+        status: "waiting",
+        summary: "Wait for primary housing proof, ideally the nota simple or IBI/title deed, before attempting the one-trip Fuengirola visit.",
         includes: ["manou-padron"]
       },
       "manou-health": {
         title: "Healthcare Route",
-        status: "next",
-        summary: "Get the French written answer first, then choose S1, an alternate exportable document, or the Spanish fallback path.",
+        status: "waiting",
+        summary: "Wait for the CNAV / Assurance Retraite answer before choosing S1, an alternate exportable document, or the Spanish fallback path.",
         includes: ["manou-health"]
       },
       agnes: {
@@ -870,14 +942,14 @@
       },
       elie: {
         title: "Elie",
-        status: "next",
-        summary: "Request the French pensioner S1, include Agnes if possible, then prepare the Spanish registration step.",
+        status: "later",
+        summary: "Request the French pensioner S1 after Agnes's immediate portal-access step is blocked or complete.",
         includes: ["elie", "elie-s1", "elie-spain", "ops"]
       },
       "elie-s1": {
         title: "S1 Request",
-        status: "next",
-        summary: "Submit the French pensioner S1 request through the competent retirement channel and record the reference only.",
+        status: "later",
+        summary: "Submit the French pensioner S1 request after the current Agnes step, including Agnes where possible.",
         includes: ["elie-s1"]
       },
       "elie-spain": {
@@ -930,7 +1002,20 @@
           "Added a hub tile and deploy workflow path.",
           "Verified the public URL after GitHub Pages deployment."
         ],
-        witness: "Live page and hub card published as v85.0; this revision deepens it to v85.3 with self-expanding cards and lane-safe layout."
+        witness: "Live page and hub card published as v85.0; this revision deepens it to v85.4 with self-expanding cards, lane-safe layout, and the corrected Agnes-first queue."
+      },
+      {
+        lane: "all",
+        status: "done",
+        title: "Promoted Agnes while Manou waits",
+        owner: "Elie + Codex",
+        body: "Reclassified Manou's empadronamiento and healthcare work as waiting so Agnes is now the next actionable lane.",
+        details: [
+          "Empadronamiento waits on accepted housing proof, ideally nota simple or IBI/title.",
+          "Healthcare waits on the CNAV / Assurance Retraite answer.",
+          "The current queue now starts with Agnes retirement-rights discovery."
+        ],
+        witness: "This v85.4 page shows Manou as waiting and Agnes as the first current queue item."
       },
       {
         lane: "manou-property",
@@ -972,10 +1057,10 @@
       },
       {
         lane: "manou-property",
-        status: "next",
+        status: "waiting",
         title: "Build private authority packet",
         owner: "Elie + Agnes",
-        body: "If ownership proof is clean, combine it privately with identity/presence and utility evidence.",
+        body: "Wait for clean ownership proof, then combine it privately with identity/presence and utility evidence.",
         details: [
           "Property proof acts as the anchor.",
           "Identity proof stays private and is shown only to the appropriate office/provider.",
@@ -1048,7 +1133,7 @@
       },
       {
         lane: "manou-safe-cf",
-        status: "next",
+        status: "waiting",
         title: "Hold CF booking until quote comparison",
         owner: "Elie + Agnes",
         body: "Use this path as the current baseline but wait for the competing photo-based quote if timing allows.",
@@ -1109,7 +1194,7 @@
       },
       {
         lane: "manou-safe",
-        status: "next",
+        status: "waiting",
         title: "Confirm all-in price before booking",
         owner: "Elie + Agnes",
         body: "Ask whether travel, opening, invoice, and any destructive-opening caveat are included.",
@@ -1121,7 +1206,7 @@
       },
       {
         lane: "manou-safe-authority",
-        status: "next",
+        status: "active",
         title: "Do not send authority docs casually",
         owner: "Elie",
         body: "Keep identity and property proof private until the recipient and exact content are approved.",
@@ -1146,10 +1231,10 @@
       },
       {
         lane: "manou-padron",
-        status: "next",
+        status: "waiting",
         title: "Assemble appointment folder",
         owner: "Elie + Agnes + Leonarda",
-        body: "Make one physical packet that can survive a town-hall counter visit.",
+        body: "Wait for primary housing proof, then make one physical packet that can survive a town-hall counter visit.",
         details: [
           "Forms, identity document, copy, contact details, and payment method.",
           "Property proof if the registry result arrives in time.",
@@ -1158,7 +1243,7 @@
       },
       {
         lane: "manou-padron",
-        status: "next",
+        status: "waiting",
         title: "Plan one assisted visit",
         owner: "Elie + Leonarda",
         body: "Best route is Manou attending and signing in person, with support, once the proof packet is strong enough.",
@@ -1196,10 +1281,10 @@
       },
       {
         lane: "manou-health",
-        status: "next",
+        status: "waiting",
         title: "Send CNAV / Assurance Retraite question",
         owner: "Sophie",
-        body: "Ask whether S1 or any equivalent exportable healthcare document exists, and whether any widow/reversion route makes CNAV competent.",
+        body: "Wait for Sophie/CNAV movement on whether S1 or any equivalent exportable healthcare document exists, and whether any widow/reversion route makes CNAV competent.",
         details: [
           "Ask for a written answer.",
           "Ask who can issue non-exportability proof if France cannot export rights.",
@@ -1258,10 +1343,10 @@
       },
       {
         lane: "agnes-retirement",
-        status: "next",
+        status: "waiting",
         title: "Review high-level career record",
         owner: "Agnes + Elie",
-        body: "Capture regimes found, broad quarters/points status, and obvious missing periods without publishing detailed records.",
+        body: "Wait until portal access works, then capture regimes found, broad quarters/points status, and obvious missing periods without publishing detailed records.",
         details: [
           "Look for employment, self-employment, childcare, unemployment, sickness, and missing periods.",
           "Summarize by category, not by sensitive full statements.",
@@ -1332,7 +1417,7 @@
       },
       {
         lane: "elie-s1",
-        status: "next",
+        status: "later",
         title: "Submit French pensioner S1 request",
         owner: "Elie",
         body: "Use the prepared draft, include Agnes where possible, and save only submission date, channel, and reference number.",
@@ -1415,7 +1500,17 @@
         manou: true,
         agnes: true,
         elie: true,
-        "manou-safe": false
+        "manou-property": false,
+        "manou-safe": false,
+        "manou-safe-cf": false,
+        "manou-safe-bermudez": false,
+        "manou-safe-fpoint": false,
+        "manou-safe-vallejo": false,
+        "manou-safe-mayorga": false,
+        "manou-safe-authority": false,
+        "manou-padron": false,
+        "manou-health": false,
+        "agnes-beneficiary": false
       }
     };
 
