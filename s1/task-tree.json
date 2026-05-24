@@ -1,5 +1,5 @@
 {
-  "version": "v85.9",
+  "version": "v85.11",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
@@ -1006,7 +1006,7 @@
         "The web app fetches the JSON and renders it on load.",
         "Future public-safe updates can usually edit only the data file."
       ],
-      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v85.9."
+      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v85.11."
     },
     {
       "lane": "ops",
@@ -1026,13 +1026,15 @@
       "status": "done",
       "title": "Installed Telegram communication monitor",
       "owner": "Codex automation",
-      "body": "Email and local WhatsApp checks run during Spain daytime and alert by Telegram only when new movement appears.",
+      "body": "Codex automation checks Gmail plus best-effort WhatsApp/BlueBubbles during Spain daytime and alerts by Telegram only when S1-project movement appears.",
       "details": [
-        "Launchd job runs every two hours during daytime.",
-        "Apple Mail's Gmail index and local WhatsApp Desktop database are watched.",
+        "Native Codex automation runs every two hours from 09:00 to 21:00 Spain time.",
+        "Gmail is checked through the Gmail connector; local WhatsApp/BlueBubbles checks remain best effort under macOS privacy rules.",
+        "The older launchd script remains as a local fallback and audit trail.",
+        "Watched topics now include Assurance Retraite/CARSAT/CNAV/CPAM/Ameli/INSS, property-registry movement, and safe-opening providers.",
         "Telegram route was tested, including phone/watch notification behavior."
       ],
-      "witness": "Private S1 repo contains monitor script, launchd plist, and docs."
+      "witness": "Codex automation lives in ~/.codex/automations/s1-communication-watch; private S1 repo contains fallback script, launchd plist, and docs."
     },
     {
       "lane": "ops",
@@ -1058,7 +1060,7 @@
         "Operational text uses a French translation dictionary in the same JSON file.",
         "New strings fall back to English until a French translation is added."
       ],
-      "witness": "Version v85.7 added the EN/FR toggle; v85.9 keeps it data-driven while updating live task state."
+      "witness": "Version v85.7 added the EN/FR toggle; v85.11 keeps it data-driven while updating live task state."
     },
     {
       "lane": "ops",
@@ -1365,6 +1367,8 @@
       "Future public-safe updates can usually edit only the data file.": "Les futures mises à jour publiques sûres pourront généralement modifier seulement le fichier de données.",
       "The S1 repo now has a clear rule for counting only active collaboration time.": "Le dépôt S1 a maintenant une règle claire pour ne compter que le temps de collaboration active.",
       "Email and local WhatsApp checks run during Spain daytime and alert by Telegram only when new movement appears.": "Les contrôles email et WhatsApp local tournent en journée espagnole et alertent par Telegram seulement en cas de nouveau mouvement.",
+      "Email and local WhatsApp checks run during Spain daytime and alert by Telegram only when S1-project movement appears.": "Les contrôles email et WhatsApp local tournent en journée espagnole et alertent par Telegram seulement en cas de mouvement sur le projet S1.",
+      "Codex automation checks Gmail plus best-effort WhatsApp/BlueBubbles during Spain daytime and alerts by Telegram only when S1-project movement appears.": "L’automatisation Codex vérifie Gmail, plus WhatsApp/BlueBubbles en best effort, pendant la journée espagnole et alerte par Telegram seulement en cas de mouvement sur le projet S1.",
       "The S1 task tree was added to the Webapps hub and deployed through GitHub Pages.": "L’arbre S1 a été ajouté au hub Webapps et déployé via GitHub Pages.",
       "Update docs, timelog, and backlog when material facts change, without copying private documents into the site.": "Mettre à jour docs, suivi du temps et backlog quand les faits matériels changent, sans copier de documents privés dans le site.",
       "Everyone": "Tout le monde",
@@ -1381,6 +1385,7 @@
       "New strings fall back to English until a French translation is added.": "Les nouvelles chaînes reviennent à l’anglais tant qu’une traduction française n’est pas ajoutée.",
       "Version v85.7 adds the EN/FR toggle and keeps the app shell data-light.": "La version v85.7 ajoute le bouton EN/FR et garde l’enveloppe de l’application légère en données.",
       "Version v85.7 added the EN/FR toggle; v85.8 keeps it data-driven while updating live task state.": "La version v85.7 a ajouté le bouton EN/FR ; v85.8 garde l’approche pilotée par données tout en mettant l’état réel à jour.",
+      "Version v85.7 added the EN/FR toggle; v85.11 keeps it data-driven while updating live task state.": "La version v85.7 a ajouté le bouton EN/FR ; v85.11 garde l’approche pilotée par données tout en mettant l’état réel à jour.",
       "Added the S1 tree as a local static app.": "Ajout de l’arbre S1 comme application statique locale.",
       "Added a hub tile and deploy workflow path.": "Ajout d’une tuile dans le hub et du chemin de déploiement.",
       "Verified the public URL after GitHub Pages deployment.": "URL publique vérifiée après le déploiement GitHub Pages.",
@@ -1529,14 +1534,20 @@
       "Record only non-sensitive status transitions.": "Ne noter que les transitions de statut non sensibles.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.7.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.7.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.8.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.8.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v85.11.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.11.",
       "Golden timelog SOP was copied into the private repo.": "Le SOP de suivi du temps Golden a été copié dans le dépôt privé.",
       "Active collaboration time is logged conservatively.": "Le temps de collaboration active est journalisé prudemment.",
       "Background tool/runtime time is excluded.": "Le temps d’outils/environnement en arrière-plan est exclu.",
       "Private S1 repo has the SOP and TIMELOG.": "Le dépôt privé S1 contient le SOP et le TIMELOG.",
       "Launchd job runs every two hours during daytime.": "Le job launchd tourne toutes les deux heures en journée.",
       "Apple Mail's Gmail index and local WhatsApp Desktop database are watched.": "L’index Gmail d’Apple Mail et la base WhatsApp Desktop locale sont surveillés.",
+      "Native Codex automation runs every two hours from 09:00 to 21:00 Spain time.": "L’automatisation native Codex tourne toutes les deux heures de 09:00 à 21:00, heure d’Espagne.",
+      "Gmail is checked through the Gmail connector; local WhatsApp/BlueBubbles checks remain best effort under macOS privacy rules.": "Gmail est vérifié via le connecteur Gmail ; les contrôles locaux WhatsApp/BlueBubbles restent en best effort selon les règles de confidentialité macOS.",
+      "The older launchd script remains as a local fallback and audit trail.": "L’ancien script launchd reste comme filet local et trace d’audit.",
+      "Watched topics now include Assurance Retraite/CARSAT/CNAV/CPAM/Ameli/INSS, property-registry movement, and safe-opening providers.": "Les sujets surveillés incluent maintenant Assurance Retraite/CARSAT/CNAV/CPAM/Ameli/INSS, les mouvements du registre de propriété et les serruriers.",
       "Telegram route was tested, including phone/watch notification behavior.": "La route Telegram a été testée, y compris le comportement des notifications téléphone/montre.",
       "Private S1 repo contains monitor script, launchd plist, and docs.": "Le dépôt privé S1 contient le script de surveillance, la plist launchd et les docs.",
+      "Codex automation lives in ~/.codex/automations/s1-communication-watch; private S1 repo contains fallback script, launchd plist, and docs.": "L’automatisation Codex se trouve dans ~/.codex/automations/s1-communication-watch ; le dépôt privé S1 contient le script de secours, la plist launchd et les docs.",
       "Created a standalone static page.": "Page statique autonome créée.",
       "Added a shared logo and hub card.": "Logo partagé et carte de hub ajoutés.",
       "Verified public URLs after deployment.": "URLs publiques vérifiées après déploiement.",
