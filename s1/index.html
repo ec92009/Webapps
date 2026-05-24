@@ -719,7 +719,7 @@
         </div>
       </div>
       <div class="top-actions">
-        <div class="version-pill"><span id="version-label">Version</span> <span id="version">v85.7</span></div>
+        <div class="version-pill"><span id="version-label">Version</span> <span id="version">v85.8</span></div>
         <div class="language-toggle" id="language-toggle" aria-label="Language">
           <button type="button" data-locale="en" class="active">EN</button>
           <button type="button" data-locale="fr">FR</button>
@@ -1162,7 +1162,7 @@
         }
         nodes = appData.nodes;
         tasks = appData.tasks;
-        document.querySelector("#version").textContent = appData.version || "v85.7";
+        document.querySelector("#version").textContent = appData.version || "v85.8";
         indexTree(appData.tree);
         resetExpansion(appData);
         if (!nodes[state.selected]) state.selected = appData.defaultSelected || "all";

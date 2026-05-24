@@ -1,10 +1,10 @@
 {
-  "version": "v85.7",
+  "version": "v85.8",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
-    "Agnes access",
-    "Elie access",
+    "Agnes direct retirement access",
+    "S1 technician-response watch",
     "Manou waiting"
   ],
   "defaultSelected": "all",
@@ -141,7 +141,7 @@
             "blockers": [
               {
                 "label": "Blocked by",
-                "text": "Need Elie's S1 request and official answer on whether Agnes can be handled as spouse/family member."
+                "text": "Elie's healthcare-abroad questionnaire now includes Agnes; wait for the official answer on spouse/family-member handling."
               }
             ]
           },
@@ -153,7 +153,7 @@
       {
         "id": "elie",
         "theme": "elie",
-        "meta": "Pensioner S1 request follows when Agnes is blocked or done.",
+        "meta": "Pensioner S1 request submitted and visible as sent; wait for technician response and official answer.",
         "children": [
           {
             "id": "elie-s1"
@@ -173,7 +173,7 @@
     "all": {
       "title": "S1 for all",
       "status": "next",
-      "summary": "The single current next action is Agnes's official access setup while Manou waits on outside proof and replies.",
+      "summary": "The single current next action is Agnes's direct retirement-account access while Elie's S1 request and Manou's lane wait on outside replies.",
       "includes": [
         "all",
         "manou",
@@ -315,7 +315,7 @@
     "agnes-retirement": {
       "title": "Own Retirement Rights",
       "status": "next",
-      "summary": "Create or recover official FranceConnect access first, then inspect career records and summarize only high-level conclusions.",
+      "summary": "Try direct Assurance Retraite access for Agnes after ameli rejected immediate account creation, then inspect career records if access works.",
       "includes": [
         "agnes-retirement"
       ]
@@ -323,7 +323,7 @@
     "agnes-beneficiary": {
       "title": "Beneficiary Route",
       "status": "waiting",
-      "summary": "Ask for Agnes to be included in Elie's pensioner S1 request where possible.",
+      "summary": "Agnes was included in Elie's submitted healthcare-abroad questionnaire; wait for the official answer.",
       "includes": [
         "agnes-beneficiary"
       ]
@@ -338,8 +338,8 @@
     },
     "elie": {
       "title": "Elie",
-      "status": "later",
-      "summary": "Request the French pensioner S1 after Agnes's immediate access step is blocked or complete.",
+      "status": "waiting",
+      "summary": "Healthcare-abroad questionnaire submitted through the retirement portal and visible as sent; wait for technician response, follow-up, or S1 decision.",
       "includes": [
         "elie",
         "elie-s1",
@@ -349,8 +349,8 @@
     },
     "elie-s1": {
       "title": "S1 Request",
-      "status": "later",
-      "summary": "Create Elie's own official access as setup, then submit the pensioner S1 request including Agnes where possible.",
+      "status": "waiting",
+      "summary": "Submitted the pensioner healthcare-abroad questionnaire including Agnes as spouse/ayant droit; portal shows it as sent, so watch for technician response or follow-up.",
       "includes": [
         "elie-s1"
       ]
@@ -408,7 +408,7 @@
         "Added a hub tile and deploy workflow path.",
         "Verified the public URL after GitHub Pages deployment."
       ],
-      "witness": "Live page and hub card published as v85.0; this revision deepens it to v85.7 with self-expanding cards, lane-safe layout, a corrected access-first queue, and JSON-backed task data."
+      "witness": "Live page and hub card published as v85.0; this revision deepens it to v85.8 with self-expanding cards, lane-safe layout, bilingual JSON-backed task data, and updated S1 submission state."
     },
     {
       "lane": "all",
@@ -421,7 +421,7 @@
         "Healthcare waits on the CNAV / Assurance Retraite answer.",
         "The current queue now starts with Agnes retirement-rights discovery."
       ],
-      "witness": "This v85.7 page shows Manou as waiting and Agnes as the first current queue item."
+      "witness": "This v85.8 page shows Manou waiting, Elie's S1 request waiting on technician response, and Agnes as the single next action."
     },
     {
       "lane": "manou-property",
@@ -738,11 +738,12 @@
     {
       "lane": "agnes-retirement",
       "status": "next",
-      "title": "Create Ameli / FranceConnect access",
+      "title": "Try direct Assurance Retraite access",
       "owner": "Agnes + Elie",
-      "body": "Create or recover Agnes's official access before entering the retirement portal.",
+      "body": "Use the retirement-account route now that ameli immediate creation rejected Agnes with a dossier/situation message.",
       "details": [
-        "Prefer ameli if the online creation flow accepts the card and registered bank details.",
+        "Try direct Assurance Retraite account creation before treating CPAM support as the only route.",
+        "Ameli immediate creation reached a situation-based rejection, not a simple typo correction.",
         "Use the personal number only in the official flow.",
         "Do not store passwords, one-time codes, screenshots, or downloaded statements in this public workspace."
       ]
@@ -785,14 +786,27 @@
     },
     {
       "lane": "agnes-beneficiary",
-      "status": "waiting",
+      "status": "done",
       "title": "Tie Agnes to Elie's S1 request",
       "owner": "Elie",
-      "body": "Ask for an individual nominative S1 or dependent recognition where the French/Spanish process allows it.",
+      "body": "Agnes was included as spouse/ayant droit in Elie's submitted healthcare-abroad questionnaire.",
       "details": [
-        "This depends partly on Elie's S1 request.",
-        "The request should mention spouse/family-member handling explicitly.",
+        "The uploaded form asks for Elie and one spouse/ayant droit.",
+        "No full identifiers, exact address, or PDF contents are published here.",
         "If refused, preserve the reason for the Spanish office."
+      ],
+      "witness": "Submitted through the Assurance Retraite portal on 2026-05-24; the sent-requests page confirms it was sent, with no numeric reference shown."
+    },
+    {
+      "lane": "agnes-beneficiary",
+      "status": "waiting",
+      "title": "Wait for spouse/ayant droit decision",
+      "owner": "Assurance Retraite + Elie",
+      "body": "Monitor whether the French answer issues a nominative S1 for Agnes, asks for proof, or refuses dependent handling.",
+      "details": [
+        "If accepted, move both people toward INSS registration.",
+        "If proof is requested, send it only through the private official channel.",
+        "If refused, keep the written reason for Spain and continue Agnes's own-rights lane."
       ]
     },
     {
@@ -838,23 +852,36 @@
       "status": "later",
       "title": "Create Elie Ameli / FranceConnect access",
       "owner": "Elie",
-      "body": "Set up Elie's own official access as preparation for the S1 request.",
+      "body": "Keep Elie's ameli/CPAM access as a separate cleanup task; it is no longer required for the submitted S1 request.",
       "details": [
-        "Useful for health and pension portals.",
-        "Not the only possible submission channel.",
+        "Useful later for health-account visibility.",
+        "Ameli remains blocked despite real historical postal codes.",
         "Keep credentials and one-time codes out of the project."
       ]
     },
     {
       "lane": "elie-s1",
-      "status": "later",
+      "status": "done",
       "title": "Submit French pensioner S1 request",
       "owner": "Elie",
-      "body": "Use the prepared draft, include Agnes where possible, and save only submission date, channel, and reference number.",
+      "body": "Submitted the signed healthcare-abroad questionnaire through Assurance Retraite, including Agnes as spouse/ayant droit.",
       "details": [
-        "Target the competent French retirement channel.",
-        "Ask for individual/nominative handling for spouse if available.",
-        "Do not put portal screenshots or full identifiers into the public app."
+        "The portal accepted the signed form upload.",
+        "No supporting documents were attached through that service.",
+        "Portal confirmation displayed and the sent-requests page lists the request dated 2026-05-24; no numeric reference was shown."
+      ],
+      "witness": "Submitted on 2026-05-24 via Messagerie / Transmettre mon formulaire; portal showed it as sent and private docs record only the non-sensitive submission fact."
+    },
+    {
+      "lane": "elie-s1",
+      "status": "waiting",
+      "title": "Monitor S1 technician response",
+      "owner": "Elie + Codex",
+      "body": "Check email, portal messages, and document exchanges for the technician response or a request for additional documents.",
+      "details": [
+        "Calendar reminder is set for 2026-05-25 at 10:00 Spain time.",
+        "Do not resend immediately unless the portal/email stays silent after the follow-up window.",
+        "If an answer arrives, record only the non-sensitive decision and next action."
       ]
     },
     {
@@ -880,7 +907,7 @@
         "The web app fetches the JSON and renders it on load.",
         "Future public-safe updates can usually edit only the data file."
       ],
-      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v85.7."
+      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v85.8."
     },
     {
       "lane": "ops",
@@ -932,7 +959,7 @@
         "Operational text uses a French translation dictionary in the same JSON file.",
         "New strings fall back to English until a French translation is added."
       ],
-      "witness": "Version v85.7 adds the EN/FR toggle and keeps the app shell data-light."
+      "witness": "Version v85.7 added the EN/FR toggle; v85.8 keeps it data-driven while updating live task state."
     },
     {
       "lane": "ops",
@@ -1030,6 +1057,9 @@
       "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.": "Le contenu des tâches, les priorités, les blocages et la structure de l’arbre vivent dans ce fichier JSON. L’application affiche ce fichier et ne contient que la logique de présentation.",
       "Agnes access": "Accès Agnes",
       "Elie access": "Accès Elie",
+      "Agnes direct retirement access": "Accès retraite direct Agnes",
+      "S1 acknowledgement watch": "Surveillance accusé S1",
+      "S1 technician-response watch": "Surveillance réponse technicien S1",
       "Manou waiting": "Manou en attente",
       "One current next leaf, with its parent path highlighted.": "Une seule feuille active « à faire », avec tout son chemin parent mis en évidence.",
       "Priority lane, currently blocked on outside proof and replies.": "Voie prioritaire, actuellement bloquée par des preuves et réponses externes.",
@@ -1051,6 +1081,9 @@
       "Retirement-rights discovery and possible S1 dependency route.": "Vérification des droits retraite et possible voie S1 comme ayant droit.",
       "Need Elie's S1 request and official answer on whether Agnes can be handled as spouse/family member.": "Besoin de la demande S1 d’Elie et d’une réponse officielle sur la possibilité de traiter Agnes comme épouse/membre de famille.",
       "Pensioner S1 request follows when Agnes is blocked or done.": "La demande S1 retraité suit quand Agnes est bloquée ou terminée.",
+      "Elie's healthcare-abroad questionnaire now includes Agnes; wait for the official answer on spouse/family-member handling.": "Le questionnaire soins à l’étranger d’Elie inclut maintenant Agnes ; attendre la réponse officielle sur le traitement épouse/membre de famille.",
+      "Pensioner S1 request submitted; wait for acknowledgement and official answer.": "Demande S1 retraité soumise ; attendre l’accusé et la réponse officielle.",
+      "Pensioner S1 request submitted and visible as sent; wait for technician response and official answer.": "Demande S1 retraité soumise et visible comme envoyée ; attendre la réponse technicien et la réponse officielle.",
       "S1 for all": "S1 pour tous",
       "Manou": "Manou",
       "Ownership Proof": "Preuve de propriété",
@@ -1072,6 +1105,7 @@
       "INSS / Andalucia": "INSS / Andalousie",
       "Ops / Monitoring": "Ops / surveillance",
       "The single current next action is Agnes's official access setup while Manou waits on outside proof and replies.": "La seule prochaine action active est la création/récupération de l’accès officiel d’Agnes pendant que Manou attend des preuves et réponses externes.",
+      "The single current next action is Agnes's direct retirement-account access while Elie's S1 request and Manou's lane wait on outside replies.": "La seule prochaine action active est l’accès retraite direct d’Agnes pendant que la demande S1 d’Elie et la voie Manou attendent des réponses externes.",
       "Priority lane is blocked on outside inputs: ownership proof, locksmith/registry movement, accepted empadronamiento proof, and the French healthcare answer.": "La voie prioritaire est bloquée par des éléments externes : preuve de propriété, avancées serrurier/registre, preuve acceptée pour l’empadronamiento et réponse française santé.",
       "Wait for the property registry result and use only the non-sensitive conclusion in project notes.": "Attendre le résultat du registre de propriété et ne noter que la conclusion non sensible.",
       "Compare locksmith responses and keep the authority/proof packet private until a provider is chosen.": "Comparer les réponses des serruriers et garder le dossier d’autorité/justificatifs privé jusqu’au choix d’un fournisseur.",
@@ -1086,9 +1120,16 @@
       "Determine whether Agnes has independent French retirement rights while also preserving the spouse/beneficiary route through Elie's S1.": "Déterminer si Agnes a des droits retraite français propres tout en préservant la voie épouse/ayant droit via le S1 d’Elie.",
       "Create or recover official FranceConnect access first, then inspect career records and summarize only high-level conclusions.": "Créer ou récupérer d’abord l’accès officiel FranceConnect, puis consulter le relevé de carrière et résumer seulement les conclusions générales.",
       "Ask for Agnes to be included in Elie's pensioner S1 request where possible.": "Demander l’inclusion d’Agnes dans la demande S1 retraité d’Elie lorsque c’est possible.",
+      "Determine whether Agnes has independent French retirement rights while the spouse/beneficiary route through Elie's submitted S1 request waits for an answer.": "Déterminer si Agnes a des droits retraite français propres pendant que la voie épouse/ayant droit via la demande S1 soumise d’Elie attend une réponse.",
+      "Try direct Assurance Retraite access for Agnes after ameli rejected immediate account creation, then inspect career records if access works.": "Essayer l’accès direct Assurance Retraite pour Agnes après le rejet de création immédiate ameli, puis consulter le relevé si l’accès fonctionne.",
+      "Agnes was included in Elie's submitted healthcare-abroad questionnaire; wait for the official answer.": "Agnes a été incluse dans le questionnaire soins à l’étranger soumis par Elie ; attendre la réponse officielle.",
       "Gather private-insurance and residence evidence only if the administrative route requires it.": "Rassembler les preuves d’assurance privée et de résidence seulement si la voie administrative l’exige.",
       "Request the French pensioner S1 after Agnes's immediate access step is blocked or complete.": "Demander le S1 retraité français après blocage ou achèvement de l’étape d’accès d’Agnes.",
       "Create Elie's own official access as setup, then submit the pensioner S1 request including Agnes where possible.": "Créer l’accès officiel propre d’Elie comme préparation, puis soumettre la demande S1 retraité en incluant Agnes si possible.",
+      "Healthcare-abroad questionnaire submitted through the retirement portal; wait for acknowledgement, follow-up, or S1 decision.": "Questionnaire soins à l’étranger soumis via le portail retraite ; attendre accusé, demande de complément ou décision S1.",
+      "Submitted the pensioner healthcare-abroad questionnaire including Agnes as spouse/ayant droit; watch for acknowledgement or follow-up.": "Questionnaire soins à l’étranger retraité soumis avec Agnes comme épouse/ayant droit ; surveiller accusé ou suite.",
+      "Healthcare-abroad questionnaire submitted through the retirement portal and visible as sent; wait for technician response, follow-up, or S1 decision.": "Questionnaire soins à l’étranger soumis via le portail retraite et visible comme envoyé ; attendre réponse technicien, demande de complément ou décision S1.",
+      "Submitted the pensioner healthcare-abroad questionnaire including Agnes as spouse/ayant droit; portal shows it as sent, so watch for technician response or follow-up.": "Questionnaire soins à l’étranger retraité soumis avec Agnes comme épouse/ayant droit ; le portail le montre envoyé, donc surveiller réponse technicien ou suite.",
       "Once the S1 exists, register it with Spain and move to the regional health-card step.": "Une fois le S1 obtenu, l’enregistrer en Espagne puis passer à l’étape de la carte sanitaire régionale.",
       "Keep the monitor, timelog, GitHub handoff, and privacy rules current.": "Tenir à jour la surveillance, le suivi du temps, le passage GitHub et les règles de confidentialité.",
       "Protect private material": "Protéger les éléments privés",
@@ -1121,15 +1162,19 @@
       "Captured Agnes identity baseline": "Base identité Agnes capturée",
       "Opened Agnes retirement lane": "Voie retraite Agnes ouverte",
       "Create Ameli / FranceConnect access": "Créer l’accès Ameli / FranceConnect",
+      "Try direct Assurance Retraite access": "Essayer l’accès direct Assurance Retraite",
       "Access Info Retraite": "Accéder à Info Retraite",
       "Review high-level career record": "Examiner le relevé de carrière global",
       "Check child, maternity, AVPF, gaps": "Vérifier enfants, maternité, AVPF et trous",
       "Tie Agnes to Elie's S1 request": "Rattacher Agnes à la demande S1 d’Elie",
+      "Wait for spouse/ayant droit decision": "Attendre la décision épouse/ayant droit",
       "Request insurance certificate only if needed": "Demander l’attestation d’assurance seulement si nécessaire",
       "Opened Elie's S1 lane": "Voie S1 d’Elie ouverte",
       "Calculated check-key workflow": "Procédure de clé de contrôle calculée",
       "Create Elie Ameli / FranceConnect access": "Créer l’accès Ameli / FranceConnect d’Elie",
       "Submit French pensioner S1 request": "Soumettre la demande S1 retraité française",
+      "Monitor S1 acknowledgement": "Surveiller l’accusé S1",
+      "Monitor S1 technician response": "Surveiller la réponse technicien S1",
       "Register S1 with INSS / CAISS": "Enregistrer le S1 auprès de l’INSS / CAISS",
       "Moved tree data into JSON": "Données de l’arbre déplacées dans le JSON",
       "Copied timelog SOP and started active-time tracking": "SOP de suivi du temps copié et suivi actif lancé",
@@ -1171,7 +1216,10 @@
       "The retirement-rights lane has the personal facts needed for official portal work, without publishing identifiers.": "La voie droits retraite contient les faits personnels nécessaires aux portails officiels, sans publier d’identifiants.",
       "Created the checklist for determining whether Agnes has her own French pension rights.": "Checklist créée pour déterminer si Agnes a ses propres droits à retraite française.",
       "Create or recover Agnes's official access before entering the retirement portal.": "Créer ou récupérer l’accès officiel d’Agnes avant d’entrer dans le portail retraite.",
+      "Use the retirement-account route now that ameli immediate creation rejected Agnes with a dossier/situation message.": "Utiliser la voie compte retraite maintenant que la création immédiate ameli d’Agnes a été rejetée par un message de dossier/situation.",
       "Prefer ameli if the online creation flow accepts the card and registered bank details.": "Préférer ameli si le parcours de création en ligne accepte la carte et les coordonnées bancaires enregistrées.",
+      "Try direct Assurance Retraite account creation before treating CPAM support as the only route.": "Essayer la création directe de compte Assurance Retraite avant de considérer le support CPAM comme seule voie.",
+      "Ameli immediate creation reached a situation-based rejection, not a simple typo correction.": "La création immédiate ameli a abouti à un rejet lié à la situation, pas à une simple correction de saisie.",
       "Use the personal number only in the official flow.": "Utiliser le numéro personnel seulement dans le parcours officiel.",
       "Do not store passwords, one-time codes, screenshots, or downloaded statements in this public workspace.": "Ne pas stocker de mots de passe, codes à usage unique, captures d’écran ou relevés téléchargés dans cet espace public.",
       "Wait until FranceConnect access exists, then enter the retirement portal and list the available career documents.": "Attendre l’existence de l’accès FranceConnect, puis entrer dans le portail retraite et lister les documents de carrière disponibles.",
@@ -1209,14 +1257,17 @@
       "Operational text uses a French translation dictionary in the same JSON file.": "Le texte opérationnel utilise un dictionnaire français dans le même fichier JSON.",
       "New strings fall back to English until a French translation is added.": "Les nouvelles chaînes reviennent à l’anglais tant qu’une traduction française n’est pas ajoutée.",
       "Version v85.7 adds the EN/FR toggle and keeps the app shell data-light.": "La version v85.7 ajoute le bouton EN/FR et garde l’enveloppe de l’application légère en données.",
+      "Version v85.7 added the EN/FR toggle; v85.8 keeps it data-driven while updating live task state.": "La version v85.7 a ajouté le bouton EN/FR ; v85.8 garde l’approche pilotée par données tout en mettant l’état réel à jour.",
       "Added the S1 tree as a local static app.": "Ajout de l’arbre S1 comme application statique locale.",
       "Added a hub tile and deploy workflow path.": "Ajout d’une tuile dans le hub et du chemin de déploiement.",
       "Verified the public URL after GitHub Pages deployment.": "URL publique vérifiée après le déploiement GitHub Pages.",
       "Live page and hub card published as v85.0; this revision deepens it to v85.7 with self-expanding cards, lane-safe layout, a corrected access-first queue, and JSON-backed task data.": "Page live et carte du hub publiées en v85.0 ; cette révision l’approfondit en v85.7 avec cartes auto-dépliantes, mise en page sûre par voie, file corrigée donnant priorité à l’accès, et données de tâches dans le JSON.",
+      "Live page and hub card published as v85.0; this revision deepens it to v85.8 with self-expanding cards, lane-safe layout, bilingual JSON-backed task data, and updated S1 submission state.": "Page live et carte du hub publiées en v85.0 ; cette révision l’approfondit en v85.8 avec cartes auto-dépliantes, mise en page sûre par voie, données bilingues dans le JSON et état S1 mis à jour.",
       "Empadronamiento waits on accepted housing proof, ideally nota simple or IBI/title.": "L’empadronamiento attend une preuve de logement acceptée, idéalement nota simple ou IBI/titre.",
       "Healthcare waits on the CNAV / Assurance Retraite answer.": "La santé attend la réponse CNAV / Assurance Retraite.",
       "The current queue now starts with Agnes retirement-rights discovery.": "La file actuelle commence maintenant par la vérification des droits retraite d’Agnes.",
       "This v85.7 page shows Manou as waiting and Agnes as the first current queue item.": "Cette page v85.7 montre Manou en attente et Agnes comme premier élément de la file actuelle.",
+      "This v85.8 page shows Manou waiting, Elie's S1 request waiting on technician response, and Agnes as the single next action.": "Cette page v85.8 montre Manou en attente, la demande S1 d’Elie en attente de réponse technicien, et Agnes comme seule prochaine action.",
       "Matched the apartment through public property-search context.": "Appartement rapproché via le contexte public de recherche immobilière.",
       "Recorded the sensitive particulars only in the private project repo.": "Détails sensibles consignés seulement dans le dépôt privé du projet.",
       "Kept this page to the operational conclusion: property proof is in progress.": "Cette page se limite à la conclusion opérationnelle : la preuve de propriété est en cours.",
@@ -1310,9 +1361,17 @@
       "Missing periods may need correction requests.": "Les périodes manquantes peuvent nécessiter des demandes de correction.",
       "Corrections wait until the official record is visible.": "Les corrections attendent que le relevé officiel soit visible.",
       "Ask for an individual nominative S1 or dependent recognition where the French/Spanish process allows it.": "Demander un S1 individuel nominatif ou une reconnaissance comme ayant droit lorsque le processus France/Espagne le permet.",
+      "Agnes was included as spouse/ayant droit in Elie's submitted healthcare-abroad questionnaire.": "Agnes a été incluse comme épouse/ayant droit dans le questionnaire soins à l’étranger soumis par Elie.",
       "This depends partly on Elie's S1 request.": "Cela dépend en partie de la demande S1 d’Elie.",
       "The request should mention spouse/family-member handling explicitly.": "La demande doit mentionner explicitement le traitement épouse/membre de famille.",
+      "The uploaded form asks for Elie and one spouse/ayant droit.": "Le formulaire téléversé demande l’étude d’Elie et d’une épouse/ayant droit.",
+      "No full identifiers, exact address, or PDF contents are published here.": "Aucun identifiant complet, adresse exacte ou contenu du PDF n’est publié ici.",
       "If refused, preserve the reason for the Spanish office.": "En cas de refus, conserver le motif pour le bureau espagnol.",
+      "Submitted through the Assurance Retraite portal on 2026-05-24; the sent-requests page confirms it was sent, with no numeric reference shown.": "Soumis via le portail Assurance Retraite le 2026-05-24 ; la page des demandes envoyées confirme l’envoi, sans référence numérique affichée.",
+      "Monitor whether the French answer issues a nominative S1 for Agnes, asks for proof, or refuses dependent handling.": "Surveiller si la réponse française émet un S1 nominatif pour Agnes, demande une preuve ou refuse le traitement comme ayant droit.",
+      "If accepted, move both people toward INSS registration.": "Si accepté, faire avancer les deux personnes vers l’enregistrement INSS.",
+      "If proof is requested, send it only through the private official channel.": "Si une preuve est demandée, l’envoyer seulement par le canal officiel privé.",
+      "If refused, keep the written reason for Spain and continue Agnes's own-rights lane.": "Si refusé, conserver le motif écrit pour l’Espagne et continuer la voie des droits propres d’Agnes.",
       "Certificate should confirm active coverage and relevant Spanish scope.": "L’attestation doit confirmer la couverture active et le périmètre espagnol pertinent.",
       "Only pursue if the administrative route requires it.": "À poursuivre seulement si la voie administrative l’exige.",
       "Do not publish policy numbers.": "Ne pas publier les numéros de police.",
@@ -1326,14 +1385,27 @@
       "Private source notes preserve the algorithm.": "Les notes de sources privées conservent l’algorithme.",
       "Useful for health and pension portals.": "Utile pour les portails santé et retraite.",
       "Not the only possible submission channel.": "Ce n’est pas le seul canal de dépôt possible.",
+      "Keep Elie's ameli/CPAM access as a separate cleanup task; it is no longer required for the submitted S1 request.": "Garder l’accès ameli/CPAM d’Elie comme tâche de nettoyage séparée ; il n’est plus nécessaire pour la demande S1 déjà soumise.",
+      "Useful later for health-account visibility.": "Utile plus tard pour la visibilité du compte santé.",
+      "Ameli remains blocked despite real historical postal codes.": "Ameli reste bloqué malgré des codes postaux historiques réels.",
       "Keep credentials and one-time codes out of the project.": "Garder identifiants et codes à usage unique hors projet.",
       "Target the competent French retirement channel.": "Viser le canal retraite français compétent.",
       "Ask for individual/nominative handling for spouse if available.": "Demander un traitement individuel/nominatif pour l’épouse si disponible.",
       "Do not put portal screenshots or full identifiers into the public app.": "Ne pas mettre de captures portail ni identifiants complets dans l’application publique.",
+      "Submitted the signed healthcare-abroad questionnaire through Assurance Retraite, including Agnes as spouse/ayant droit.": "Questionnaire soins à l’étranger signé soumis via Assurance Retraite, avec Agnes comme épouse/ayant droit.",
+      "The portal accepted the signed form upload.": "Le portail a accepté le téléversement du formulaire signé.",
+      "No supporting documents were attached through that service.": "Aucun justificatif n’a été joint via ce service.",
+      "Portal confirmation displayed and the sent-requests page lists the request dated 2026-05-24; no numeric reference was shown.": "Confirmation portail affichée et demande datée du 2026-05-24 visible dans les demandes envoyées ; aucune référence numérique affichée.",
+      "Submitted on 2026-05-24 via Messagerie / Transmettre mon formulaire; portal showed it as sent and private docs record only the non-sensitive submission fact.": "Soumis le 2026-05-24 via Messagerie / Transmettre mon formulaire ; le portail l’affiche comme envoyé et les docs privées ne gardent que le fait non sensible du dépôt.",
+      "Check email, portal messages, and document exchanges for the technician response or a request for additional documents.": "Vérifier email, messages portail et échanges de documents pour la réponse technicien ou une demande de pièces complémentaires.",
+      "Calendar reminder is set for 2026-05-25 at 10:00 Spain time.": "Rappel calendrier fixé au 2026-05-25 à 10:00 heure d’Espagne.",
+      "Do not resend immediately unless the portal/email stays silent after the follow-up window.": "Ne pas renvoyer immédiatement sauf si portail/email restent silencieux après la fenêtre de suivi.",
+      "If an answer arrives, record only the non-sensitive decision and next action.": "Si une réponse arrive, noter seulement la décision non sensible et la prochaine action.",
       "Spanish registration waits for the actual S1.": "L’enregistrement espagnol attend le S1 réel.",
       "Then move to regional health-card logistics.": "Ensuite passer à la logistique de carte sanitaire régionale.",
       "Record only non-sensitive status transitions.": "Ne noter que les transitions de statut non sensibles.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.7.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.7.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v85.8.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.8.",
       "Golden timelog SOP was copied into the private repo.": "Le SOP de suivi du temps Golden a été copié dans le dépôt privé.",
       "Active collaboration time is logged conservatively.": "Le temps de collaboration active est journalisé prudemment.",
       "Background tool/runtime time is excluded.": "Le temps d’outils/environnement en arrière-plan est exclu.",
