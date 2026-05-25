@@ -1,5 +1,5 @@
 {
-  "version": "v85.11",
+  "version": "v86.0",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
@@ -55,12 +55,7 @@
               },
               {
                 "id": "manou-safe-bermudez",
-                "blockers": [
-                  {
-                    "label": "Blocked by",
-                    "text": "Waiting for price, factura, timing, proof requirements, and opening approach after photos were sent."
-                  }
-                ]
+                "meta": "Closed: Bermudez is not the active quote path; a fallback contact was saved privately."
               },
               {
                 "id": "manou-safe-fpoint",
@@ -269,8 +264,8 @@
     },
     "manou-safe-bermudez": {
       "title": "Bermudez / Email",
-      "status": "waiting",
-      "summary": "Photos were sent by email; wait for price, proof requirements, invoice, and timing.",
+      "status": "done",
+      "summary": "Closed after Bermudez said the safe model is obsolete and suggested a closer fallback contact.",
       "includes": [
         "manou-safe-bermudez"
       ]
@@ -636,15 +631,16 @@
     },
     {
       "lane": "manou-safe-bermudez",
-      "status": "waiting",
-      "title": "Wait for Bermudez quote",
+      "status": "done",
+      "title": "Closed Bermudez quote path",
       "owner": "Monitor",
-      "body": "A provider has the safe photos and should reply with price, invoice, timing, and proof requirements.",
+      "body": "Bermudez is no longer an active quote path for the safe opening.",
       "details": [
-        "Compare against the existing quote before booking.",
-        "Watch whether travel/call-out is included.",
-        "Capture whether destructive opening is expected."
-      ]
+        "He said the model is obsolete and may be hard to repair.",
+        "Because he is farther away, he suggested a closer fallback contact.",
+        "Keep that fallback contact in the private project notes, not on the public tree."
+      ],
+      "witness": "Private Gmail thread has the 2026-05-25 reply; private S1 notes carry the fallback contact."
     },
     {
       "lane": "manou-safe-fpoint",
@@ -1006,7 +1002,7 @@
         "The web app fetches the JSON and renders it on load.",
         "Future public-safe updates can usually edit only the data file."
       ],
-      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v85.11."
+      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v86.0."
     },
     {
       "lane": "ops",
@@ -1190,6 +1186,7 @@
       "Elie's healthcare-abroad questionnaire now includes Agnes; wait for the official answer on spouse/family-member handling.": "Le questionnaire soins à l’étranger d’Elie inclut maintenant Agnes ; attendre la réponse officielle sur le traitement épouse/membre de famille.",
       "Pensioner S1 request submitted; wait for acknowledgement and official answer.": "Demande S1 retraité soumise ; attendre l’accusé et la réponse officielle.",
       "Pensioner S1 request submitted and visible as sent; wait for technician response and official answer.": "Demande S1 retraité soumise et visible comme envoyée ; attendre la réponse technicien et la réponse officielle.",
+      "Closed: Bermudez is not the active quote path; a fallback contact was saved privately.": "Clôturé : Bermudez n’est plus une piste de devis active ; un contact de secours a été conservé dans les notes privées.",
       "S1 for all": "S1 pour tous",
       "Manou": "Manou",
       "Ownership Proof": "Preuve de propriété",
@@ -1268,6 +1265,7 @@
       "Hold CF booking until quote comparison": "Attendre la comparaison avant rendez-vous CF",
       "Prepared safe photos for quoting": "Photos du coffre préparées pour devis",
       "Wait for Bermudez quote": "Attendre le devis Bermudez",
+      "Closed Bermudez quote path": "Piste devis Bermudez clôturée",
       "Watch FPoint reply": "Surveiller réponse FPoint",
       "Watch Mayorga reply": "Surveiller réponse Mayorga",
       "Confirm all-in price before booking": "Confirmer prix tout compris avant réservation",
@@ -1535,6 +1533,13 @@
       "The app source now fetches s1/task-tree.json; the data file carries version v85.7.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.7.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.8.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.8.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.11.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.11.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v86.0.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v86.0.",
+      "Closed after Bermudez said the safe model is obsolete and suggested a closer fallback contact.": "Clôturé après que Bermudez a indiqué que le modèle de coffre est obsolète et suggéré un contact de secours plus proche.",
+      "Bermudez is no longer an active quote path for the safe opening.": "Bermudez n’est plus une piste de devis active pour l’ouverture du coffre.",
+      "He said the model is obsolete and may be hard to repair.": "Il a indiqué que le modèle est obsolète et peut être difficile à réparer.",
+      "Because he is farther away, he suggested a closer fallback contact.": "Comme il est plus éloigné, il a suggéré un contact de secours plus proche.",
+      "Keep that fallback contact in the private project notes, not on the public tree.": "Conserver ce contact de secours dans les notes privées du projet, pas dans l’arbre public.",
+      "Private Gmail thread has the 2026-05-25 reply; private S1 notes carry the fallback contact.": "Le fil Gmail privé contient la réponse du 2026-05-25 ; les notes privées S1 gardent le contact de secours.",
       "Golden timelog SOP was copied into the private repo.": "Le SOP de suivi du temps Golden a été copié dans le dépôt privé.",
       "Active collaboration time is logged conservatively.": "Le temps de collaboration active est journalisé prudemment.",
       "Background tool/runtime time is excluded.": "Le temps d’outils/environnement en arrière-plan est exclu.",
