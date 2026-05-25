@@ -40,6 +40,8 @@ This repo does not currently require a package manager or build step for the mai
 
 The root `index.html` keeps machine-readable version sources on each site card. It refreshes in-browser every three hours, and `.github/workflows/refresh-hub.yml` runs on the same cadence to check local subproject pages plus linked GitHub Pages projects, update card versions, reorder newest versions first, bump the hub version, commit the changed `index.html`, and push it so the Pages deploy publishes to github.io.
 
+The refresh workflow can send Telegram feedback when the hub publishes a version change or when the refresh job fails. Configure repository secrets named `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in GitHub; if either secret is missing, the workflow skips Telegram and still completes normally. Successful no-change runs stay silent.
+
 Run the refresh locally with:
 
 ```sh

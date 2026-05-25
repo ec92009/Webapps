@@ -22,17 +22,92 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Refresh hub versions
-        run: python3 scripts/update_hub_versions.py
+        id: refresh
+        run: |
+          set -o pipefail
+          python3 scripts/update_hub_versions.py 2>&1 | tee refresh-output.txt
 
-      - name: Commit and push hub update
+      - name: Detect hub changes
+        id: changes
         run: |
           if git diff --quiet -- index.html; then
-            echo "No hub changes to publish."
-            exit 0
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Commit and push hub update
+        id: publish
+        if: steps.changes.outputs.changed == 'true'
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           git commit -m "webapps: refresh hub versions"
           git push
+          echo "commit=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Notify Telegram
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          JOB_STATUS: ${{ job.status }}
+          HUB_CHANGED: ${{ steps.changes.outputs.changed }}
+          PUBLISHED_COMMIT: ${{ steps.publish.outputs.commit }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          HUB_URL: https://ec92009.github.io/Webapps/
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+            echo "Telegram secrets are not configured; skipping notification."
+            exit 0
+          fi
+
+          if [ "$JOB_STATUS" = "success" ] && [ "$HUB_CHANGED" != "true" ]; then
+            echo "No hub changes and job succeeded; skipping notification."
+            exit 0
+          fi
+
+          if [ "$JOB_STATUS" = "success" ]; then
+            {
+              echo "Webapps hub updated"
+              echo
+              echo "Commit: ${PUBLISHED_COMMIT:-unknown}"
+              echo "Live: $HUB_URL"
+              echo "Run: $RUN_URL"
+              echo
+              echo "Refresh output:"
+              tail -n 20 refresh-output.txt
+            } > telegram-message.txt
+          else
+            {
+              echo "Webapps hub refresh failed"
+              echo
+              echo "Run: $RUN_URL"
+              echo
+              echo "Refresh output:"
+              if [ -f refresh-output.txt ]; then
+                tail -n 40 refresh-output.txt
+              else
+                echo "Refresh did not produce an output log."
+              fi
+            } > telegram-message.txt
+          fi
+
+          python3 - <<'PY'
+          import os
+          import urllib.parse
+          import urllib.request
+
+          token = os.environ["TELEGRAM_BOT_TOKEN"]
+          chat_id = os.environ["TELEGRAM_CHAT_ID"]
+          text = open("telegram-message.txt", encoding="utf-8").read()
+          data = urllib.parse.urlencode({
+              "chat_id": chat_id,
+              "text": text,
+              "disable_web_page_preview": "true",
+          }).encode("utf-8")
+          url = f"https://api.telegram.org/bot{token}/sendMessage"
+          with urllib.request.urlopen(url, data=data, timeout=20) as response:
+              response.read()
+          PY
