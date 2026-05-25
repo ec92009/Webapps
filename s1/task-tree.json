@@ -1,5 +1,5 @@
 {
-  "version": "v86.0",
+  "version": "v86.1",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
@@ -62,7 +62,7 @@
                 "blockers": [
                   {
                     "label": "Blocked by",
-                    "text": "No useful reply yet from the email quote path."
+                    "text": "Photos and no-repair/no-reuse clarification were sent; wait for FPoint's quote, proof requirements, factura, and timing."
                   }
                 ]
               },
@@ -273,7 +273,7 @@
     "manou-safe-fpoint": {
       "title": "FPoint / Email",
       "status": "waiting",
-      "summary": "Second-wave email outreach stays open until a reply or timeout.",
+      "summary": "Safe photos were sent to FPoint with no-repair/no-reuse clarification; wait for quote and service details.",
       "includes": [
         "manou-safe-fpoint"
       ]
@@ -647,12 +647,13 @@
       "status": "waiting",
       "title": "Watch FPoint reply",
       "owner": "Monitor",
-      "body": "Keep this second-wave email path open while the automation checks for movement.",
+      "body": "FPoint now has the safe photos and the clarification that repair/reuse is not needed; wait for their quote/details.",
       "details": [
-        "Useful reply fields: can open this type of safe, price range, timing, proof requirements, and invoice.",
-        "If no reply arrives after the active comparison window, mark it stale privately.",
-        "Do not resend the same first-contact email."
-      ]
+        "Need total opening price including Fuengirola travel and IVA if applicable.",
+        "Need factura, required documentation, timing, and whether they can try non-destructive opening first.",
+        "Repair, lock replacement, and leaving the safe usable are explicitly not required."
+      ],
+      "witness": "Elie reported the FPoint reply was sent on 2026-05-25."
     },
     {
       "lane": "manou-safe-mayorga",
@@ -1002,7 +1003,7 @@
         "The web app fetches the JSON and renders it on load.",
         "Future public-safe updates can usually edit only the data file."
       ],
-      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v86.0."
+      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v86.1."
     },
     {
       "lane": "ops",
@@ -1170,6 +1171,7 @@
       "Compare against competing quote before booking; confirm all-in price and proof requirement if chosen.": "Comparer avec le devis concurrent avant de réserver ; confirmer le prix tout compris et les justificatifs requis si cette piste est choisie.",
       "Waiting for price, factura, timing, proof requirements, and opening approach after photos were sent.": "En attente du prix, de la facture, du délai, des justificatifs requis et de la méthode d’ouverture après envoi des photos.",
       "No useful reply yet from the email quote path.": "Pas encore de réponse utile par cette piste email.",
+      "Photos and no-repair/no-reuse clarification were sent; wait for FPoint's quote, proof requirements, factura, and timing.": "Photos et précision sans réparation/sans réutilisation envoyées ; attendre le devis FPoint, les justificatifs requis, la facture et le délai.",
       "Sent email is restored and live; no inbound quote yet.": "L’email envoyé est rétabli et actif ; pas encore de devis reçu.",
       "No inbound quote yet from this provider path.": "Pas encore de devis reçu par cette piste fournisseur.",
       "Need clean ownership proof and chosen provider before sharing any private documents.": "Besoin d’une preuve de propriété claire et d’un fournisseur choisi avant de partager des documents privés.",
@@ -1221,6 +1223,7 @@
       "First firm quote path is the baseline; hold booking until the competing quote and proof packet are evaluated.": "La première piste avec prix ferme sert de référence ; attendre le devis concurrent et l’évaluation du dossier avant de réserver.",
       "Photos were sent by email; wait for price, proof requirements, invoice, and timing.": "Photos envoyées par email ; attendre prix, justificatifs requis, facture et délai.",
       "Second-wave email outreach stays open until a reply or timeout.": "La relance email de deuxième vague reste ouverte jusqu’à réponse ou expiration.",
+      "Safe photos were sent to FPoint with no-repair/no-reuse clarification; wait for quote and service details.": "Photos du coffre envoyées à FPoint avec précision sans réparation/sans réutilisation ; attendre le devis et les détails d’intervention.",
       "Sent email was restored and now sits on the same footing as the other email quote paths.": "L’email envoyé a été rétabli et compte comme les autres pistes de devis email.",
       "Email quote path remains open for response monitoring.": "La piste de devis email reste ouverte pour surveillance.",
       "Prepare proof only after ownership evidence and the provider handoff are confirmed; keep identity and property documents private.": "Préparer les justificatifs seulement après confirmation de la preuve de propriété et du fournisseur ; garder les documents d’identité et de propriété privés.",
@@ -1534,12 +1537,18 @@
       "The app source now fetches s1/task-tree.json; the data file carries version v85.8.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.8.",
       "The app source now fetches s1/task-tree.json; the data file carries version v85.11.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v85.11.",
       "The app source now fetches s1/task-tree.json; the data file carries version v86.0.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v86.0.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v86.1.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v86.1.",
       "Closed after Bermudez said the safe model is obsolete and suggested a closer fallback contact.": "Clôturé après que Bermudez a indiqué que le modèle de coffre est obsolète et suggéré un contact de secours plus proche.",
       "Bermudez is no longer an active quote path for the safe opening.": "Bermudez n’est plus une piste de devis active pour l’ouverture du coffre.",
       "He said the model is obsolete and may be hard to repair.": "Il a indiqué que le modèle est obsolète et peut être difficile à réparer.",
       "Because he is farther away, he suggested a closer fallback contact.": "Comme il est plus éloigné, il a suggéré un contact de secours plus proche.",
       "Keep that fallback contact in the private project notes, not on the public tree.": "Conserver ce contact de secours dans les notes privées du projet, pas dans l’arbre public.",
       "Private Gmail thread has the 2026-05-25 reply; private S1 notes carry the fallback contact.": "Le fil Gmail privé contient la réponse du 2026-05-25 ; les notes privées S1 gardent le contact de secours.",
+      "FPoint now has the safe photos and the clarification that repair/reuse is not needed; wait for their quote/details.": "FPoint a maintenant les photos du coffre et la précision que réparation/réutilisation ne sont pas nécessaires ; attendre leur devis et détails.",
+      "Need total opening price including Fuengirola travel and IVA if applicable.": "Besoin du prix total d’ouverture incluant déplacement à Fuengirola et IVA le cas échéant.",
+      "Need factura, required documentation, timing, and whether they can try non-destructive opening first.": "Besoin de la facture, des justificatifs requis, du délai et de savoir s’ils peuvent tenter d’abord une ouverture non destructive.",
+      "Repair, lock replacement, and leaving the safe usable are explicitly not required.": "Réparation, changement de serrure et remise en service du coffre ne sont explicitement pas nécessaires.",
+      "Elie reported the FPoint reply was sent on 2026-05-25.": "Elie a indiqué que la réponse à FPoint a été envoyée le 2026-05-25.",
       "Golden timelog SOP was copied into the private repo.": "Le SOP de suivi du temps Golden a été copié dans le dépôt privé.",
       "Active collaboration time is logged conservatively.": "Le temps de collaboration active est journalisé prudemment.",
       "Background tool/runtime time is excluded.": "Le temps d’outils/environnement en arrière-plan est exclu.",
