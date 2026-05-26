@@ -14,7 +14,6 @@ on:
       - 'oleataxco/**'
       - 'oleataxco-v25/**'
       - 'reversi/**'
-      - 's1/**'
       - 'sortingalgos/**'
       - 'tapmeplus1/**'
   workflow_dispatch:
