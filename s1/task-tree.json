@@ -1,5 +1,5 @@
 {
-  "version": "v86.2",
+  "version": "v86.3",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
@@ -1003,7 +1003,7 @@
         "The web app fetches the JSON and renders it on load.",
         "Future public-safe updates can usually edit only the data file."
       ],
-      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v86.2."
+      "witness": "The app source now fetches s1/task-tree.json; the data file carries version v86.3."
     },
     {
       "lane": "ops",
@@ -1082,7 +1082,7 @@
         "Spanish UI labels and operational translations live in task-tree.json.",
         "The language choice is kept in the URL and local browser preference."
       ],
-      "witness": "Version v86.2 adds the ES toggle and makes the language picker data-driven."
+      "witness": "Version v86.3 adds the ES toggle and makes the language picker data-driven."
     }
   ],
   "defaultLocale": "en",
@@ -1617,7 +1617,9 @@
       "Webapps commit and GitHub Pages deployment are the witness.": "Le commit Webapps et le déploiement GitHub Pages servent de preuve.",
       "Commit and push only public-safe changes.": "Committer et pousser seulement les changements sûrs pour publication.",
       "Keep private repo as source of truth for sensitive operational details.": "Garder le dépôt privé comme source de vérité pour les détails opérationnels sensibles.",
-      "Use this page as a dashboard, not a records vault.": "Utiliser cette page comme tableau de bord, pas comme coffre d’archives."
+      "Use this page as a dashboard, not a records vault.": "Utiliser cette page comme tableau de bord, pas comme coffre d’archives.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v86.3.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v86.3.",
+      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La version v86.3 ajoute le sélecteur ES et rend le sélecteur de langue piloté par les données."
     },
     "es": {
       "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.": "Mapa operativo para Manou, Agnes y Elie. Seguro para publicar: sin identificaciones, direcciones exactas, escaneos ni datos de cuenta.",
@@ -1997,7 +1999,9 @@
       "Language buttons are generated from the JSON languages list instead of being hard-coded in the page.": "Los botones de idioma se generan desde la lista de idiomas del JSON en vez de estar codificados en la página.",
       "Spanish UI labels and operational translations live in task-tree.json.": "Las etiquetas de interfaz y traducciones operativas en español viven en task-tree.json.",
       "The language choice is kept in the URL and local browser preference.": "La elección de idioma se conserva en la URL y en la preferencia local del navegador.",
-      "Version v86.2 adds the ES toggle and makes the language picker data-driven.": "La versión v86.2 añade el selector ES y hace que el selector de idioma dependa de los datos."
+      "Version v86.2 adds the ES toggle and makes the language picker data-driven.": "La versión v86.2 añade el selector ES y hace que el selector de idioma dependa de los datos.",
+      "The app source now fetches s1/task-tree.json; the data file carries version v86.3.": "El código de la app ahora carga s1/task-tree.json; el archivo de datos lleva la versión v86.3.",
+      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La versión v86.3 añade el selector ES y hace que el selector de idioma dependa de los datos."
     }
   }
 }
