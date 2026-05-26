@@ -720,10 +720,7 @@
       </div>
       <div class="top-actions">
         <div class="version-pill"><span id="version-label">Version</span> <span id="version">v85.8</span></div>
-        <div class="language-toggle" id="language-toggle" aria-label="Language">
-          <button type="button" data-locale="en" class="active">EN</button>
-          <button type="button" data-locale="fr">FR</button>
-        </div>
+        <div class="language-toggle" id="language-toggle" aria-label="Language"></div>
       </div>
     </header>
 
@@ -797,13 +794,13 @@
     let nodeButtons = [];
     let treeItems = [];
     const filterButtons = [...document.querySelectorAll("[data-filter]")];
-    const languageButtons = [...document.querySelectorAll("[data-locale]")];
+    let languageButtons = [];
     const taskList = document.querySelector("#task-list");
     const search = document.querySelector("#search");
     const copyButton = document.querySelector("#copy");
     const copyState = document.querySelector("#copy-state");
     const preferredLocale = new URLSearchParams(location.search).get("lang") || localStorage.getItem("s1-task-tree-locale") || "en";
-    state.locale = preferredLocale === "fr" ? "fr" : "en";
+    state.locale = preferredLocale;
 
     function escapeHtml(value = "") {
       return String(value)
@@ -835,6 +832,42 @@
       const text = String(value ?? "");
       if (state.locale === "en") return text;
       return appData?.translations?.[state.locale]?.[text] || text;
+    }
+
+    function supportedLocales() {
+      const languages = appData?.languages?.length
+        ? appData.languages
+        : [{ code: "en", label: "EN", name: "English" }];
+      return languages.map((language) => language.code);
+    }
+
+    function normalizeLocale() {
+      const locales = supportedLocales();
+      if (!locales.includes(state.locale)) {
+        state.locale = appData?.defaultLocale && locales.includes(appData.defaultLocale)
+          ? appData.defaultLocale
+          : "en";
+      }
+    }
+
+    function updateLocaleUrl() {
+      const url = new URL(location.href);
+      url.searchParams.set("lang", state.locale);
+      history.replaceState(null, "", `${url.pathname}${url.search}${location.hash}`);
+    }
+
+    function renderLanguageToggle() {
+      const toggle = document.querySelector("#language-toggle");
+      const languages = appData?.languages?.length
+        ? appData.languages
+        : [{ code: "en", label: "EN", name: "English" }];
+      toggle.innerHTML = languages.map((language) => `
+        <button type="button" data-locale="${escapeHtml(language.code)}" title="${escapeHtml(language.name || language.label || language.code)}">
+          ${escapeHtml(language.label || language.code.toUpperCase())}
+        </button>
+      `).join("");
+      languageButtons = [...toggle.querySelectorAll("[data-locale]")];
+      bindLanguageButtons();
     }
 
     function nodeTheme(branch) {
@@ -1101,18 +1134,22 @@
       });
     });
 
-    languageButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        if (state.locale === button.dataset.locale || !appData) return;
-        state.locale = button.dataset.locale;
-        localStorage.setItem("s1-task-tree-locale", state.locale);
-        renderTree(appData);
-        revealNode(state.selected);
-        copyState.dataset.managed = "true";
-        copyState.textContent = ui("labels", "snapshotReady", "Snapshot ready.");
-        render();
+    function bindLanguageButtons() {
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          if (state.locale === button.dataset.locale || !appData) return;
+          state.locale = button.dataset.locale;
+          normalizeLocale();
+          localStorage.setItem("s1-task-tree-locale", state.locale);
+          updateLocaleUrl();
+          renderTree(appData);
+          revealNode(state.selected);
+          copyState.dataset.managed = "true";
+          copyState.textContent = ui("labels", "snapshotReady", "Snapshot ready.");
+          render();
+        });
       });
-    });
+    }
 
     search.addEventListener("input", () => {
       state.query = search.value;
@@ -1162,6 +1199,8 @@
         }
         nodes = appData.nodes;
         tasks = appData.tasks;
+        normalizeLocale();
+        renderLanguageToggle();
         document.querySelector("#version").textContent = appData.version || "v85.8";
         indexTree(appData.tree);
         resetExpansion(appData);
