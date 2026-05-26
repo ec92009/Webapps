@@ -1,10 +1,10 @@
 {
-  "version": "v86.3",
+  "version": "v87.0",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
     "Waiting: S1 technician response",
-    "Waiting: Manou outside replies",
+    "Waiting: Manou registry result",
     "Later: CPAM Ameli phone support"
   ],
   "defaultSelected": "all",
@@ -23,12 +23,12 @@
   "tree": {
     "id": "all",
     "theme": "root",
-    "meta": "Sunday hold: no current next leaf; open waiting and later blockers.",
+    "meta": "Current hold: CF appointment is scheduled; registry and S1 answers still wait on outside offices.",
     "children": [
       {
         "id": "manou",
         "theme": "manou",
-        "meta": "Priority lane, currently blocked on outside proof and replies.",
+        "meta": "Priority lane: safe appointment scheduled; property and healthcare answers still waiting.",
         "children": [
           {
             "id": "manou-property",
@@ -36,20 +36,20 @@
             "blockers": [
               {
                 "label": "Blocked by",
-                "text": "Registry result not downloaded yet; IBI/title deed not located."
+                "text": "Nota simple result not downloaded yet from Registradores / Registro de la Propiedad; IBI/title deed not located."
               }
             ]
           },
           {
             "id": "manou-safe",
-            "meta": "Quote paths, proof gate, and booking decision.",
+            "meta": "CF chosen; appointment set; proof gate stays private.",
             "children": [
               {
                 "id": "manou-safe-cf",
                 "blockers": [
                   {
                     "label": "Blocked by",
-                    "text": "Compare against competing quote before booking; confirm all-in price and proof requirement if chosen."
+                    "text": "CF appointment is set for Thursday 2026-05-28 at 18:30; keep owner-present and house-document proof ready."
                   }
                 ]
               },
@@ -59,30 +59,15 @@
               },
               {
                 "id": "manou-safe-fpoint",
-                "blockers": [
-                  {
-                    "label": "Blocked by",
-                    "text": "Photos and no-repair/no-reuse clarification were sent; wait for FPoint's quote, proof requirements, factura, and timing."
-                  }
-                ]
+                "meta": "Closed: CF was chosen before FPoint became the active path."
               },
               {
                 "id": "manou-safe-vallejo",
-                "blockers": [
-                  {
-                    "label": "Blocked by",
-                    "text": "Sent email is restored and live; no inbound quote yet."
-                  }
-                ]
+                "meta": "Closed: no longer waiting for this quote path."
               },
               {
                 "id": "manou-safe-mayorga",
-                "blockers": [
-                  {
-                    "label": "Blocked by",
-                    "text": "No inbound quote yet from this provider path."
-                  }
-                ]
+                "meta": "Closed: no longer waiting for this quote path."
               },
               {
                 "id": "manou-safe-authority",
@@ -185,7 +170,7 @@
     "all": {
       "title": "S1 for all",
       "status": "waiting",
-      "summary": "Sunday work is exhausted: Elie's submitted S1 waits for the technician, Manou waits for outside replies, and Agnes's Ameli/own-S1 work is now a business-day or age-67 question.",
+      "summary": "CF is booked for Manou's safe; the live blockers are the nota simple from the Spanish property registry and the French S1/healthcare answers.",
       "includes": [
         "all",
         "manou",
@@ -217,7 +202,7 @@
     "manou": {
       "title": "Manou",
       "status": "waiting",
-      "summary": "Priority lane is blocked on outside inputs: ownership proof, locksmith/registry movement, accepted empadronamiento proof, and the French healthcare answer.",
+      "summary": "Priority lane: CF safe opening is booked, while ownership proof, accepted empadronamiento proof, and the French healthcare answer are still waiting.",
       "includes": [
         "manou",
         "manou-property",
@@ -235,15 +220,15 @@
     "manou-property": {
       "title": "Ownership Proof",
       "status": "waiting",
-      "summary": "Wait for the property registry result and use only the non-sensitive conclusion in project notes.",
+      "summary": "Wait for the nota simple from Registradores de Espana / Registro de la Propiedad de Fuengirola No. 01 and use only the non-sensitive ownership conclusion in project notes.",
       "includes": [
         "manou-property"
       ]
     },
     "manou-safe": {
       "title": "Safe / Locksmiths",
-      "status": "waiting",
-      "summary": "Compare locksmith responses and keep the authority/proof packet private until a provider is chosen.",
+      "status": "active",
+      "summary": "CF is chosen and booked for Thursday 2026-05-28 at 18:30; keep the proof packet private and bring only what is needed on site.",
       "includes": [
         "manou-safe",
         "manou-safe-cf",
@@ -256,8 +241,8 @@
     },
     "manou-safe-cf": {
       "title": "CF / WhatsApp",
-      "status": "waiting",
-      "summary": "First firm quote path is the baseline; hold booking until the competing quote and proof packet are evaluated.",
+      "status": "active",
+      "summary": "CF is the chosen locksmith path; appointment is Thursday 2026-05-28 at 18:30 for opening only, with no repair or reuse planned.",
       "includes": [
         "manou-safe-cf"
       ]
@@ -272,32 +257,32 @@
     },
     "manou-safe-fpoint": {
       "title": "FPoint / Email",
-      "status": "waiting",
-      "summary": "Safe photos were sent to FPoint with no-repair/no-reuse clarification; wait for quote and service details.",
+      "status": "done",
+      "summary": "Closed after CF was chosen; FPoint received photos and the no-repair/no-reuse clarification but is no longer the decision path.",
       "includes": [
         "manou-safe-fpoint"
       ]
     },
     "manou-safe-vallejo": {
       "title": "Vallejo / Email",
-      "status": "waiting",
-      "summary": "Sent email was restored and now sits on the same footing as the other email quote paths.",
+      "status": "done",
+      "summary": "Closed after CF was chosen; the sent Vallejo email remains documented but no longer blocks the appointment.",
       "includes": [
         "manou-safe-vallejo"
       ]
     },
     "manou-safe-mayorga": {
       "title": "Mayorga / Email",
-      "status": "waiting",
-      "summary": "Email quote path remains open for response monitoring.",
+      "status": "done",
+      "summary": "Closed after CF was chosen; no longer waiting on Mayorga before proceeding.",
       "includes": [
         "manou-safe-mayorga"
       ]
     },
     "manou-safe-authority": {
       "title": "Proof Packet",
-      "status": "waiting",
-      "summary": "Prepare proof only after ownership evidence and the provider handoff are confirmed; keep identity and property documents private.",
+      "status": "active",
+      "summary": "For the CF appointment, keep passport plus house-document proof ready with the owner present; do not send copies casually.",
       "includes": [
         "manou-safe-authority"
       ]
@@ -511,6 +496,7 @@
       "body": "Submitted the property registry request and confirmed it entered processing.",
       "details": [
         "The request was submitted through the official property-registry channel.",
+        "Official names to remember: Registradores de Espana / Colegio de Registradores, Registro de la Propiedad de Fuengirola No. 01, and nota simple.",
         "Confirmation email was received.",
         "No registry PDF or application number is published here."
       ],
@@ -523,6 +509,7 @@
       "owner": "Automation + Elie",
       "body": "When the registry email arrives, Elie downloads it outside the repo and reports only the ownership conclusion.",
       "details": [
+        "Watch for the nota simple result from Registradores / Registro de la Propiedad.",
         "Expected useful output: whether the expected owner is named.",
         "If clean, use it as primary proof for empadronamiento and safe-opening authority.",
         "If not clean, record only the non-sensitive problem category."
@@ -581,15 +568,16 @@
     },
     {
       "lane": "manou-safe-vallejo",
-      "status": "waiting",
-      "title": "Watch Vallejo reply",
+      "status": "done",
+      "title": "Closed Vallejo quote path",
       "owner": "Monitor",
-      "body": "Keep the restored sent email in the active quote pool.",
+      "body": "CF was chosen, so Vallejo no longer blocks the safe appointment.",
       "details": [
-        "Treat it as a live provider path, not an accidental duplicate.",
-        "Compare any reply against the WhatsApp quote and the photo-based email quote.",
-        "Record only public-safe conclusions here."
-      ]
+        "The sent email remains documented.",
+        "No private documents were sent on this path.",
+        "If a late reply arrives, record only the non-sensitive conclusion."
+      ],
+      "witness": "Provider path closed after the CF appointment was selected."
     },
     {
       "lane": "manou-safe-cf",
@@ -606,15 +594,16 @@
     },
     {
       "lane": "manou-safe-cf",
-      "status": "waiting",
-      "title": "Hold CF booking until quote comparison",
+      "status": "active",
+      "title": "Booked CF safe appointment",
       "owner": "Elie + Agnes",
-      "body": "Use this path as the current baseline but wait for the competing photo-based quote if timing allows.",
+      "body": "CF is the chosen locksmith because they responded and gave the workable quote path.",
       "details": [
-        "Confirm whether travel and invoice are included.",
-        "Confirm earliest appointment only after comparing the second quote.",
-        "Keep the owner-present and house-document requirement ready but private."
-      ]
+        "Appointment: Thursday 2026-05-28 at 18:30 Spain time.",
+        "Scope: opening only; no repair, lock replacement, reset, or future safe use planned.",
+        "Bring passport plus house-document proof, with the owner present if possible."
+      ],
+      "witness": "Elie selected CF after comparing the practical response state; no exact address or private contact details are published."
     },
     {
       "lane": "manou-safe-bermudez",
@@ -644,39 +633,40 @@
     },
     {
       "lane": "manou-safe-fpoint",
-      "status": "waiting",
-      "title": "Watch FPoint reply",
+      "status": "done",
+      "title": "Closed FPoint quote path",
       "owner": "Monitor",
-      "body": "FPoint now has the safe photos and the clarification that repair/reuse is not needed; wait for their quote/details.",
+      "body": "FPoint has photos and the no-repair/no-reuse clarification, but CF was selected before FPoint became the active provider.",
       "details": [
-        "Need total opening price including Fuengirola travel and IVA if applicable.",
-        "Need factura, required documentation, timing, and whether they can try non-destructive opening first.",
-        "Repair, lock replacement, and leaving the safe usable are explicitly not required."
+        "No decision now waits on this reply.",
+        "If FPoint replies late, record only public-safe facts.",
+        "Repair, lock replacement, and leaving the safe usable remain explicitly unnecessary."
       ],
-      "witness": "Elie reported the FPoint reply was sent on 2026-05-25."
+      "witness": "Elie reported the FPoint reply was sent on 2026-05-25; path closed after CF was selected."
     },
     {
       "lane": "manou-safe-mayorga",
-      "status": "waiting",
-      "title": "Watch Mayorga reply",
+      "status": "done",
+      "title": "Closed Mayorga quote path",
       "owner": "Monitor",
-      "body": "Keep this email path in the quote pool until a reply or timeout.",
+      "body": "CF was selected, so Mayorga no longer blocks the safe appointment.",
       "details": [
-        "Compare any useful quote against the WhatsApp path and the photo-based email path.",
-        "Avoid sending documents or address details until appointment logistics require it.",
-        "Escalate only if this becomes the best price/timing candidate."
-      ]
+        "No private documents were sent on this path.",
+        "Do not chase this quote unless CF fails.",
+        "If a late reply arrives, record only the non-sensitive conclusion."
+      ],
+      "witness": "Provider path closed after the CF appointment was selected."
     },
     {
       "lane": "manou-safe",
-      "status": "waiting",
-      "title": "Confirm all-in price before booking",
+      "status": "active",
+      "title": "Prepare CF appointment proof",
       "owner": "Elie + Agnes",
-      "body": "Ask whether travel, opening, invoice, and any destructive-opening caveat are included.",
+      "body": "Arrive with enough authority evidence without sending private copies casually beforehand.",
       "details": [
-        "Confirm earliest possible appointment.",
-        "Confirm what exact documents are required on-site.",
-        "Prefer written confirmation before sending any private documents."
+        "Owner present is the cleanest path.",
+        "Have passport and electric bill or other house document ready.",
+        "If the nota simple arrives before Thursday, bring it as stronger proof but keep it private."
       ]
     },
     {
@@ -1083,6 +1073,20 @@
         "The language choice is kept in the URL and local browser preference."
       ],
       "witness": "Version v86.3 adds the ES toggle and makes the language picker data-driven."
+    },
+    {
+      "lane": "ops",
+      "status": "done",
+      "title": "Added localhost-only private overlay support",
+      "owner": "Codex",
+      "body": "The public app can now load an ignored local overlay only on localhost, so private operational details can travel to Max without entering GitHub Pages.",
+      "details": [
+        "Remote GitHub Pages loads only task-tree.json.",
+        "Localhost on David or Max can additionally load task-tree.local.json when the file exists.",
+        "The private overlay file is ignored by git and synced to Max over the David/Max mesh path.",
+        "The page shows a local overlay pill when the private layer is active."
+      ],
+      "witness": "Version v87.0 keeps the public tree public-safe while allowing a private localhost layer on trusted machines."
     }
   ],
   "defaultLocale": "en",
@@ -1619,7 +1623,59 @@
       "Keep private repo as source of truth for sensitive operational details.": "Garder le dépôt privé comme source de vérité pour les détails opérationnels sensibles.",
       "Use this page as a dashboard, not a records vault.": "Utiliser cette page comme tableau de bord, pas comme coffre d’archives.",
       "The app source now fetches s1/task-tree.json; the data file carries version v86.3.": "Le code de l’application charge maintenant s1/task-tree.json ; le fichier de données porte la version v86.3.",
-      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La version v86.3 ajoute le sélecteur ES et rend le sélecteur de langue piloté par les données."
+      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La version v86.3 ajoute le sélecteur ES et rend le sélecteur de langue piloté par les données.",
+      "Waiting: Manou registry result": "En attente : résultat du registre Manou",
+      "Current hold: CF appointment is scheduled; registry and S1 answers still wait on outside offices.": "Pause actuelle : le rendez-vous CF est fixé ; le registre et les réponses S1 dépendent encore d'organismes externes.",
+      "Priority lane: safe appointment scheduled; property and healthcare answers still waiting.": "Voie prioritaire : rendez-vous coffre fixé ; réponses propriété et santé encore en attente.",
+      "Nota simple result not downloaded yet from Registradores / Registro de la Propiedad; IBI/title deed not located.": "Résultat de nota simple pas encore téléchargé depuis Registradores / Registro de la Propiedad ; IBI/titre non localisé.",
+      "CF chosen; appointment set; proof gate stays private.": "CF choisi ; rendez-vous fixé ; le filtre justificatifs reste privé.",
+      "CF appointment is set for Thursday 2026-05-28 at 18:30; keep owner-present and house-document proof ready.": "Rendez-vous CF fixé au jeudi 2026-05-28 à 18:30 ; garder prêts propriétaire présente et justificatif du logement.",
+      "Closed: CF was chosen before FPoint became the active path.": "Clôturé : CF a été choisi avant que FPoint devienne la piste active.",
+      "Closed: no longer waiting for this quote path.": "Clôturé : cette piste de devis n'est plus attendue.",
+      "CF is booked for Manou's safe; the live blockers are the nota simple from the Spanish property registry and the French S1/healthcare answers.": "CF est réservé pour le coffre de Manou ; les blocages actifs sont la nota simple du registre espagnol et les réponses françaises S1/santé.",
+      "Priority lane: CF safe opening is booked, while ownership proof, accepted empadronamiento proof, and the French healthcare answer are still waiting.": "Voie prioritaire : l'ouverture du coffre par CF est réservée, tandis que la preuve de propriété, la preuve acceptée pour l'empadronamiento et la réponse santé française restent en attente.",
+      "Wait for the nota simple from Registradores de Espana / Registro de la Propiedad de Fuengirola No. 01 and use only the non-sensitive ownership conclusion in project notes.": "Attendre la nota simple de Registradores de España / Registro de la Propiedad de Fuengirola No. 01 et ne noter que la conclusion non sensible sur la propriété.",
+      "CF is chosen and booked for Thursday 2026-05-28 at 18:30; keep the proof packet private and bring only what is needed on site.": "CF est choisi et réservé pour jeudi 2026-05-28 à 18:30 ; garder le dossier justificatif privé et n'apporter que le nécessaire sur place.",
+      "CF is the chosen locksmith path; appointment is Thursday 2026-05-28 at 18:30 for opening only, with no repair or reuse planned.": "CF est la piste serrurier choisie ; rendez-vous jeudi 2026-05-28 à 18:30 pour ouverture seulement, sans réparation ni réutilisation prévue.",
+      "Closed after CF was chosen; FPoint received photos and the no-repair/no-reuse clarification but is no longer the decision path.": "Clôturé après choix de CF ; FPoint a reçu les photos et la précision sans réparation/réutilisation, mais n'est plus la piste décisionnelle.",
+      "Closed after CF was chosen; the sent Vallejo email remains documented but no longer blocks the appointment.": "Clôturé après choix de CF ; l'email envoyé à Vallejo reste documenté mais ne bloque plus le rendez-vous.",
+      "Closed after CF was chosen; no longer waiting on Mayorga before proceeding.": "Clôturé après choix de CF ; plus d'attente Mayorga avant d'avancer.",
+      "For the CF appointment, keep passport plus house-document proof ready with the owner present; do not send copies casually.": "Pour le rendez-vous CF, garder prêts passeport plus justificatif du logement avec la propriétaire présente ; ne pas envoyer de copies à la légère.",
+      "Official names to remember: Registradores de Espana / Colegio de Registradores, Registro de la Propiedad de Fuengirola No. 01, and nota simple.": "Noms officiels à retenir : Registradores de España / Colegio de Registradores, Registro de la Propiedad de Fuengirola No. 01, et nota simple.",
+      "Watch for the nota simple result from Registradores / Registro de la Propiedad.": "Surveiller le résultat de la nota simple depuis Registradores / Registro de la Propiedad.",
+      "Closed Vallejo quote path": "Piste devis Vallejo clôturée",
+      "CF was chosen, so Vallejo no longer blocks the safe appointment.": "CF a été choisi, donc Vallejo ne bloque plus le rendez-vous coffre.",
+      "The sent email remains documented.": "L'email envoyé reste documenté.",
+      "No private documents were sent on this path.": "Aucun document privé n'a été envoyé par cette piste.",
+      "If a late reply arrives, record only the non-sensitive conclusion.": "Si une réponse tardive arrive, noter seulement la conclusion non sensible.",
+      "Provider path closed after the CF appointment was selected.": "Piste fournisseur clôturée après sélection du rendez-vous CF.",
+      "Booked CF safe appointment": "Rendez-vous coffre CF réservé",
+      "CF is the chosen locksmith because they responded and gave the workable quote path.": "CF est le serrurier choisi parce qu'ils ont répondu et donné une piste de devis exploitable.",
+      "Appointment: Thursday 2026-05-28 at 18:30 Spain time.": "Rendez-vous : jeudi 2026-05-28 à 18:30 heure d'Espagne.",
+      "Scope: opening only; no repair, lock replacement, reset, or future safe use planned.": "Portée : ouverture seulement ; aucune réparation, remplacement de serrure, réinitialisation ou réutilisation prévue.",
+      "Bring passport plus house-document proof, with the owner present if possible.": "Apporter passeport plus justificatif du logement, avec la propriétaire présente si possible.",
+      "Elie selected CF after comparing the practical response state; no exact address or private contact details are published.": "Elie a choisi CF après comparaison de l'état réel des réponses ; aucune adresse exacte ni coordonnée privée n'est publiée.",
+      "Closed FPoint quote path": "Piste devis FPoint clôturée",
+      "FPoint has photos and the no-repair/no-reuse clarification, but CF was selected before FPoint became the active provider.": "FPoint a les photos et la précision sans réparation/réutilisation, mais CF a été choisi avant que FPoint devienne le fournisseur actif.",
+      "No decision now waits on this reply.": "Aucune décision n'attend maintenant cette réponse.",
+      "If FPoint replies late, record only public-safe facts.": "Si FPoint répond tard, noter seulement les faits publiables.",
+      "Repair, lock replacement, and leaving the safe usable remain explicitly unnecessary.": "Réparation, changement de serrure et remise en service restent explicitement inutiles.",
+      "Elie reported the FPoint reply was sent on 2026-05-25; path closed after CF was selected.": "Elie a signalé l'envoi de la réponse FPoint le 2026-05-25 ; piste clôturée après choix de CF.",
+      "Closed Mayorga quote path": "Piste devis Mayorga clôturée",
+      "CF was selected, so Mayorga no longer blocks the safe appointment.": "CF a été choisi, donc Mayorga ne bloque plus le rendez-vous coffre.",
+      "Do not chase this quote unless CF fails.": "Ne pas relancer ce devis sauf si CF échoue.",
+      "Prepare CF appointment proof": "Préparer les justificatifs du rendez-vous CF",
+      "Arrive with enough authority evidence without sending private copies casually beforehand.": "Arriver avec assez de preuve d'autorité sans envoyer de copies privées à la légère auparavant.",
+      "Owner present is the cleanest path.": "La propriétaire présente est la voie la plus propre.",
+      "Have passport and electric bill or other house document ready.": "Préparer passeport et facture d'électricité ou autre document du logement.",
+      "If the nota simple arrives before Thursday, bring it as stronger proof but keep it private.": "Si la nota simple arrive avant jeudi, l'apporter comme preuve plus forte tout en la gardant privée.",
+      "Added localhost-only private overlay support": "Ajout de la couche privée localhost uniquement",
+      "The public app can now load an ignored local overlay only on localhost, so private operational details can travel to Max without entering GitHub Pages.": "L'app publique peut maintenant charger une couche locale ignorée seulement sur localhost, afin que les détails opérationnels privés voyagent vers Max sans entrer dans GitHub Pages.",
+      "Remote GitHub Pages loads only task-tree.json.": "GitHub Pages distant charge seulement task-tree.json.",
+      "Localhost on David or Max can additionally load task-tree.local.json when the file exists.": "Localhost sur David ou Max peut charger en plus task-tree.local.json quand le fichier existe.",
+      "The private overlay file is ignored by git and synced to Max over the David/Max mesh path.": "Le fichier de couche privée est ignoré par git et synchronisé vers Max via le chemin mesh David/Max.",
+      "The page shows a local overlay pill when the private layer is active.": "La page affiche une pastille de couche locale quand la couche privée est active.",
+      "Version v87.0 keeps the public tree public-safe while allowing a private localhost layer on trusted machines.": "La version v87.0 garde l'arbre public publiable tout en permettant une couche localhost privée sur les machines de confiance."
     },
     "es": {
       "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.": "Mapa operativo para Manou, Agnes y Elie. Seguro para publicar: sin identificaciones, direcciones exactas, escaneos ni datos de cuenta.",
@@ -2001,7 +2057,59 @@
       "The language choice is kept in the URL and local browser preference.": "La elección de idioma se conserva en la URL y en la preferencia local del navegador.",
       "Version v86.2 adds the ES toggle and makes the language picker data-driven.": "La versión v86.2 añade el selector ES y hace que el selector de idioma dependa de los datos.",
       "The app source now fetches s1/task-tree.json; the data file carries version v86.3.": "El código de la app ahora carga s1/task-tree.json; el archivo de datos lleva la versión v86.3.",
-      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La versión v86.3 añade el selector ES y hace que el selector de idioma dependa de los datos."
+      "Version v86.3 adds the ES toggle and makes the language picker data-driven.": "La versión v86.3 añade el selector ES y hace que el selector de idioma dependa de los datos.",
+      "Waiting: Manou registry result": "En espera: resultado del registro de Manou",
+      "Current hold: CF appointment is scheduled; registry and S1 answers still wait on outside offices.": "Pausa actual: la cita CF esta fijada; el registro y las respuestas S1 siguen dependiendo de oficinas externas.",
+      "Priority lane: safe appointment scheduled; property and healthcare answers still waiting.": "Carril prioritario: cita de la caja fijada; respuestas de propiedad y sanidad aun pendientes.",
+      "Nota simple result not downloaded yet from Registradores / Registro de la Propiedad; IBI/title deed not located.": "Resultado de nota simple aun no descargado de Registradores / Registro de la Propiedad; IBI/escritura no localizados.",
+      "CF chosen; appointment set; proof gate stays private.": "CF elegido; cita fijada; el filtro de justificantes sigue privado.",
+      "CF appointment is set for Thursday 2026-05-28 at 18:30; keep owner-present and house-document proof ready.": "Cita CF fijada para jueves 2026-05-28 a las 18:30; tener lista la propietaria presente y justificante de vivienda.",
+      "Closed: CF was chosen before FPoint became the active path.": "Cerrado: CF fue elegido antes de que FPoint fuera la via activa.",
+      "Closed: no longer waiting for this quote path.": "Cerrado: ya no se espera esta via de presupuesto.",
+      "CF is booked for Manou's safe; the live blockers are the nota simple from the Spanish property registry and the French S1/healthcare answers.": "CF esta reservado para la caja de Manou; los bloqueos activos son la nota simple del registro espanol y las respuestas francesas S1/sanidad.",
+      "Priority lane: CF safe opening is booked, while ownership proof, accepted empadronamiento proof, and the French healthcare answer are still waiting.": "Carril prioritario: la apertura con CF esta reservada, mientras siguen pendientes la prueba de propiedad, la prueba aceptada de empadronamiento y la respuesta sanitaria francesa.",
+      "Wait for the nota simple from Registradores de Espana / Registro de la Propiedad de Fuengirola No. 01 and use only the non-sensitive ownership conclusion in project notes.": "Esperar la nota simple de Registradores de Espana / Registro de la Propiedad de Fuengirola No. 01 y usar en las notas solo la conclusion no sensible sobre titularidad.",
+      "CF is chosen and booked for Thursday 2026-05-28 at 18:30; keep the proof packet private and bring only what is needed on site.": "CF esta elegido y reservado para jueves 2026-05-28 a las 18:30; mantener privado el paquete de justificantes y llevar solo lo necesario al sitio.",
+      "CF is the chosen locksmith path; appointment is Thursday 2026-05-28 at 18:30 for opening only, with no repair or reuse planned.": "CF es la via de cerrajero elegida; la cita es jueves 2026-05-28 a las 18:30 solo para abrir, sin reparacion ni reutilizacion prevista.",
+      "Closed after CF was chosen; FPoint received photos and the no-repair/no-reuse clarification but is no longer the decision path.": "Cerrado tras elegir CF; FPoint recibio fotos y la aclaracion de sin reparacion/sin reutilizacion, pero ya no es la via de decision.",
+      "Closed after CF was chosen; the sent Vallejo email remains documented but no longer blocks the appointment.": "Cerrado tras elegir CF; el email enviado a Vallejo queda documentado pero ya no bloquea la cita.",
+      "Closed after CF was chosen; no longer waiting on Mayorga before proceeding.": "Cerrado tras elegir CF; ya no esperamos a Mayorga para avanzar.",
+      "For the CF appointment, keep passport plus house-document proof ready with the owner present; do not send copies casually.": "Para la cita CF, tener listo pasaporte mas justificante de vivienda con la propietaria presente; no enviar copias a la ligera.",
+      "Official names to remember: Registradores de Espana / Colegio de Registradores, Registro de la Propiedad de Fuengirola No. 01, and nota simple.": "Nombres oficiales a recordar: Registradores de Espana / Colegio de Registradores, Registro de la Propiedad de Fuengirola No. 01, y nota simple.",
+      "Watch for the nota simple result from Registradores / Registro de la Propiedad.": "Vigilar el resultado de la nota simple de Registradores / Registro de la Propiedad.",
+      "Closed Vallejo quote path": "Via de presupuesto Vallejo cerrada",
+      "CF was chosen, so Vallejo no longer blocks the safe appointment.": "CF fue elegido, asi que Vallejo ya no bloquea la cita de la caja.",
+      "The sent email remains documented.": "El email enviado queda documentado.",
+      "No private documents were sent on this path.": "No se enviaron documentos privados por esta via.",
+      "If a late reply arrives, record only the non-sensitive conclusion.": "Si llega una respuesta tardia, registrar solo la conclusion no sensible.",
+      "Provider path closed after the CF appointment was selected.": "Via del proveedor cerrada tras seleccionar la cita CF.",
+      "Booked CF safe appointment": "Cita CF para la caja reservada",
+      "CF is the chosen locksmith because they responded and gave the workable quote path.": "CF es el cerrajero elegido porque respondieron y dieron una via de presupuesto viable.",
+      "Appointment: Thursday 2026-05-28 at 18:30 Spain time.": "Cita: jueves 2026-05-28 a las 18:30 hora de Espana.",
+      "Scope: opening only; no repair, lock replacement, reset, or future safe use planned.": "Alcance: solo apertura; sin reparacion, cambio de cerradura, reseteo ni uso futuro de la caja.",
+      "Bring passport plus house-document proof, with the owner present if possible.": "Llevar pasaporte mas justificante de vivienda, con la propietaria presente si es posible.",
+      "Elie selected CF after comparing the practical response state; no exact address or private contact details are published.": "Elie eligio CF tras comparar el estado practico de respuestas; no se publica direccion exacta ni datos privados de contacto.",
+      "Closed FPoint quote path": "Via de presupuesto FPoint cerrada",
+      "FPoint has photos and the no-repair/no-reuse clarification, but CF was selected before FPoint became the active provider.": "FPoint tiene fotos y la aclaracion de sin reparacion/sin reutilizacion, pero CF fue seleccionado antes de que FPoint fuera proveedor activo.",
+      "No decision now waits on this reply.": "Ninguna decision espera ahora esta respuesta.",
+      "If FPoint replies late, record only public-safe facts.": "Si FPoint responde tarde, registrar solo hechos seguros para publicar.",
+      "Repair, lock replacement, and leaving the safe usable remain explicitly unnecessary.": "Reparacion, cambio de cerradura y dejar la caja usable siguen siendo explicitamente innecesarios.",
+      "Elie reported the FPoint reply was sent on 2026-05-25; path closed after CF was selected.": "Elie informo que la respuesta a FPoint se envio el 2026-05-25; via cerrada tras seleccionar CF.",
+      "Closed Mayorga quote path": "Via de presupuesto Mayorga cerrada",
+      "CF was selected, so Mayorga no longer blocks the safe appointment.": "CF fue seleccionado, asi que Mayorga ya no bloquea la cita de la caja.",
+      "Do not chase this quote unless CF fails.": "No perseguir este presupuesto salvo que CF falle.",
+      "Prepare CF appointment proof": "Preparar justificantes para la cita CF",
+      "Arrive with enough authority evidence without sending private copies casually beforehand.": "Llegar con suficiente prueba de autoridad sin enviar antes copias privadas a la ligera.",
+      "Owner present is the cleanest path.": "La propietaria presente es la via mas limpia.",
+      "Have passport and electric bill or other house document ready.": "Tener listo pasaporte y factura electrica u otro documento de vivienda.",
+      "If the nota simple arrives before Thursday, bring it as stronger proof but keep it private.": "Si la nota simple llega antes del jueves, llevarla como prueba mas fuerte pero mantenerla privada.",
+      "Added localhost-only private overlay support": "Anadida capa privada solo para localhost",
+      "The public app can now load an ignored local overlay only on localhost, so private operational details can travel to Max without entering GitHub Pages.": "La app publica ahora puede cargar una capa local ignorada solo en localhost, para que los detalles privados viajen a Max sin entrar en GitHub Pages.",
+      "Remote GitHub Pages loads only task-tree.json.": "GitHub Pages remoto carga solo task-tree.json.",
+      "Localhost on David or Max can additionally load task-tree.local.json when the file exists.": "Localhost en David o Max puede cargar ademas task-tree.local.json cuando existe.",
+      "The private overlay file is ignored by git and synced to Max over the David/Max mesh path.": "El archivo de capa privada esta ignorado por git y sincronizado a Max por la ruta mesh David/Max.",
+      "The page shows a local overlay pill when the private layer is active.": "La pagina muestra una pastilla de capa local cuando la capa privada esta activa.",
+      "Version v87.0 keeps the public tree public-safe while allowing a private localhost layer on trusted machines.": "La version v87.0 mantiene publico-seguro el arbol publico y permite una capa privada de localhost en maquinas de confianza."
     }
   }
 }

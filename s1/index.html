@@ -106,6 +106,24 @@
       white-space: nowrap;
     }
 
+    .local-pill {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid rgba(8, 145, 178, .36);
+      border-radius: 999px;
+      background: #ecfeff;
+      color: #155e75;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .local-pill.visible {
+      display: inline-flex;
+    }
+
     .language-toggle {
       display: inline-flex;
       gap: 4px;
@@ -719,6 +737,7 @@
         </div>
       </div>
       <div class="top-actions">
+        <div class="local-pill" id="local-overlay-pill" hidden>Local overlay</div>
         <div class="version-pill"><span id="version-label">Version</span> <span id="version">v85.8</span></div>
         <div class="language-toggle" id="language-toggle" aria-label="Language"></div>
       </div>
@@ -832,6 +851,51 @@
       const text = String(value ?? "");
       if (state.locale === "en") return text;
       return appData?.translations?.[state.locale]?.[text] || text;
+    }
+
+    function isLocalHost() {
+      return ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
+    }
+
+    function cloneJson(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function isPlainObject(value) {
+      return value && typeof value === "object" && !Array.isArray(value);
+    }
+
+    function deepMerge(base = {}, overlay = {}) {
+      const merged = cloneJson(base);
+      Object.entries(overlay || {}).forEach(([key, value]) => {
+        if (isPlainObject(value) && isPlainObject(merged[key])) {
+          merged[key] = deepMerge(merged[key], value);
+        } else {
+          merged[key] = cloneJson(value);
+        }
+      });
+      return merged;
+    }
+
+    function mergeLocalOverlay(baseData, overlayData) {
+      const merged = cloneJson(baseData);
+      if (overlayData.nodes) {
+        Object.entries(overlayData.nodes).forEach(([nodeId, nodePatch]) => {
+          merged.nodes[nodeId] = deepMerge(merged.nodes[nodeId] || {}, nodePatch);
+        });
+      }
+      if (overlayData.ui) merged.ui = deepMerge(merged.ui || {}, overlayData.ui);
+      if (overlayData.translations) merged.translations = deepMerge(merged.translations || {}, overlayData.translations);
+      if (overlayData.queuePrepend?.length) merged.queue = [...overlayData.queuePrepend, ...(merged.queue || [])];
+      if (overlayData.queueAppend?.length) merged.queue = [...(merged.queue || []), ...overlayData.queueAppend];
+      if (overlayData.tasks?.length) merged.tasks = [...(merged.tasks || []), ...overlayData.tasks];
+      if (overlayData.localOverlay) {
+        merged.localOverlay = {
+          ...overlayData.localOverlay,
+          loaded: true
+        };
+      }
+      return merged;
     }
 
     function supportedLocales() {
@@ -976,6 +1040,17 @@
       document.querySelector("#app-title").textContent = ui("labels", "title", "S1 For All Task Tree");
       document.querySelector("#version-label").textContent = ui("labels", "version", "Version");
       document.querySelector("#subtitle").textContent = localize(appData?.subtitle || "");
+      const localPill = document.querySelector("#local-overlay-pill");
+      const localOverlay = appData?.localOverlay;
+      if (localOverlay?.loaded) {
+        localPill.hidden = false;
+        localPill.classList.add("visible");
+        localPill.textContent = localize(localOverlay.label || "Local private overlay");
+        localPill.title = localize(localOverlay.description || "");
+      } else {
+        localPill.hidden = true;
+        localPill.classList.remove("visible");
+      }
       document.querySelector("#map-title").textContent = ui("labels", "projectTree", "Project Tree");
       document.querySelector("#privacy-note").textContent = ui("labels", "cardHint", "Click a card to focus it and open or close its next layer.");
       search.placeholder = ui("labels", "searchPlaceholder", "Search tasks, owners, blockers...");
@@ -1183,12 +1258,22 @@
       }
     });
 
-    async function loadTaskTree() {
-      const url = new URL("task-tree.json", location.href);
+    async function fetchJsonFile(fileName, optional = false) {
+      const url = new URL(fileName, location.href);
       url.searchParams.set("refresh", String(Date.now()));
       const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Could not load task-tree.json (${response.status})`);
+      if (optional && response.status === 404) return null;
+      if (optional && !response.ok) return null;
+      if (!response.ok) throw new Error(`Could not load ${fileName} (${response.status})`);
       return response.json();
+    }
+
+    async function loadTaskTree() {
+      const publicData = await fetchJsonFile("task-tree.json");
+      if (!isLocalHost()) return publicData;
+      const localOverlay = await fetchJsonFile("task-tree.local.json", true);
+      if (!localOverlay) return publicData;
+      return mergeLocalOverlay(publicData, localOverlay);
     }
 
     async function init() {
