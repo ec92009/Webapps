@@ -8,11 +8,11 @@ The Webapps repo is the GitHub Pages hub for local static apps and selected exte
 
 ## Current Hub State
 
-- Root hub version: `v88.11`.
+- Root hub version: `v88.12`.
 - Local app folders in this repo: `conway/`, `reversi/`, `s1/`, `sortingalgos/`, and `tapmeplus1/`.
 - The root hub includes a Lamps card that opens `https://ec92009.github.io/Lamps/` and tracks that site's visible version.
 - The root hub includes an S1 Task Tree card that opens `./s1/index.html`.
-- The root hub includes Photos By Elie and Photos By Elie Music cards pinned to `v89.2`, including the direct Real Estate client link `https://ec92009.github.io/PhotosByElie/real-estate.html?v=89.2&client=elie`.
+- The root hub includes Photos By Elie and Photos By Elie Music cards pinned to `v89.6`, including the direct Real Estate client link `https://ec92009.github.io/PhotosByElie/real-estate.html?v=89.6&client=elie`.
 - Shared S1 logo: `assets/logos/s1-logo.svg`.
 
 ## S1 State
@@ -35,10 +35,11 @@ The Webapps repo is the GitHub Pages hub for local static apps and selected exte
 
 - Repo: `https://github.com/ec92009/Webapps.git`
 - GitHub Pages: `https://ec92009.github.io/Webapps/`
-- Latest relevant hub/app version: `v88.11`
+- Latest relevant hub/app version: `v88.12`
 
 ## 2026-05-27 Update
 
 - Refreshed the Photos By Elie hub cards after the Real Estate v89.2 build.
 - Updated the hub's visible version badge from `v88.10` to `v88.11`.
 - Left unrelated local `AGENTS.md` changes untouched.
+- Refreshed the Photos By Elie hub cards again after the Real Estate v89.6 video/watermark shelf polish and bumped the hub badge to `v88.12`.
