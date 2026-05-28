@@ -14,6 +14,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 ## Canonical Projects
 
 - By Elie is canonical at `/Users/ecohen/Dev/byElie` and published at `https://ec92009.github.io/byElie/`.
+- Chair Tai Chi is canonical at `/Users/ecohen/Dev/ChairTaiChi` and published at `https://ec92009.github.io/ChairTaiChi/`.
 - Lamps is canonical at `/Users/ecohen/Dev/Lamps` and published at `https://ec92009.github.io/Lamps/`.
 - Photos By Elie is canonical at `/Users/ecohen/Dev/photosByElie` and published at `https://ec92009.github.io/PhotosByElie/`.
 - Golden is canonical at `/Users/ecohen/Dev/Golden`, with the public preview at `/Users/ecohen/Dev/Golden-preview` and published at `https://ec92009.github.io/Golden-preview/`.
