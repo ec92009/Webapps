@@ -1,3 +1,5 @@
+Before making changes, also read parent instruction files at `~/AGENTS.md` and `~/Dev/AGENTS.md` if they exist, then apply this repo file last.
+
 # AGENTS.md
 
 Repo-level working preferences for `/Users/ecohen/Dev/Webapps`.
