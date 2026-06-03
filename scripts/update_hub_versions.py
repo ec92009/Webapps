@@ -29,7 +29,9 @@ DEFAULT_TIMEZONE = "Europe/Madrid"
 MAX_REMOTE_PAGES = 40
 
 VERSION_RE = re.compile(r"\bv(\d+)\.(\d+)\b", re.IGNORECASE)
-HUB_VERSION_RE = re.compile(r'(<span id="hub-version">)v\d+\.\d+(</span>)')
+HUB_VERSION_RE = re.compile(
+    r'(<span\b(?=[^>]*\bid="hub-version"(?:\s|>))[^>]*>)v\d+\.\d+(</span>)'
+)
 CARD_REGION_RE = re.compile(
     r"(?P<start>\s*<!-- site-card:start -->\n)"
     r"(?P<body>.*?)"
@@ -269,6 +271,9 @@ def update_card_block(block: str, version: str) -> str:
     def replace_href(match: re.Match[str]) -> str:
         return f'{match.group(1)}{set_query_version(match.group(2), version)}{match.group(3)}'
 
+    updated = re.sub(r'(\bdata-href=")([^"]+)(")', replace_href, block, count=1)
+    if updated != block:
+        return updated
     return re.sub(r'(<a class="btn" href=")([^"]+)(")', replace_href, block, count=1)
 
 
@@ -297,7 +302,13 @@ def bumped_hub_version(current: str) -> str:
 def replace_hub_version(index_html: str, version: str) -> str:
     if not HUB_VERSION_RE.search(index_html):
         raise RuntimeError("Could not find hub version span in index.html")
-    return HUB_VERSION_RE.sub(rf"\g<1>{version}\2", index_html, count=1)
+    updated_html = HUB_VERSION_RE.sub(rf"\g<1>{version}\2", index_html, count=1)
+    return re.sub(
+        r'(<span\b(?=[^>]*\bid="hub-version"(?:\s|>))[^>]*\bdata-version=")v\d+\.\d+(")',
+        rf"\g<1>{version}\2",
+        updated_html,
+        count=1,
+    )
 
 
 def refresh_index(no_hub_bump: bool) -> tuple[bool, list[str]]:

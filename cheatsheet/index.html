@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Owner URL Cheat Sheet v95.2</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f3ee;
+      --panel: rgba(255, 255, 255, 0.78);
+      --ink: #171717;
+      --muted: #66635f;
+      --line: rgba(0, 0, 0, 0.14);
+      --accent: #111;
+      --pill: rgba(0, 0, 0, 0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151515;
+        --panel: rgba(35, 35, 35, 0.82);
+        --ink: #f2f0ea;
+        --muted: #b9b4aa;
+        --line: rgba(255, 255, 255, 0.16);
+        --accent: #fff;
+        --pill: rgba(255, 255, 255, 0.1);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+    header {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+    h2, h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+    h3 {
+      font-size: 1.05rem;
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+    .version {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    a {
+      color: inherit;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 20px;
+    }
+    .toolbar a,
+    .link-list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--pill);
+      font-weight: 700;
+      text-decoration: none;
+      word-break: break-word;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .panel,
+    .project {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 16px;
+      backdrop-filter: blur(14px);
+    }
+    .section {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .project {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .project-title {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .path {
+      color: var(--muted);
+      font-size: 0.86rem;
+      overflow-wrap: anywhere;
+    }
+    .column {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+    .column-title {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .note {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    @media (max-width: 760px) {
+      main { width: min(100vw - 20px, 760px); padding-top: 20px; }
+      .grid,
+      .project { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="version">Webapps local project | v95.2</p>
+    <h1>Owner URL Cheat Sheet</h1>
+    <p>Personal launchpad for the links that keep coming up. Left side is admin/control rooms; right side is public results, previews, and local viewers. First pass generated from docs in <code>/Users/ecohen/Dev</code> on 2026-06-03.</p>
+  </header>
+
+  <section class="panel">
+    <h2>Global Control Rooms</h2>
+    <div class="grid section">
+      <div>
+        <h3>Admin</h3>
+        <div class="link-list section">
+          <a href="https://github.com/ec92009?tab=repositories">GitHub repos</a>
+          <a href="https://github.com/ec92009?tab=projects">GitHub projects</a>
+          <a href="https://github.com/ec92009?tab=packages">GitHub packages</a>
+          <a href="https://dash.cloudflare.com/">Cloudflare dashboard</a>
+          <a href="https://dash.cloudflare.com/26aa9df8b20960f20cf0e8dba5cb2f88/workers-and-pages">Cloudflare Workers & Pages</a>
+          <a href="https://dash.cloudflare.com/26aa9df8b20960f20cf0e8dba5cb2f88/r2/default/buckets">Cloudflare R2 buckets</a>
+          <a href="https://dash.cloudflare.com/26aa9df8b20960f20cf0e8dba5cb2f88/email-service/routing">Cloudflare Email Routing</a>
+          <a href="https://dashboard.stripe.com/dashboard">Stripe dashboard</a>
+          <a href="https://dashboard.stripe.com/payments">Stripe payments</a>
+          <a href="https://dashboard.stripe.com/customers">Stripe customers</a>
+          <a href="https://business.facebook.com/latest/home">Meta Business Suite</a>
+          <a href="https://developers.facebook.com/apps/">Meta developers</a>
+          <a href="https://www.pinterest.com/business/hub/">Pinterest business hub</a>
+          <a href="https://www.etsy.com/your/shops/me/dashboard">Etsy Shop Manager</a>
+          <a href="https://www.etsy.com/your/shops/me/tools/shop-editor">Etsy Shop Home Editor</a>
+          <a href="https://www.etsy.com/your/listings">Etsy listings</a>
+          <a href="https://www.etsy.com/developers/your-apps">Etsy developer apps</a>
+          <a href="https://mail.google.com/mail/u/0/#inbox">Gmail inbox</a>
+          <a href="https://drive.google.com/drive/my-drive">Google Drive</a>
+        </div>
+      </div>
+      <div>
+        <h3>Results</h3>
+        <div class="link-list section">
+          <a href="https://ec92009.github.io/">GitHub Pages root</a>
+          <a href="https://photos-by-elie.com/">photos-by-elie.com</a>
+          <a href="https://www.etsy.com/shop/PhotosByElieShop">PhotosByElieShop</a>
+          <a href="https://www.pinterest.com/photosbyelie/">Pinterest @photosbyelie</a>
+          <a href="https://www.goldenyearstaxstrategy.com/">Golden Years Tax Strategy</a>
+          <a href="https://diez42.org/">Diez-42</a>
+          <a href="https://web-by-elie.com/">Web By Elie</a>
+          <a href="https://ec92009.github.io/Webapps/">Webapps hub</a>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Media / Voiceover</h3>
+      <div class="link-list">
+        <a href="https://console.aws.amazon.com/polly/home">Amazon Polly console</a>
+        <a href="https://aws.amazon.com/polly/pricing/">Amazon Polly pricing</a>
+        <a href="https://notebooklm.google.com/">NotebookLM</a>
+        <a href="https://www.openai.fm/">OpenAI.fm voice previews</a>
+        <a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI TTS docs</a>
+        <a href="https://elevenlabs.io/app/speech-synthesis">ElevenLabs speech synthesis</a>
+        <a href="file:///Users/ecohen/Dev/WebByElie/outputs/voice-samples/">Local WebByElie voice samples</a>
+      </div>
+      <p class="note">For narration auditions, use NotebookLM when we want a natural two-host script/audio/video draft, then compare against Amazon Polly, OpenAI, and ElevenLabs before replacing final video audio.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Projects</h2>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Photos By Elie</h3>
+        <span class="path">/Users/ecohen/Dev/photosByElie</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/PhotosByElie">GitHub repo</a>
+          <a href="http://localhost:8000/owner.html">Local Owner</a>
+          <a href="http://localhost:8000/">Local site</a>
+          <a href="http://localhost:8787">Local Worker</a>
+          <a href="https://photosbyelie-checkout-mock.ec92009.workers.dev">Cloudflare Worker</a>
+          <a href="https://dashboard.stripe.com/search?query=">Stripe search</a>
+          <a href="https://dashboard.stripe.com/payments">Stripe payments</a>
+          <a href="https://www.etsy.com/your/shops/me/dashboard">Etsy manager</a>
+          <a href="https://www.etsy.com/your/shops/me/tools/shop-editor">Etsy shop editor</a>
+          <a href="https://www.etsy.com/developers/your-apps">Etsy apps</a>
+          <a href="https://business.facebook.com/latest/home">Meta suite</a>
+          <a href="https://www.pinterest.com/pin-builder/">Pinterest Pin Builder</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://photos-by-elie.com/">Public domain</a>
+          <a href="https://ec92009.github.io/PhotosByElie/">GitHub Pages</a>
+          <a href="https://www.etsy.com/shop/PhotosByElieShop">Etsy shop</a>
+          <a href="https://www.pinterest.com/photosbyelie/">Pinterest profile</a>
+          <a href="https://photosbyelie-checkout-mock.ec92009.workers.dev/stripe-webhook">Stripe webhook endpoint</a>
+          <a href="https://pub-a6e07fdd880f4869b4be0e9346cabdc2.r2.dev">Public R2 media</a>
+          <a href="https://photos-by-elie.com/support.html">Support page</a>
+          <a href="https://photos-by-elie.com/etsy-callback.html">Etsy OAuth callback</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>byElie</h3>
+        <span class="path">/Users/ecohen/Dev/byElie</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/byElie">GitHub repo</a>
+          <a href="http://localhost:8000/">Local preview</a>
+          <a href="http://localhost:8000/plans.html">Local plans</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://ec92009.github.io/byElie/">GitHub Pages</a>
+          <a href="https://ec92009.github.io/PhotosByElie/">Photos By Elie</a>
+          <a href="https://ec92009.github.io/Webapps/">Webapps hub</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Webapps Hub</h3>
+        <span class="path">/Users/ecohen/Dev/Webapps</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/Webapps">GitHub repo</a>
+          <a href="http://localhost:8000/">Local hub</a>
+          <a href="http://localhost:8000/conway/">Conway local</a>
+          <a href="http://localhost:8000/reversi/">Reversi local</a>
+          <a href="http://localhost:8000/tapmeplus1/">TapMe local</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://ec92009.github.io/Webapps/">GitHub Pages hub</a>
+          <a href="https://ec92009.github.io/Lamps/">Lamps</a>
+          <a href="https://ec92009.github.io/ChairTaiChi/">Chair Tai Chi</a>
+          <a href="https://ec92009.github.io/PhotosByElie/">Photos By Elie</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Web By Elie</h3>
+        <span class="path">/Users/ecohen/Dev/WebByElie</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/WebByElie">GitHub repo</a>
+          <a href="http://localhost:8094/">Local preview</a>
+          <a href="https://dash.cloudflare.com/">Cloudflare dashboard</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://web-by-elie.com/">Production domain</a>
+          <a href="https://ec92009.github.io/WebByElie/">GitHub Pages</a>
+          <a href="https://ec92009.github.io/WebByElie/?v=94.1">Versioned preview</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Golden Years Tax Strategy</h3>
+        <span class="path">/Users/ecohen/Dev/Golden</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/Golden">Private GitHub repo</a>
+          <a href="https://github.com/ec92009/Golden-preview">Preview repo</a>
+          <a href="https://dash.cloudflare.com/">Cloudflare dashboard</a>
+          <a href="https://www.squarespace.com/login">Squarespace login</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://www.goldenyearstaxstrategy.com/">Production site</a>
+          <a href="https://goldenyearstaxstrategy.com/">Apex domain</a>
+          <a href="https://ec92009.github.io/Golden-preview/">GitHub Pages preview</a>
+          <a href="https://calendly.com/magalidomingue/initial-consultation">Calendly booking</a>
+          <a href="https://www.facebook.com/people/Golden-Years-Tax-Strategy/61562893268682/">Facebook</a>
+          <a href="https://www.instagram.com/golden_years_tax_strategy/">Instagram</a>
+          <a href="https://www.youtube.com/@RETaxCPA">YouTube</a>
+          <a href="https://www.yelp.com/biz/golden-years-tax-strategy-san-diego-4">Yelp</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Diez-42</h3>
+        <span class="path">/Users/ecohen/Dev/Diez-42</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/Diez-42">GitHub repo</a>
+          <a href="http://localhost:8042/">Local preview</a>
+          <a href="https://dash.cloudflare.com/">Cloudflare dashboard</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://diez42.org/">Production domain</a>
+          <a href="https://www.instagram.com/diez42malaga?igsh=cXNmanN1dmV6Mndy">Instagram</a>
+          <a href="https://www.facebook.com/share/1XxCNeBHnF/?mibextid=wwXIfr">Facebook</a>
+          <a href="https://wa.me/34600339794">WhatsApp</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Olea Tax</h3>
+        <span class="path">/Users/ecohen/Dev/OleaTax</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/oleataxco">GitHub repo</a>
+          <a href="http://localhost:8000/">Local root</a>
+          <a href="http://localhost:8000/preview.html">Local preview</a>
+          <a href="http://localhost:8000/v25/">Local v25</a>
+          <a href="https://dash.cloudflare.com/">Cloudflare dashboard</a>
+        </div>
+        <p class="note">Docs mention a private Cloudflare booking prototype under <code>cloudflare-booking/</code>.</p>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://ec92009.github.io/OleaTax/">Older GitHub Pages URL</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Trading</h3>
+        <span class="path">/Users/ecohen/Dev/trading</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/trading">GitHub repo</a>
+          <a href="https://app.alpaca.markets/paper/dashboard/overview">Alpaca paper dashboard</a>
+          <a href="https://paper-api.alpaca.markets">Alpaca paper API</a>
+          <a href="http://localhost:8080">Local dashboard 8080</a>
+          <a href="http://127.0.0.1:8011/">Local dashboard 8011</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://ec92009.github.io/trading/">GitHub Pages viewer</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>MailAssist</h3>
+        <span class="path">/Users/ecohen/Dev/MailAssist</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/MailAssist">GitHub repo</a>
+          <a href="https://github.com/ec92009/MailAssist/actions/workflows/test.yml">GitHub Actions tests</a>
+          <a href="https://github.com/ec92009/MailAssist/releases">GitHub releases</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/MailAssist/releases/download/v56.47/MailAssist-v56.47-mac-gmail.dmg">Known DMG link</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Olea Media</h3>
+        <span class="path">/Users/ecohen/Dev/OleaMedia</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/OleaMedia">GitHub repo</a>
+          <a href="http://localhost:8010/oleamediaco/">Local preview</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <p class="note">Docs currently point to the local preview as the active result.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Small Apps</h3>
+        <span class="path">Lamps, ChairTaiChi, SecretLifeOfPets, Balatro, servPics</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/Lamps">Lamps repo</a>
+          <a href="http://localhost:8010/">Lamps local</a>
+          <a href="https://github.com/ec92009/ChairTaiChi">ChairTaiChi repo</a>
+          <a href="http://localhost:4173">ChairTaiChi local</a>
+          <a href="https://github.com/ec92009/SecretLifeOfPets">SecretLifeOfPets repo</a>
+          <a href="https://github.com/ec92009/Balatro">Balatro repo</a>
+          <a href="https://github.com/ec92009/servPics">servPics repo</a>
+          <a href="http://localhost:5000/admin">servPics admin</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <div class="link-list">
+          <a href="https://ec92009.github.io/Lamps/">Lamps public</a>
+          <a href="https://ec92009.github.io/ChairTaiChi/">ChairTaiChi public</a>
+          <a href="https://ec92009.github.io/SecretLifeOfPets/">SecretLifeOfPets public</a>
+          <a href="http://localhost:8000/">Balatro local</a>
+          <a href="http://localhost:5000">servPics gallery</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-title">
+        <h3>Repo-Only / Back Burner</h3>
+        <span class="path">Links found in docs or remotes, but no regular result page yet</span>
+      </div>
+      <div class="column">
+        <div class="column-title">Admin</div>
+        <div class="link-list">
+          <a href="https://github.com/ec92009/Deliveries">Amazon / Deliveries</a>
+          <a href="https://github.com/ec92009/FilamentDB">FilamentDB</a>
+          <a href="https://github.com/ec92009/HermesAgent">Hermes</a>
+          <a href="https://github.com/ec92009/LeadLight">LeadLight</a>
+          <a href="https://github.com/ec92009/NeoSDL">NeoSDL</a>
+          <a href="https://github.com/ec92009/Poker">Poker</a>
+          <a href="https://github.com/ec92009/S1">S1</a>
+          <a href="https://github.com/ec92009/Spanishtube">Spanishtube</a>
+          <a href="https://github.com/ec92009/picGen">picGen</a>
+          <a href="https://github.com/ec92009/pixLib">pixLib</a>
+          <a href="https://github.com/ec92009/smartUpscale">smartUpscale</a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="column-title">Results</div>
+        <p class="note">These are parked here so they are not lost, but the docs did not expose a recurring public/admin pair worth promoting yet.</p>
+      </div>
+    </article>
+  </section>
+</main>
+</body>
+</html>

@@ -6,7 +6,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 
 - `index.html`: local landing page for the available sites
 - `assets/`: shared logos and images
-- `conway/`, `reversi/`, `s1/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
+- `cheatsheet/`, `conway/`, `reversi/`, `s1/`, `sortingalgos/`, `tapmeplus1/`: local static app folders opened directly by the hub
 - `scripts/`: repo maintenance scripts
 - `docs/`: generated and hand-written maintenance notes
 - `archive/`: removed mirrors, legacy routes, and review notes kept for recovery
@@ -18,6 +18,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 - Lamps is canonical at `/Users/ecohen/Dev/Lamps` and published at `https://ec92009.github.io/Lamps/`.
 - Photos By Elie is canonical at `/Users/ecohen/Dev/photosByElie` and published at `https://ec92009.github.io/PhotosByElie/`.
 - Golden is canonical at `/Users/ecohen/Dev/Golden`, with the public preview mirror at `/Users/ecohen/Dev/Golden-preview` and production published at `https://goldenyearstaxstrategy.com/`.
+- KellyO is canonical at `/Users/ecohen/Dev/KOxcel` and published at `https://ec92009.github.io/kellyo/`.
 - Web By Elie is canonical at `/Users/ecohen/Dev/WebByElie` and published at `https://ec92009.github.io/WebByElie/`.
 - Olea Tax Co is canonical at `/Users/ecohen/Dev/OleaTax` and published at `https://ec92009.github.io/OleaTax/`.
 - Webapps keeps only hub-required local apps in the live tree; old nested mirrors and unlinked variants live under `archive/`.
@@ -32,6 +33,7 @@ This repo does not currently require a package manager or build step for the mai
 
 ## Current Local Apps
 
+- `cheatsheet/`: owner URL launchpad for recurring admin, public, preview, and local project links.
 - `s1/`: interactive public-safe S1 project task tree for Manou, Agnes, and Elie, including done-task witness cards and click-to-expand branches with provider-level locksmith detail.
 - `conway/`: Game of Life playground.
 - `reversi/`: playable Reversi/Othello.
