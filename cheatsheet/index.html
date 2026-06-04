@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Owner URL Cheat Sheet v96.5</title>
+  <title>Owner URL Cheat Sheet v96.6</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -190,7 +190,7 @@
 <body>
 <main>
   <header>
-    <p class="version">Webapps local project | v96.5</p>
+    <p class="version">Webapps local project | v96.6</p>
     <h1>Owner URL Cheat Sheet</h1>
     <p>Personal launchpad for the links that keep coming up. Left side is admin/control rooms; right side is public results, previews, and local viewers. Updated with the KellyO auth and newcomer-flow tracker on 2026-06-04.</p>
   </header>
@@ -274,9 +274,9 @@
       <div class="column">
         <div class="column-title">Results</div>
         <div class="link-list">
-          <a href="https://kellyo-auth-preview.pages.dev/?v=96.7">Cloudflare auth preview v96.7</a>
-          <a href="https://kellyo-auth-preview.pages.dev/gate.html?v=96.7">Live Google gate v96.7</a>
-          <a href="https://kellyo-auth-preview.pages.dev/map.html?v=96.7">Protected map v96.7</a>
+          <a href="https://kellyo-auth-preview.pages.dev/?v=96.8">Cloudflare auth preview v96.8</a>
+          <a href="https://kellyo-auth-preview.pages.dev/gate.html?v=96.8">Live Google gate v96.8</a>
+          <a href="https://kellyo-auth-preview.pages.dev/map.html?v=96.8">Protected map v96.8</a>
           <a href="https://ec92009.github.io/kellyo/">Static GitHub Pages preview</a>
           <a href="https://ec92009.github.io/kellyo/gate.html?v=96.2">Static client gate v96.2</a>
           <a href="https://ec92009.github.io/kellyo/map.html?v=96.2">Static module map v96.2</a>
@@ -286,11 +286,12 @@
       <div class="column project-wide">
         <div class="column-title">Auth Track</div>
         <div class="callout">
-          <p><strong>Current state:</strong> KellyO is at <code>v96.7</code>. The Cloudflare Pages auth preview is live at <code>https://kellyo-auth-preview.pages.dev/</code>; GitHub Pages remains a static discussion preview.</p>
+          <p><strong>Current state:</strong> KellyO is at <code>v96.8</code>. The Cloudflare Pages auth preview is live at <code>https://kellyo-auth-preview.pages.dev/</code>; GitHub Pages remains a static discussion preview.</p>
           <ul class="mini-list">
             <li><strong>Newcomer flow:</strong> public visitors start on a cleaner KellyO hero, click <code>Try a planning calculator</code>, sample named planning moves, then closing the modal scrolls them to the 1-week trial and plan CTAs.</li>
             <li><strong>Sampler moves:</strong> current examples are tabbed as <code>S-Corp paycheck split</code>, <code>PTET benefit check</code>, and <code>Rental loss fit</code>; keep the public sampler limited to a few strong modules.</li>
             <li><strong>Sampler controls:</strong> each example now pairs typed numeric inputs with sliders, hides browser number spinners, and shows plain-text acronym tooltips with pronunciation keys such as <code>P-T-E-T</code>.</li>
+            <li><strong>Cleanup pass:</strong> public header says <code>Sign In</code>, the sampler dropped the <code>Editable</code> pill, and night-mode strategy cards now have stronger contrast.</li>
             <li><strong>Direction:</strong> Google OAuth is active for real access, with the temporary username/password gate only as a reviewer fallback while onboarding is unfinished.</li>
             <li><strong>Verification:</strong> Provider login proves identity, then KellyO checks <code>KELLYO_AUTH_USERS_JSON</code> before issuing its own signed HttpOnly session cookie.</li>
             <li><strong>Roles:</strong> KellyO owns authorization with <code>Admin</code>, <code>Owner</code>, <code>Partner</code>, <code>Standard</code>, <code>Trial</code>, and <code>Disabled</code> entries.</li>
