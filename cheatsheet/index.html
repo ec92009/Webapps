@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Owner URL Cheat Sheet v96.1</title>
+  <title>Owner URL Cheat Sheet v96.2</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -190,7 +190,7 @@
 <body>
 <main>
   <header>
-    <p class="version">Webapps local project | v96.1</p>
+    <p class="version">Webapps local project | v96.2</p>
     <h1>Owner URL Cheat Sheet</h1>
     <p>Personal launchpad for the links that keep coming up. Left side is admin/control rooms; right side is public results, previews, and local viewers. Updated with the KellyO auth tracker on 2026-06-04.</p>
   </header>
@@ -266,6 +266,7 @@
           <a href="https://github.com/ec92009/kellyo">Static preview repo</a>
           <a href="https://dash.cloudflare.com/26aa9df8b20960f20cf0e8dba5cb2f88/workers-and-pages">Cloudflare Workers & Pages</a>
           <a href="https://console.cloud.google.com/apis/credentials">Google OAuth credentials</a>
+          <a href="https://developer.apple.com/account/resources/identifiers/list">Apple identifiers</a>
           <a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade">Microsoft app registrations</a>
           <a href="http://127.0.0.1:8787/">Local owner server</a>
         </div>
@@ -273,25 +274,29 @@
       <div class="column">
         <div class="column-title">Results</div>
         <div class="link-list">
+          <a href="https://kellyo-auth-preview.pages.dev/">Cloudflare auth preview</a>
+          <a href="https://kellyo-auth-preview.pages.dev/gate.html?v=96.2">Live Google gate v96.2</a>
+          <a href="https://kellyo-auth-preview.pages.dev/map.html?v=96.2">Protected map v96.2</a>
           <a href="https://ec92009.github.io/kellyo/">Static GitHub Pages preview</a>
-          <a href="https://ec92009.github.io/kellyo/gate.html?v=96.1">Client gate v96.1</a>
-          <a href="https://ec92009.github.io/kellyo/map.html?v=96.1">Module map v96.1</a>
+          <a href="https://ec92009.github.io/kellyo/gate.html?v=96.2">Static client gate v96.2</a>
+          <a href="https://ec92009.github.io/kellyo/map.html?v=96.2">Static module map v96.2</a>
           <a href="https://ec92009.github.io/Webapps/">Webapps hub</a>
         </div>
       </div>
       <div class="column project-wide">
         <div class="column-title">Auth Track</div>
         <div class="callout">
-          <p><strong>Current state:</strong> KellyO is at <code>v96.1</code> in source and static preview. Serious login requires Cloudflare Pages Functions because GitHub Pages cannot run the auth endpoints.</p>
+          <p><strong>Current state:</strong> KellyO is at <code>v96.2</code>. The Cloudflare Pages auth preview is live at <code>https://kellyo-auth-preview.pages.dev/</code>; GitHub Pages remains a static discussion preview.</p>
           <ul class="mini-list">
-            <li><strong>Direction:</strong> Google plus Microsoft OAuth for real access, with the temporary username/password gate only as a fallback while onboarding is unfinished.</li>
+            <li><strong>Direction:</strong> Google OAuth is active for real access, with the temporary username/password gate only as a reviewer fallback while onboarding is unfinished.</li>
             <li><strong>Verification:</strong> Provider login proves identity, then KellyO checks <code>KELLYO_AUTH_USERS_JSON</code> before issuing its own signed HttpOnly session cookie.</li>
-            <li><strong>Roles:</strong> KellyO owns authorization with <code>Owner</code>, <code>Partner</code>, <code>Standard</code>, <code>Trial</code>, and <code>Disabled</code> entries.</li>
+            <li><strong>Roles:</strong> KellyO owns authorization with <code>Admin</code>, <code>Owner</code>, <code>Partner</code>, <code>Standard</code>, <code>Trial</code>, and <code>Disabled</code> entries.</li>
             <li><strong>Trial tracking:</strong> lucky 1 week trial contenders become allowlist rows with <code>role</code>, <code>tier</code>, <code>status</code>, and optional <code>trialEndsAt</code>.</li>
-            <li><strong>Secrets:</strong> install <code>KELLYO_SESSION_SECRET</code>, <code>KELLYO_AUTH_USERS_JSON</code>, Google client ID/secret, Microsoft client ID/secret, and <code>KELLYO_CLIENTS_JSON</code> while fallback passwords remain enabled.</li>
-            <li><strong>Callback URL:</strong> use <code>https://&lt;kellyo-pages-domain&gt;/api/auth/oauth/callback</code> for both Google and Microsoft.</li>
+            <li><strong>Secrets:</strong> Cloudflare now has <code>KELLYO_SESSION_SECRET</code>, <code>KELLYO_AUTH_USERS_JSON</code>, Google client ID/secret, and <code>KELLYO_CLIENTS_JSON</code> while fallback passwords remain enabled.</li>
+            <li><strong>Callback URL:</strong> Google uses <code>https://kellyo-auth-preview.pages.dev/api/auth/oauth/callback</code>.</li>
+            <li><strong>Parked providers:</strong> Apple is the likely second consumer-friendly provider later. Microsoft is on the back burner after account/MFA friction.</li>
             <li><strong>R2 note:</strong> no R2 needed for credential verification. Use R2 later only for private documents or files, not login.</li>
-            <li><strong>Blocker:</strong> current Cloudflare token can identify the account but cannot list or deploy Pages yet.</li>
+            <li><strong>Cloudflare status:</strong> Wrangler OAuth works, Pages deploys succeed, and the provider endpoint reports Google configured.</li>
           </ul>
         </div>
       </div>
