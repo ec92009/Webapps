@@ -1,0 +1,130 @@
+.site-card,
+.rhythm-row,
+.policy-card {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: card-reveal 620ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--card-order, 1) * 55ms);
+}
+
+.site-card::after,
+.mobile-sticky-cta::after,
+.glass-button::after,
+.card-link::after {
+  position: absolute;
+  inset: -30% -70%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.42) 50%, transparent 62%);
+  transform: translateX(-72%) rotate(2deg);
+  opacity: 0;
+}
+
+.site-card,
+.mobile-sticky-cta,
+.glass-button,
+.card-link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.mobile-sticky-cta {
+  position: fixed;
+}
+
+.site-card > *,
+.mobile-sticky-cta > *,
+.glass-button > *,
+.card-link > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-card.is-pressed,
+.mobile-sticky-cta.is-pressed,
+.glass-button.is-pressed,
+.card-link.is-pressed {
+  transform: scale(0.985);
+}
+
+.site-card.is-pressed::after,
+.mobile-sticky-cta.is-pressed::after,
+.glass-button.is-pressed::after,
+.card-link.is-pressed::after {
+  opacity: 1;
+  animation: glass-sheen 560ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 44%, var(--line));
+    box-shadow: 0 24px 62px rgba(42, 61, 51, 0.22);
+    transform: translateY(-5px);
+  }
+
+  .glass-button:hover,
+  .card-link:hover,
+  .icon-button:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+    transform: translateY(-2px);
+  }
+
+  .site-card:hover::after,
+  .glass-button:hover::after,
+  .card-link:hover::after {
+    opacity: 1;
+    animation: glass-sheen 760ms ease;
+  }
+}
+
+@keyframes card-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glass-sheen {
+  from {
+    transform: translateX(-72%) rotate(2deg);
+  }
+
+  to {
+    transform: translateX(72%) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-card,
+  .rhythm-row,
+  .policy-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .site-card,
+  .mobile-sticky-cta,
+  .glass-button,
+  .card-link,
+  .icon-button {
+    transition: none;
+  }
+
+  .site-card::after,
+  .mobile-sticky-cta::after,
+  .glass-button::after,
+  .card-link::after {
+    display: none;
+  }
+}
