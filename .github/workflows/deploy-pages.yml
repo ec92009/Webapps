@@ -17,6 +17,7 @@ on:
       - 's1/**'
       - 'sortingalgos/**'
       - 'tapmeplus1/**'
+      - 'webapps-review/**'
   workflow_dispatch:
 
 permissions:
