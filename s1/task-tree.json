@@ -1,27 +1,22 @@
 {
-  "version": "v100.5",
+  "version": "v100.6",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
     {
-      "en": "Done: Manou has Fuengirola empadronamiento; certificate photo should stay private",
-      "fr": "Fait : Manou a l'empadronamiento de Fuengirola ; la photo du certificat doit rester privee",
-      "es": "Hecho: Manou tiene el empadronamiento de Fuengirola; la foto del certificado debe quedar privada"
+      "en": "Plan B active: Sophie track is blocked; contact Assurance Retraite/CNAV directly",
+      "fr": "Plan B actif : piste Sophie bloquee ; contacter Assurance Retraite/CNAV directement",
+      "es": "Plan B activo: via Sophie bloqueada; contactar directamente con Assurance Retraite/CNAV"
     },
     {
-      "en": "Done: ownership proof is sufficient for the Spanish admin workflow",
-      "fr": "Fait : la preuve de propriete suffit pour le parcours administratif espagnol",
-      "es": "Hecho: la prueba de propiedad es suficiente para el tramite administrativo espanol"
+      "en": "Next: build Manou reversion/S1 starter pack privately",
+      "fr": "Suivant : preparer en prive le dossier de depart reversion/S1 de Manou",
+      "es": "Siguiente: preparar en privado el paquete inicial reversion/S1 de Manou"
     },
     {
-      "en": "Next: send Sophie one narrow follow-up asking for screenshots, requested-paper list, institution, and reference",
-      "fr": "Suivant : envoyer a Sophie une relance precise demandant captures, liste des pieces, organisme et reference",
-      "es": "Siguiente: enviar a Sophie un seguimiento concreto pidiendo capturas, lista de papeles, organismo y referencia"
-    },
-    {
-      "en": "If Sophie stays silent: parallel-track the French written answer through the family/portal route",
-      "fr": "Si Sophie reste silencieuse : avancer en parallele la reponse ecrite francaise via la famille/le portail",
-      "es": "Si Sophie sigue en silencio: avanzar en paralelo la respuesta escrita francesa por la familia/el portal"
+      "en": "Parallel: prepare NIE/EU registration route without treating NIE as healthcare by itself",
+      "fr": "En parallele : preparer la voie NIE/enregistrement UE sans traiter le NIE comme couverture sante",
+      "es": "En paralelo: preparar via NIE/registro UE sin tratar el NIE como sanidad por si solo"
     },
     "Waiting: Elie/Agnes S1 technician response"
   ],
@@ -41,12 +36,12 @@
   "tree": {
     "id": "all",
     "theme": "root",
-    "meta": "Current focus: Manou got Fuengirola empadronamiento on 2026-07-01; next is a targeted Sophie/CNAV follow-up, then the healthcare route once the French answer is clear.",
+    "meta": "Current focus: Sophie track is treated as blocked; Plan B is direct family-controlled CNAV/Assurance Retraite contact, reversion/S1 prep, and Spanish NIE/EU-registration preparation.",
     "children": [
       {
         "id": "manou",
         "theme": "manou",
-        "meta": "Priority lane: Fuengirola empadronamiento and ownership proof are done for the Spanish admin workflow; follow up Sophie once, then use the written French answer to choose the healthcare route.",
+        "meta": "Priority lane: padron and ownership proof are done; Sophie is parked; Plan B is direct France contact plus Spanish identifier/residence prep.",
         "children": [
           {
             "id": "manou-property",
@@ -119,12 +114,12 @@
             "id": "manou-health",
             "blockers": [
               {
-                "label": "Next ask",
-                "text": "Ask Sophie for screenshots or forwarding of the exact CNAV / Assurance Retraite request: institution, reference, requested papers, amount source, and any in-person requirement."
+                "label": "Plan B next",
+                "text": "Call Assurance Retraite/CNAV directly from Spain with Manou present if possible; ask for reversion, S1/exportability, and written non-exportability route."
               },
               {
-                "label": "If silent",
-                "text": "If Sophie does not answer, parallel-track the written French answer through Manou's family/portal route instead of waiting indefinitely."
+                "label": "Parallel prep",
+                "text": "Build the private reversion/S1 starter pack and prepare NIE/EU-registration paperwork without waiting for Sophie."
               }
             ]
           }
@@ -192,7 +187,7 @@
     "all": {
       "title": "S1 for all",
       "status": "waiting",
-      "summary": "Manou got Fuengirola empadronamiento on 2026-07-01; the next work is choosing the healthcare route once the French answer is clear.",
+      "summary": "Sophie track is treated as blocked; active Plan B is direct French contact, reversion/S1 document prep, and Spanish NIE/EU-registration preparation.",
       "includes": [
         "all",
         "manou",
@@ -224,7 +219,7 @@
     "manou": {
       "title": "Manou",
       "status": "active",
-      "summary": "Priority lane: padron is done. The next move is a narrow Sophie/CNAV follow-up; if she stays silent, parallel-track the French written answer without waiting.",
+      "summary": "Priority lane: padron and ownership proof are done. Plan B now controls the route: direct CNAV/Assurance Retraite contact, reversion/S1 starter pack, and Spanish identifier prep.",
       "includes": [
         "manou",
         "manou-property",
@@ -324,7 +319,7 @@
     "manou-health": {
       "title": "Healthcare Route",
       "status": "next",
-      "summary": "Send one concrete Sophie follow-up for screenshots/requested papers; if there is no answer, pursue the written French answer in parallel.",
+      "summary": "Plan B active: contact Assurance Retraite/CNAV directly, prepare reversion/S1 documents, and use the written answer to choose S1, non-exportability plus convenio, or another route.",
       "includes": [
         "manou-health"
       ]
@@ -897,13 +892,55 @@
     {
       "lane": "manou-health",
       "status": "next",
-      "title": "Send Sophie a narrow follow-up",
-      "owner": "Sophie",
-      "body": "Ask for the exact CNAV / Assurance Retraite trail in a low-friction form: screenshots, forwarded messages, requested-paper list, institution, reference, and amount source.",
+      "title": "Call Assurance Retraite/CNAV directly",
+      "owner": "Elie + Agnes",
+      "body": "Use the official Assurance Retraite phone route from Spain and ask for competent-office, reversion, S1/exportability, and non-exportability instructions in writing.",
       "details": [
-        "Do not ask her to re-explain everything from memory.",
-        "Ask whether the quoted amount is pension de reversion or another right.",
-        "Ask whether any in-person visit requirement is written or only something she heard."
+        "Call +33 9 71 10 39 60 from Spain; have Manou present if practical so she can authorize the call verbally.",
+        "Ask whether pension de reversion can be opened through her late husband.",
+        "Ask whether reversion would create or help create S1/E121 or another exportable healthcare document for Spain.",
+        "Ask who can issue a written refusal/non-exportability certificate if no French export is possible.",
+        "Record only date, office/service, and non-sensitive next steps in the repo."
+      ]
+    },
+    {
+      "lane": "manou-health",
+      "status": "next",
+      "title": "Build reversion/S1 starter pack",
+      "owner": "Elie + Agnes",
+      "body": "Privately gather the documents likely needed for a reversion/S1 inquiry before calling or starting an online/paper request.",
+      "details": [
+        "Manou French passport/ID and French social security number for official use only.",
+        "Marriage proof or livret de famille if available.",
+        "Husband death certificate and any husband pension/social-security identifiers found in safe papers.",
+        "Fuengirola empadronamiento as current residence proof.",
+        "Manou bank/RIB details and tax/resource information if requested.",
+        "Do not store scans, NIRs, bank details, or full identifiers in public notes."
+      ]
+    },
+    {
+      "lane": "manou-health",
+      "status": "next",
+      "title": "Prepare NIE / EU registration path",
+      "owner": "Elie + Agnes",
+      "body": "Prepare Spanish identifier/residence work in parallel, without treating NIE as healthcare coverage by itself.",
+      "details": [
+        "Standalone NIE can be requested with EX-15 when there is an administrative reason.",
+        "Full EU citizen registration uses EX-18 and normally needs health coverage and sufficient resources evidence.",
+        "The French S1 or written non-exportability answer determines which health-coverage proof goes into the Spanish route.",
+        "Keep empadronamiento, passport/ID, ownership proof, and certificate photos private but ready."
+      ]
+    },
+    {
+      "lane": "manou-health",
+      "status": "waiting",
+      "title": "Park Sophie track",
+      "owner": "Sophie",
+      "body": "Treat Sophie as blocked input. If she later sends screenshots or forwards, merge them, but do not wait on her before moving Plan B.",
+      "details": [
+        "Useful if it arrives: institution, reference, requested-paper list, amount source, and any written in-person requirement.",
+        "Do not ask her to reconstruct the whole process from memory.",
+        "Current work continues through direct family-controlled channels."
       ]
     },
     {
@@ -911,12 +948,12 @@
       "status": "next",
       "title": "Branch after written answer",
       "owner": "Codex + Elie",
-      "body": "Use the written French answer to choose the Spanish route.",
+      "body": "Use the direct French written answer to choose the Spanish route.",
       "details": [
-        "If exportable document exists: register in Spain.",
-        "If no exportable right exists: preserve the refusal/non-exportability proof.",
+        "If exportable document exists: register it with INSS/CAISS, then request Andalucia health access.",
+        "If no exportable right exists: preserve the written refusal/non-exportability proof.",
         "If redirected: follow the named competent institution.",
-        "If Sophie remains silent after the follow-up, pursue the written answer through Manou's family/portal route in parallel."
+        "If the answer points to reversion first: pursue reversion and ask whether it changes S1/exportability."
       ]
     },
     {
