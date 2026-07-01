@@ -1,15 +1,24 @@
 {
-  "version": "v87.1",
+  "version": "v100.4",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
     {
-      "en": "Waiting: Manou registry retry result",
-      "fr": "En attente : resultat de la relance registre Manou",
-      "es": "En espera: resultado de la nueva solicitud registral de Manou"
+      "en": "Done: Manou has Fuengirola empadronamiento; certificate photo should stay private",
+      "fr": "Fait : Manou a l'empadronamiento de Fuengirola ; la photo du certificat doit rester privee",
+      "es": "Hecho: Manou tiene el empadronamiento de Fuengirola; la foto del certificado debe quedar privada"
     },
-    "Waiting: S1 technician response",
-    "Later: CPAM Ameli phone support"
+    {
+      "en": "Next: send Sophie one narrow follow-up asking for screenshots, requested-paper list, institution, and reference",
+      "fr": "Suivant : envoyer a Sophie une relance precise demandant captures, liste des pieces, organisme et reference",
+      "es": "Siguiente: enviar a Sophie un seguimiento concreto pidiendo capturas, lista de papeles, organismo y referencia"
+    },
+    {
+      "en": "If Sophie stays silent: parallel-track the French written answer through the family/portal route",
+      "fr": "Si Sophie reste silencieuse : avancer en parallele la reponse ecrite francaise via la famille/le portail",
+      "es": "Si Sophie sigue en silencio: avanzar en paralelo la respuesta escrita francesa por la familia/el portal"
+    },
+    "Waiting: Elie/Agnes S1 technician response"
   ],
   "defaultSelected": "all",
   "defaultExpanded": [
@@ -27,33 +36,33 @@
   "tree": {
     "id": "all",
     "theme": "root",
-    "meta": "Current hold: CF appointment is scheduled; registry and S1 answers still wait on outside offices.",
+    "meta": "Current focus: Manou got Fuengirola empadronamiento on 2026-07-01; next is a targeted Sophie/CNAV follow-up, then the healthcare route once the French answer is clear.",
     "children": [
       {
         "id": "manou",
         "theme": "manou",
-        "meta": "Priority lane: safe appointment scheduled; property and healthcare answers still waiting.",
+        "meta": "Priority lane: Fuengirola empadronamiento is done; keep the certificate private, follow up Sophie once, and use the written French answer to choose the healthcare route.",
         "children": [
           {
             "id": "manou-property",
             "children": [],
             "blockers": [
               {
-                "label": "Blocked by",
-                "text": "Nota simple result not downloaded yet from Registradores / Registro de la Propiedad; IBI/title deed not located."
+                "label": "Proof found",
+                "text": "Safe papers include title/municipal property evidence; the registry retry remains useful backup, not the first-visit blocker."
               }
             ]
           },
           {
             "id": "manou-safe",
-            "meta": "CF chosen; appointment set; proof gate stays private.",
+            "meta": "Safe opened; useful paperwork recovered; provider lane is no longer the active blocker.",
             "children": [
               {
                 "id": "manou-safe-cf",
                 "blockers": [
                   {
-                    "label": "Blocked by",
-                    "text": "CF appointment is set for Thursday 2026-05-28 at 18:30; keep owner-present and house-document proof ready."
+                    "label": "Closed",
+                    "text": "The safe-opening path produced the documents needed for the next administration step."
                   }
                 ]
               },
@@ -88,12 +97,16 @@
             "id": "manou-padron",
             "blockers": [
               {
-                "label": "Blocked by",
-                "text": "Need primary housing proof: nota simple, IBI, or title deed. Electric bills are backup only."
+                "label": "Bring",
+                "text": "Empadronamiento obtained in Fuengirola on 2026-07-01."
               },
               {
-                "label": "Also confirm",
-                "text": "Manou can attend/sign, or Fuengirola accepts representation for this visit."
+                "label": "Keep private",
+                "text": "Store the certificate/copy/photo outside the public repo; use only the non-sensitive fact in public notes."
+              },
+              {
+                "label": "Unlocks",
+                "text": "This clears the Spanish address-document blocker for healthcare and NIE/EU-registration planning."
               }
             ]
           },
@@ -101,12 +114,12 @@
             "id": "manou-health",
             "blockers": [
               {
-                "label": "Blocked by",
-                "text": "Need CNAV / Assurance Retraite written answer on S1, alternate exportable document, or non-exportability."
+                "label": "Next ask",
+                "text": "Ask Sophie for screenshots or forwarding of the exact CNAV / Assurance Retraite request: institution, reference, requested papers, amount source, and any in-person requirement."
               },
               {
-                "label": "Downstream",
-                "text": "Spanish/Andalucia route depends on that answer and empadronamiento."
+                "label": "If silent",
+                "text": "If Sophie does not answer, parallel-track the written French answer through Manou's family/portal route instead of waiting indefinitely."
               }
             ]
           }
@@ -174,7 +187,7 @@
     "all": {
       "title": "S1 for all",
       "status": "waiting",
-      "summary": "CF is booked for Manou's safe; the live blockers are the nota simple from the Spanish property registry and the French S1/healthcare answers.",
+      "summary": "Manou got Fuengirola empadronamiento on 2026-07-01; the next work is choosing the healthcare route once the French answer is clear.",
       "includes": [
         "all",
         "manou",
@@ -205,8 +218,8 @@
     },
     "manou": {
       "title": "Manou",
-      "status": "waiting",
-      "summary": "Priority lane: CF safe opening is booked, while ownership proof, accepted empadronamiento proof, and the French healthcare answer are still waiting.",
+      "status": "active",
+      "summary": "Priority lane: padron is done. The next move is a narrow Sophie/CNAV follow-up; if she stays silent, parallel-track the French written answer without waiting.",
       "includes": [
         "manou",
         "manou-property",
@@ -223,11 +236,11 @@
     },
     "manou-property": {
       "title": "Ownership Proof",
-      "status": "waiting",
+      "status": "active",
       "summary": {
-        "en": "The first registry request was denied because the property could not be located from the supplied data; a stronger retry is now pending with cadastral and possible-owner context.",
-        "fr": "La premiere demande au registre a ete refusee car la finca n'a pas pu etre localisee avec les donnees fournies ; une relance plus complete est maintenant en attente avec cadastre et titulaire possible.",
-        "es": "La primera solicitud registral fue denegada porque no se pudo localizar la finca con los datos aportados; una nueva solicitud reforzada esta ahora pendiente con catastro y posible titular."
+        "en": "The safe produced useful ownership evidence, including a title-deed route and municipal/property support papers; the registry retry remains backup.",
+        "fr": "Le coffre a fourni des preuves utiles de propriete, dont une voie par titre de propriete et des documents municipaux/immobiliers de soutien ; la relance registre reste un secours.",
+        "es": "La caja produjo pruebas utiles de propiedad, incluida una via por escritura/titulo y documentos municipales/inmobiliarios de apoyo; la nueva solicitud registral queda como respaldo."
       },
       "includes": [
         "manou-property"
@@ -235,8 +248,8 @@
     },
     "manou-safe": {
       "title": "Safe / Locksmiths",
-      "status": "active",
-      "summary": "CF is chosen and booked for Thursday 2026-05-28 at 18:30; keep the proof packet private and bring only what is needed on site.",
+      "status": "done",
+      "summary": "Safe-opening work is no longer the live blocker; useful documents were recovered and now feed the empadronamiento packet.",
       "includes": [
         "manou-safe",
         "manou-safe-cf",
@@ -249,8 +262,8 @@
     },
     "manou-safe-cf": {
       "title": "CF / WhatsApp",
-      "status": "active",
-      "summary": "CF is the chosen locksmith path; appointment is Thursday 2026-05-28 at 18:30 for opening only, with no repair or reuse planned.",
+      "status": "done",
+      "summary": "Closed as the chosen opening path; the useful result is the recovered paperwork, not ongoing safe repair or reuse.",
       "includes": [
         "manou-safe-cf"
       ]
@@ -290,23 +303,23 @@
     "manou-safe-authority": {
       "title": "Proof Packet",
       "status": "active",
-      "summary": "For the CF appointment, keep passport plus house-document proof ready with the owner present; do not send copies casually.",
+      "summary": "Shift this packet from locksmith authority to Fuengirola padron proof: passport, property papers, utility evidence, and copies.",
       "includes": [
         "manou-safe-authority"
       ]
     },
     "manou-padron": {
       "title": "Empadronamiento",
-      "status": "waiting",
-      "summary": "Wait for primary housing proof, ideally the nota simple or IBI/title deed, before attempting the one-trip Fuengirola visit.",
+      "status": "done",
+      "summary": "Done on 2026-07-01: Manou got Fuengirola empadronamiento. Keep the certificate photo private.",
       "includes": [
         "manou-padron"
       ]
     },
     "manou-health": {
       "title": "Healthcare Route",
-      "status": "waiting",
-      "summary": "Wait for the CNAV / Assurance Retraite answer before choosing S1, an alternate exportable document, or the Spanish fallback path.",
+      "status": "next",
+      "summary": "Send one concrete Sophie follow-up for screenshots/requested papers; if there is no answer, pursue the written French answer in parallel.",
       "includes": [
         "manou-health"
       ]
@@ -609,14 +622,51 @@
     },
     {
       "lane": "manou-property",
-      "status": "waiting",
+      "status": "done",
+      "title": {
+        "en": "Recovered usable property papers",
+        "fr": "Documents de propriete utiles retrouves",
+        "es": "Documentos de propiedad utiles recuperados"
+      },
+      "owner": "Elie + Agnes",
+      "body": {
+        "en": "The safe scans produced enough property evidence to attempt the Fuengirola padron route without waiting only on the registry retry.",
+        "fr": "Les scans du coffre donnent assez d'elements de propriete pour tenter la voie padron a Fuengirola sans attendre uniquement la relance registre.",
+        "es": "Los escaneos de la caja aportan suficiente prueba de propiedad para intentar la via padron en Fuengirola sin esperar solo a la nueva solicitud registral."
+      },
+      "details": [
+        {
+          "en": "Use the title-deed material as the primary proof route.",
+          "fr": "Utiliser les elements de titre de propriete comme voie principale.",
+          "es": "Usar la documentacion de escritura/titulo como via principal."
+        },
+        {
+          "en": "Use municipal/property-tax, Catastro, and utility evidence as support.",
+          "fr": "Utiliser les elements municipaux/fiscaux, Catastro et services comme soutien.",
+          "es": "Usar documentacion municipal/fiscal, Catastro y suministros como apoyo."
+        },
+        {
+          "en": "Keep scans and exact identifiers private; the tree records only the operational conclusion.",
+          "fr": "Garder scans et identifiants exacts en prive ; l'arbre ne note que la conclusion operationnelle.",
+          "es": "Mantener escaneos e identificadores exactos privados; el arbol solo registra la conclusion operativa."
+        }
+      ],
+      "witness": {
+        "en": "Private OCR review found title/registry/municipal evidence tied to the Fuengirola apartment.",
+        "fr": "La revue OCR privee a trouve titre/registre/elements municipaux lies a l'appartement de Fuengirola.",
+        "es": "La revision OCR privada encontro titulo/registro/documentacion municipal vinculada al apartamento de Fuengirola."
+      }
+    },
+    {
+      "lane": "manou-property",
+      "status": "next",
       "title": "Build private authority packet",
       "owner": "Elie + Agnes",
-      "body": "Wait for clean ownership proof, then combine it privately with identity/presence and utility evidence.",
+      "body": "Combine the recovered property papers privately with identity, presence, and utility evidence for the town-hall visit.",
       "details": [
-        "Property proof acts as the anchor.",
-        "Identity proof stays private and is shown only to the appropriate office/provider.",
-        "Electric bills are backup/supporting evidence, not the only planned proof."
+        "Property proof acts as the anchor; recent utility evidence supports residence and address match.",
+        "Identity proof stays private and is shown only to the appropriate office.",
+        "Do not publish scans, exact address, ID numbers, or account numbers."
       ]
     },
     {
@@ -686,14 +736,14 @@
     },
     {
       "lane": "manou-safe-cf",
-      "status": "active",
+      "status": "done",
       "title": "Booked CF safe appointment",
       "owner": "Elie + Agnes",
-      "body": "CF is the chosen locksmith because they responded and gave the workable quote path.",
+      "body": "CF was the chosen locksmith path because they responded and gave the workable quote path.",
       "details": [
         "Appointment: Thursday 2026-05-28 at 18:30 Spain time.",
         "Scope: opening only; no repair, lock replacement, reset, or future safe use planned.",
-        "Bring passport plus house-document proof, with the owner present if possible."
+        "The useful follow-on is the recovered paperwork for Fuengirola administration."
       ],
       "witness": "Elie selected CF after comparing the practical response state; no exact address or private contact details are published."
     },
@@ -751,14 +801,14 @@
     },
     {
       "lane": "manou-safe",
-      "status": "active",
-      "title": "Prepare CF appointment proof",
+      "status": "done",
+      "title": "Recovered papers from safe",
       "owner": "Elie + Agnes",
-      "body": "Arrive with enough authority evidence without sending private copies casually beforehand.",
+      "body": "The safe work produced documents that now move the padron lane forward.",
       "details": [
-        "Owner present is the cleanest path.",
-        "Have passport and electric bill or other house document ready.",
-        "If the nota simple arrives before Thursday, bring it as stronger proof but keep it private."
+        "The family does not need safe repair or reuse.",
+        "Use only the administrative relevance of the recovered papers on the public tree.",
+        "Keep scans and private identifiers out of published materials."
       ]
     },
     {
@@ -788,27 +838,30 @@
     },
     {
       "lane": "manou-padron",
-      "status": "waiting",
-      "title": "Assemble appointment folder",
+      "status": "done",
+      "title": "Completed Fuengirola empadronamiento",
       "owner": "Elie + Agnes + Leonarda",
-      "body": "Wait for primary housing proof, then make one physical packet that can survive a town-hall counter visit.",
+      "body": "Manou got her Fuengirola empadronamiento on 2026-07-01.",
       "details": [
-        "Forms, identity document, copy, contact details, and payment method.",
-        "Property proof if the registry result arrives in time.",
-        "Electric bills as backup/supporting evidence."
+        "Keep the certificate/copy/photo private and available outside the public repo.",
+        "Use the non-sensitive fact of empadronamiento for healthcare-route planning.",
+        "This clears the address-document blocker for Manou's Spanish administration path."
       ]
     },
     {
       "lane": "manou-padron",
-      "status": "waiting",
-      "title": "Plan one assisted visit",
-      "owner": "Elie + Leonarda",
-      "body": "Best route is Manou attending and signing in person, with support, once the proof packet is strong enough.",
+      "status": "done",
+      "title": "Booked Fuengirola empadronamiento cita",
+      "owner": "Elie + Agnes + Manou",
+      "body": "The Fuengirola appointment path is complete: Manou got empadronamiento on 2026-07-01.",
       "details": [
-        "Minimize trips because leaving home is difficult.",
-        "Confirm whether Leonarda can accompany locally.",
-        "If Manou cannot attend, call the office before relying on representation."
-      ]
+        "Center: Ayuntamiento de Fuengirola, Plaza de Espana 1.",
+        "Service: CP Alta padron-cambio domicilio, Presencial.",
+        "Earlier 11:00 duplicate was cancelled through the consulta de cita route and the cancellation was confirmed; lookup showed only the 12:05 appointment.",
+        "Keep the resulting certificate/copy private because it contains personal address details.",
+        "Use only the non-sensitive fact of empadronamiento in public project notes."
+      ],
+      "witness": "Fuengirola nueva cita previa confirmation screen showed Cita reservada."
     },
     {
       "lane": "manou-health",
@@ -838,26 +891,27 @@
     },
     {
       "lane": "manou-health",
-      "status": "waiting",
-      "title": "Send CNAV / Assurance Retraite question",
+      "status": "next",
+      "title": "Send Sophie a narrow follow-up",
       "owner": "Sophie",
-      "body": "Wait for Sophie/CNAV movement on whether S1 or any equivalent exportable healthcare document exists, and whether any widow/reversion route makes CNAV competent.",
+      "body": "Ask for the exact CNAV / Assurance Retraite trail in a low-friction form: screenshots, forwarded messages, requested-paper list, institution, reference, and amount source.",
       "details": [
-        "Ask for a written answer.",
-        "Ask who can issue non-exportability proof if France cannot export rights.",
-        "Ask who is competent if CNAV is not."
+        "Do not ask her to re-explain everything from memory.",
+        "Ask whether the quoted amount is pension de reversion or another right.",
+        "Ask whether any in-person visit requirement is written or only something she heard."
       ]
     },
     {
       "lane": "manou-health",
-      "status": "waiting",
+      "status": "next",
       "title": "Branch after written answer",
       "owner": "Codex + Elie",
       "body": "Use the written French answer to choose the Spanish route.",
       "details": [
         "If exportable document exists: register in Spain.",
         "If no exportable right exists: preserve the refusal/non-exportability proof.",
-        "If redirected: follow the named competent institution."
+        "If redirected: follow the named competent institution.",
+        "If Sophie remains silent after the follow-up, pursue the written answer through Manou's family/portal route in parallel."
       ]
     },
     {
