@@ -1,5 +1,5 @@
 {
-  "version": "v100.4",
+  "version": "v100.5",
   "subtitle": "Operational map for Manou, Agnes, and Elie. Public-safe: no IDs, exact addresses, scans, or account data.",
   "sourceNote": "Task content, priorities, blockers, and tree structure live in this JSON file. The app renders this file and contains only presentation logic.",
   "queue": [
@@ -7,6 +7,11 @@
       "en": "Done: Manou has Fuengirola empadronamiento; certificate photo should stay private",
       "fr": "Fait : Manou a l'empadronamiento de Fuengirola ; la photo du certificat doit rester privee",
       "es": "Hecho: Manou tiene el empadronamiento de Fuengirola; la foto del certificado debe quedar privada"
+    },
+    {
+      "en": "Done: ownership proof is sufficient for the Spanish admin workflow",
+      "fr": "Fait : la preuve de propriete suffit pour le parcours administratif espagnol",
+      "es": "Hecho: la prueba de propiedad es suficiente para el tramite administrativo espanol"
     },
     {
       "en": "Next: send Sophie one narrow follow-up asking for screenshots, requested-paper list, institution, and reference",
@@ -41,7 +46,7 @@
       {
         "id": "manou",
         "theme": "manou",
-        "meta": "Priority lane: Fuengirola empadronamiento is done; keep the certificate private, follow up Sophie once, and use the written French answer to choose the healthcare route.",
+        "meta": "Priority lane: Fuengirola empadronamiento and ownership proof are done for the Spanish admin workflow; follow up Sophie once, then use the written French answer to choose the healthcare route.",
         "children": [
           {
             "id": "manou-property",
@@ -49,7 +54,7 @@
             "blockers": [
               {
                 "label": "Proof found",
-                "text": "Safe papers include title/municipal property evidence; the registry retry remains useful backup, not the first-visit blocker."
+                "text": "Ownership proof is done for the S1/admin workflow: property papers plus the successful Fuengirola empadronamiento cleared the practical blocker."
               }
             ]
           },
@@ -236,11 +241,11 @@
     },
     "manou-property": {
       "title": "Ownership Proof",
-      "status": "active",
+      "status": "done",
       "summary": {
-        "en": "The safe produced useful ownership evidence, including a title-deed route and municipal/property support papers; the registry retry remains backup.",
-        "fr": "Le coffre a fourni des preuves utiles de propriete, dont une voie par titre de propriete et des documents municipaux/immobiliers de soutien ; la relance registre reste un secours.",
-        "es": "La caja produjo pruebas utiles de propiedad, incluida una via por escritura/titulo y documentos municipales/inmobiliarios de apoyo; la nueva solicitud registral queda como respaldo."
+        "en": "Done for the administrative workflow: recovered property papers and the accepted Fuengirola empadronamiento packet cleared the practical ownership-proof blocker.",
+        "fr": "Fait pour le parcours administratif : les documents de propriete retrouves et le dossier empadronamiento accepte a Fuengirola ont leve le blocage pratique de preuve de propriete.",
+        "es": "Hecho para el tramite administrativo: los documentos de propiedad recuperados y el paquete de empadronamiento aceptado en Fuengirola despejaron el bloqueo practico de prueba de propiedad."
       },
       "includes": [
         "manou-property"
@@ -302,8 +307,8 @@
     },
     "manou-safe-authority": {
       "title": "Proof Packet",
-      "status": "active",
-      "summary": "Shift this packet from locksmith authority to Fuengirola padron proof: passport, property papers, utility evidence, and copies.",
+      "status": "done",
+      "summary": "The proof packet did its job for Fuengirola: identity, property papers, and supporting evidence cleared the padron visit.",
       "includes": [
         "manou-safe-authority"
       ]
@@ -585,39 +590,39 @@
     },
     {
       "lane": "manou-property",
-      "status": "waiting",
+      "status": "done",
       "title": {
-        "en": "Watch for registry retry result",
-        "fr": "Surveiller la relance registre",
-        "es": "Vigilar el resultado de la nueva solicitud"
+        "en": "Closed registry retry as non-blocking",
+        "fr": "Relance registre close comme non bloquante",
+        "es": "Nueva solicitud registral cerrada como no bloqueante"
       },
       "owner": "Automation + Elie",
       "body": {
-        "en": "A stronger nota simple request is now pending; when the result email arrives, Elie downloads it outside the repo and reports only the ownership conclusion.",
-        "fr": "Une demande de nota simple plus complete est maintenant en attente ; quand l'email arrive, Elie telecharge le document hors repo et rapporte seulement la conclusion sur la titularite.",
-        "es": "Una solicitud de nota simple mas completa esta ahora pendiente; cuando llegue el correo, Elie descargara el documento fuera del repo e informara solo la conclusion sobre titularidad."
+        "en": "The registry retry and recovered papers are no longer blocking the Spanish admin path; keep detailed documents private and treat any remaining review as archival.",
+        "fr": "La relance registre et les documents retrouves ne bloquent plus le parcours administratif espagnol ; garder les documents detailles en prive et traiter la revue restante comme archivage.",
+        "es": "La nueva solicitud registral y los documentos recuperados ya no bloquean el tramite administrativo espanol; mantener los documentos detallados en privado y tratar cualquier revision restante como archivo."
       },
       "details": [
         {
-          "en": "The retry adds cadastral and possible-holder context without publishing it here.",
-          "fr": "La relance ajoute cadastre et titulaire possible sans les publier ici.",
-          "es": "La nueva solicitud anade catastro y posible titular sin publicarlos aqui."
+          "en": "Do not publish the nota simple or certificate images.",
+          "fr": "Ne pas publier la nota simple ni les images du certificat.",
+          "es": "No publicar la nota simple ni las imagenes del certificado."
         },
         {
-          "en": "Total checkout amount paid for the retry: 10.91 EUR.",
-          "fr": "Montant total paye pour la relance : 10,91 EUR.",
-          "es": "Importe total pagado por la nueva solicitud: 10,91 EUR."
+          "en": "If the nota simple is reviewed later, record only the non-sensitive conclusion.",
+          "fr": "Si la nota simple est revue plus tard, noter seulement la conclusion non sensible.",
+          "es": "Si la nota simple se revisa mas tarde, registrar solo la conclusion no sensible."
         },
         {
-          "en": "Official user-support channel: Registradores / CORPME user support.",
-          "fr": "Canal officiel de support : support utilisateurs Registradores / CORPME.",
-          "es": "Canal oficial de soporte: atencion al usuario Registradores / CORPME."
+          "en": "The operational blocker is cleared because Fuengirola issued the empadronamiento.",
+          "fr": "Le blocage operationnel est leve car Fuengirola a delivre l'empadronamiento.",
+          "es": "El bloqueo operativo esta despejado porque Fuengirola emitio el empadronamiento."
         }
       ],
       "witness": {
-        "en": "Confirmation email was received and says the request is in process.",
-        "fr": "L'email de confirmation a ete recu et indique que la demande est en cours.",
-        "es": "El correo de confirmacion fue recibido e indica que la solicitud esta en proceso."
+        "en": "User reported the registry track succeeded, and Fuengirola accepted the proof packet for padron.",
+        "fr": "L'utilisateur a signale que la piste registre a reussi, et Fuengirola a accepte le dossier de preuve pour le padron.",
+        "es": "El usuario informo que la via registral tuvo exito, y Fuengirola acepto el paquete de prueba para el padron."
       }
     },
     {
@@ -659,14 +664,14 @@
     },
     {
       "lane": "manou-property",
-      "status": "next",
+      "status": "done",
       "title": "Build private authority packet",
       "owner": "Elie + Agnes",
-      "body": "Combine the recovered property papers privately with identity, presence, and utility evidence for the town-hall visit.",
+      "body": "The private authority packet is done for the Fuengirola admin workflow.",
       "details": [
-        "Property proof acts as the anchor; recent utility evidence supports residence and address match.",
-        "Identity proof stays private and is shown only to the appropriate office.",
-        "Do not publish scans, exact address, ID numbers, or account numbers."
+        "Property proof acted as the anchor; recent utility evidence supported residence and address match.",
+        "Fuengirola issued the empadronamiento, so this packet is no longer an active blocker.",
+        "Keep scans, exact address, ID numbers, and account numbers private."
       ]
     },
     {
