@@ -18,7 +18,7 @@ Static website workspace copied from `/Users/ecohen/Codex/web/github.io` and pre
 - Lamps is canonical at `/Users/ecohen/Dev/Lamps` and published at `https://ec92009.github.io/Lamps/`.
 - Photos By Elie is canonical at `/Users/ecohen/Dev/photosByElie` and published at `https://ec92009.github.io/PhotosByElie/`.
 - Golden is canonical at `/Users/ecohen/Dev/Golden`, with the public preview mirror at `/Users/ecohen/Dev/Golden-preview` and production published at `https://goldenyearstaxstrategy.com/`.
-- KellyO is canonical at `/Users/ecohen/Dev/KOxcel` and published at `https://ec92009.github.io/kellyo/`.
+- KellyO is canonical at `/Users/ecohen/Dev/KellyO`, with the authenticated preview at `https://kellyo-auth-preview.pages.dev/` and the GitHub review hub at `https://ec92009.github.io/kellyo-source/review-hub/`.
 - Web By Elie is canonical at `/Users/ecohen/Dev/WebByElie` and published at `https://ec92009.github.io/WebByElie/`.
 - Olea Tax Co is canonical at `/Users/ecohen/Dev/OleaTax` and published at `https://ec92009.github.io/OleaTax/`.
 - Webapps keeps only hub-required local apps in the live tree; old nested mirrors and unlinked variants live under `archive/`.
